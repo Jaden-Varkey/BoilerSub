@@ -29,11 +29,19 @@ export default function EditListingPage() {
         </main>
       ) : listing ? (
         <ListingEditor
+          cancelHref={`/listings/${params.id}`}
+          deleteLabel="Delete Listing"
+          deletingLabel="Deleting..."
           initial={listing}
-          title="Edit your listing"
-          description="Update the live details without changing the route shape or backend contract."
+          title="Edit Listing"
+          description="You're updating an active listing on the BoilerSub marketplace."
           submitLabel="Save Changes"
           busyLabel="Saving…"
+          variant="stitchEdit"
+          onDelete={async () => {
+            await apiClient.listings.delete(params.id);
+            router.push("/profile/listings");
+          }}
           onSubmit={async (payload) => {
             await apiClient.listings.update(params.id, payload);
             router.push(`/listings/${params.id}`);

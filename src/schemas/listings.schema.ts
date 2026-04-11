@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 const uuidSchema = z.string().uuid();
+const jpegDataUrlSchema = z.string().regex(/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/, "Invalid JPEG image");
 
 export const listingCreateSchema = z.object({
   title: z.string().min(1).max(200),
@@ -12,6 +13,7 @@ export const listingCreateSchema = z.object({
   bathrooms: z.number().nonnegative().nullable().optional(),
   address: z.string().max(500).nullable().optional(),
   amenities: z.array(z.string().min(1).max(80)).default([]),
+  images: z.array(jpegDataUrlSchema).min(1).max(10),
 });
 
 export const listingUpdateSchema = listingCreateSchema.partial().extend({

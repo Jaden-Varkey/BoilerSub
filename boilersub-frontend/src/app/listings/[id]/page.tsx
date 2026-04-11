@@ -15,6 +15,10 @@ const listingDetailImages = [
   "https://lh3.googleusercontent.com/aida-public/AB6AXuCu7DqIapAfnMtfbME8zmkOnUeyPNZrYX_imDgXdQ0xJrJ_MGRLDKSz6Kd_VgAKmXrW3uHrWKpEk-745YKItTr5je2wCNscl-QO8gJhB-C3_zWDGSoErvJvXGDdaHAyOX4h4zmmP9OI-aX00O50kTiMlLGLogoVKpJY9BAVAD8GMZZRGlUyxikZexQoGagYYyFcZyjJULxJxZpHuOyzj7zzBg6xOQApVei0MYeA4OpS0KIlvpI7BtXbnEbm9mbbn51h9RCYaJb5ypx2",
 ];
 
+function galleryImages(images: string[]) {
+  return images.length ? images : listingDetailImages;
+}
+
 function formatPrice(price: number) {
   return new Intl.NumberFormat("en-US", {
     maximumFractionDigits: 0,
@@ -84,6 +88,7 @@ export default function ListingDetailPage() {
   }, [params.id]);
 
   const isOwner = Boolean(user && listing && user.id === listing.owner_id);
+  const images = listing ? galleryImages(listing.images) : listingDetailImages;
 
   return (
     <>
@@ -128,12 +133,13 @@ export default function ListingDetailPage() {
                   fill
                   priority
                   sizes="(min-width: 768px) 66vw, 100vw"
-                  src={listingDetailImages[0]}
+                  src={images[0]}
+                  unoptimized={Boolean(listing.images[0])}
                 />
                 <div className="absolute bottom-6 left-6 flex gap-2">
                   <button className="flex items-center gap-2 rounded-lg bg-[#f9f6f5]/90 px-4 py-2 text-sm font-bold backdrop-blur-md transition-all hover:bg-[#f9f6f5]">
                     <span>🖼</span>
-                    14 Photos
+                    {images.length} Photo{images.length === 1 ? "" : "s"}
                   </button>
                   <button className="flex items-center gap-2 rounded-lg bg-[#f9f6f5]/90 px-4 py-2 text-sm font-bold backdrop-blur-md transition-all hover:bg-[#f9f6f5]">
                     <span>◧</span>
@@ -143,7 +149,7 @@ export default function ListingDetailPage() {
               </div>
 
               <div className="flex flex-col gap-6 md:col-span-4">
-                <div className="flex flex-1 flex-col justify-center rounded-2xl bg-[#f3f0ef] p-8">
+                <div className="rounded-2xl bg-[#f3f0ef] p-8">
                   <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-[#5c5b5b]">Lease Details</h3>
                   <div className="space-y-6">
                     <div className="flex items-center gap-4">

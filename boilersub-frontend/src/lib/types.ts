@@ -38,6 +38,7 @@ export type Listing = {
   bathrooms: number | null;
   address: string | null;
   amenities: string[];
+  images: string[];
   created_at?: string;
   updated_at?: string;
   owner?: {
@@ -66,4 +67,5 @@ export type ListingPayload = {
   bathrooms: number | null;
   address: string | null;
   amenities: string[];
+  images: string[];
 };

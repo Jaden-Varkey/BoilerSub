@@ -5,6 +5,7 @@ import { useState } from "react";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toast } from "@/components/Toast";
 import { apiClient } from "@/lib/apiClient";
+import { MAX_LISTING_IMAGES, readListingImages } from "@/lib/listingImages";
 import { amenityOptions, emptyListingPayload } from "@/lib/validators";
 
 export default function NewListingPage() {
@@ -53,6 +54,11 @@ export default function NewListingPage() {
                   return;
                 }
 
+                if (!form.images.length) {
+                  setMessage("Upload at least one JPEG image.");
+                  return;
+                }
+
                 setBusy(true);
                 try {
                   const listing = await apiClient.listings.create({
@@ -73,12 +79,44 @@ export default function NewListingPage() {
 
               <section className="space-y-4">
                 <label className="block text-sm font-bold uppercase tracking-widest text-[#5c5b5b]/70">Gallery</label>
-                <div className="group relative flex aspect-video cursor-default flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-[#afadac]/30 bg-[#e4e2e1] md:aspect-[21/9]">
-                  <span className="mb-2 text-4xl text-[#5c5b5b]">📷</span>
-                  <span className="font-bold text-[#5c5b5b]">Future Image Upload</span>
-                  <span className="text-sm text-[#5c5b5b]/60">Upload up to 10 high-resolution photos</span>
+                <label className="group relative flex aspect-video cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-[#afadac]/30 bg-[#e4e2e1] md:aspect-[21/9]">
+                  <input
+                    accept=".jpg,.jpeg,image/jpeg"
+                    className="sr-only"
+                    multiple
+                    type="file"
+                    onChange={async (event) => {
+                      const files = event.target.files;
+                      if (!files) {
+                        return;
+                      }
+
+                      try {
+                        const images = await readListingImages(files);
+                        setForm((current) => ({ ...current, images }));
+                        setMessage(null);
+                      } catch (error) {
+                        setMessage(error instanceof Error ? error.message : "Failed to process images");
+                      } finally {
+                        event.target.value = "";
+                      }
+                    }}
+                  />
+                  <span className="font-bold text-[#5c5b5b]">
+                    {form.images.length ? `${form.images.length} JPEG photo${form.images.length === 1 ? "" : "s"} ready` : "Upload JPEG Photos"}
+                  </span>
+                  <span className="text-sm text-[#5c5b5b]/60">Select up to {MAX_LISTING_IMAGES} high-resolution JPEG images</span>
                   <div className="pointer-events-none absolute inset-0 bg-[#0052d0]/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                </div>
+                </label>
+                {form.images.length ? (
+                  <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+                    {form.images.map((image, index) => (
+                      <div key={`${index}-${image.slice(0, 32)}`} className="overflow-hidden rounded-2xl bg-[#e4e2e1] shadow-sm">
+                        <img alt={`Listing upload ${index + 1}`} className="aspect-[4/3] h-full w-full object-cover" src={image} />
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
               </section>
 
               <section className="grid grid-cols-1 gap-6 md:grid-cols-2">

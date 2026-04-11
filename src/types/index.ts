@@ -46,6 +46,7 @@ export type ListingRecord = {
   bathrooms: number | null;
   address: string | null;
   amenities: string[];
+  images: string[];
   created_at: string;
   updated_at: string;
 };

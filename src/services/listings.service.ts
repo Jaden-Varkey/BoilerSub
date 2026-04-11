@@ -34,6 +34,7 @@ export class ListingsService {
       bathrooms: payload.bathrooms ?? null,
       address: payload.address ?? null,
       amenities: payload.amenities,
+      images: payload.images,
     });
   }
 
@@ -54,6 +55,7 @@ export class ListingsService {
       ...(payload.bathrooms !== undefined ? { bathrooms: payload.bathrooms } : {}),
       ...(payload.address !== undefined ? { address: payload.address } : {}),
       ...(payload.amenities !== undefined ? { amenities: payload.amenities } : {}),
+      ...(payload.images !== undefined ? { images: payload.images } : {}),
     });
   }
 

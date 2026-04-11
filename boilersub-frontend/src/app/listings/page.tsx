@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Toast } from "@/components/Toast";
 import { useListings } from "@/hooks/useListings";
 
@@ -11,6 +11,127 @@ const listingImages = [
   "https://lh3.googleusercontent.com/aida-public/AB6AXuASik-WE3fz7hdywsQGKR4TzEdzrSOnUq5AvdPxKOwb0WRja6z1tF4phzUJWMWmaH2D-k-H7ojcSZ6kkIEXPm-DNzTItX9zCiQQTfDMP-y97wQ0dRfeAK3HDzHGWn45lzWL9LAESSKNjy9zlVkqK_0u3iIGmgUwWRuCXzEeMOnYLotoGMA_g0HJj05CTfHDN4tBva9cGQZNVoD8yHhbNCEb8aEUWFNsEf7f3Vi5dubg3m_ND933us1GL5OGHfKC6t9hrs4xF-xxYQP6",
   "https://lh3.googleusercontent.com/aida-public/AB6AXuD8dFGd9MefqXelmIHMh580k1T5pM-7linaGVsMZMmlkk0LZTw8185-OiTCDeKznm0cNFr5w9waFW3NM2tmojdWNTdjVJ7xOszHbY_lHTJgaJiaxVWW_Vzk-NhD2520ri-Atk__tDx80xbdoYVBu6j0lQ8OfFeAjartNlFc8Vr4ZzMCaycER6p9ZDr1MBLN27aRdESl8uL5D2A_C5GcmnEy-I8xwh_hXuxovhr-gu9iXzhAZlj4fIsnhW_7-uthNtgqkW4pVzRirHf5",
 ];
+
+function imageForListing(images: string[], index: number) {
+  return images.length ? images : [listingImages[index % listingImages.length]];
+}
+
+function ListingImageCarousel({
+  images,
+  alt,
+}: {
+  images: string[];
+  alt: string;
+}) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [direction, setDirection] = useState<"next" | "prev">("next");
+  const [transitioning, setTransitioning] = useState(false);
+  const timeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    setActiveIndex(0);
+    setTransitioning(false);
+  }, [images]);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current !== null) {
+        window.clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  function startTransition(nextDirection: "next" | "prev") {
+    if (images.length <= 1 || transitioning) {
+      return;
+    }
+
+    setDirection(nextDirection);
+    setTransitioning(true);
+
+    timeoutRef.current = window.setTimeout(() => {
+      setActiveIndex((current) =>
+        nextDirection === "next" ? (current + 1) % images.length : (current - 1 + images.length) % images.length,
+      );
+      setTransitioning(false);
+    }, 700);
+  }
+
+  useEffect(() => {
+    if (paused || images.length <= 1 || transitioning) {
+      return;
+    }
+
+    const timer = window.setInterval(() => {
+      startTransition("next");
+    }, 3000);
+
+    return () => window.clearInterval(timer);
+  }, [images.length, paused, transitioning]);
+
+  const previousIndex = (activeIndex - 1 + images.length) % images.length;
+  const nextIndex = (activeIndex + 1) % images.length;
+  const trackImages = direction === "next" ? [activeIndex, nextIndex] : [previousIndex, activeIndex];
+  const translate = direction === "next" ? (transitioning ? "-100%" : "0%") : transitioning ? "0%" : "-100%";
+
+  return (
+    <div
+      className="relative h-56 overflow-hidden"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div
+        className="flex h-full w-full transition-transform duration-700 ease-out"
+        style={{ transform: `translateX(${translate})` }}
+      >
+        {trackImages.map((imageIndex, frameIndex) => (
+          <div key={`${imageIndex}-${frameIndex}`} className="relative h-full min-w-full">
+            <Image
+              alt={alt}
+              className="object-cover"
+              fill
+              sizes="(min-width: 1024px) 30vw, (min-width: 768px) 50vw, 100vw"
+              src={images[imageIndex]}
+              unoptimized={images[imageIndex].startsWith("data:image/")}
+            />
+          </div>
+        ))}
+      </div>
+
+      {images.length > 1 ? (
+        <>
+          <button
+            aria-label="Previous image"
+            className="absolute left-3 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-lg font-bold text-[#2f2f2e] shadow-md backdrop-blur-sm transition hover:bg-white"
+            type="button"
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              setPaused(true);
+              startTransition("prev");
+            }}
+          >
+            ‹
+          </button>
+          <button
+            aria-label="Next image"
+            className="absolute right-3 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/80 text-lg font-bold text-[#2f2f2e] shadow-md backdrop-blur-sm transition hover:bg-white"
+            type="button"
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              setPaused(true);
+              startTransition("next");
+            }}
+          >
+            ›
+          </button>
+        </>
+      ) : null}
+    </div>
+  );
+}
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat("en-US", {
@@ -30,6 +151,12 @@ function formatTerm(startDate: string, endDate: string) {
   const startLabel = start.toLocaleString("en-US", { month: "short", year: "numeric" });
   const endLabel = end.toLocaleString("en-US", { month: sameYear ? "short" : "short", year: "numeric" });
   return `${startLabel} - ${endLabel}`;
+}
+
+function openBlank3DView(event: React.MouseEvent<HTMLButtonElement>) {
+  event.preventDefault();
+  event.stopPropagation();
+  window.open("about:blank", "_blank", "noopener,noreferrer");
 }
 
 export default function ListingsPage() {
@@ -89,14 +216,8 @@ export default function ListingsPage() {
                   href={`/listings/${listing.id}`}
                   className="group overflow-hidden rounded-[1.5rem] bg-white shadow-[0px_12px_32px_rgba(0,0,0,0.06)] transition-transform duration-300 hover:-translate-y-1"
                 >
-                  <div className="relative h-56 overflow-hidden">
-                    <Image
-                      alt={listing.title}
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      fill
-                      sizes="(min-width: 1024px) 30vw, (min-width: 768px) 50vw, 100vw"
-                      src={listingImages[index % listingImages.length]}
-                    />
+                  <div className="relative overflow-hidden">
+                    <ListingImageCarousel alt={listing.title} images={imageForListing(listing.images, index)} />
                     {index === 0 ? (
                       <div className="absolute left-4 top-4 flex gap-2">
                         <span className="flex items-center gap-1 rounded-full bg-[#ff946e] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#5c1a00]">
@@ -106,9 +227,13 @@ export default function ListingsPage() {
                       </div>
                     ) : null}
                     <div className="absolute bottom-4 left-4">
-                      <span className="rounded-lg bg-white/70 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[#0052d0] backdrop-blur-md">
-                        3D View
-                      </span>
+                      <button
+                        className="rounded-lg bg-white/70 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[#0052d0] backdrop-blur-md transition-colors hover:bg-white"
+                        type="button"
+                        onClick={openBlank3DView}
+                      >
+                        View 3D
+                      </button>
                     </div>
                   </div>
                   <div className="p-5">
