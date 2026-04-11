@@ -30,7 +30,7 @@ export function StitchErrorPage({
   onPrimaryAction?: () => void;
 }) {
   return (
-    <main className="relative flex min-h-[calc(100vh-9rem)] flex-col overflow-x-hidden bg-[#fcf9f8] text-[#2f2f2e]">
+    <main className="relative flex min-h-[calc(100vh-9rem)] flex-col overflow-x-hidden text-[#2f2f2e]">
       <div className="pointer-events-none absolute inset-0 flex select-none items-center justify-center overflow-hidden">
         <span className="-translate-y-12 text-[30rem] font-display font-extrabold leading-none tracking-tighter text-[#6a5a32]/[0.03] md:text-[45rem]">
           404

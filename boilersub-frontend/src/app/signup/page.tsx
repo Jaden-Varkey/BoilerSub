@@ -20,7 +20,7 @@ export default function SignupPage() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   return (
-    <main className="flex min-h-screen flex-col bg-[#f9f6f5] text-[#2f2f2e] md:flex-row">
+    <main className="flex min-h-screen flex-col text-[#2f2f2e] md:flex-row">
       <section className="relative hidden w-full items-end overflow-hidden bg-[#6a5a32] p-12 md:flex md:w-5/12 lg:p-20">
         <div className="absolute inset-0 z-0 opacity-40">
           <Image
@@ -76,7 +76,7 @@ export default function SignupPage() {
         </div>
       </section>
 
-      <section className="flex flex-1 flex-col items-center justify-center bg-[#f9f6f5] p-6 md:p-12 lg:p-24">
+      <section className="flex flex-1 flex-col items-center justify-center bg-transparent p-6 md:p-12 lg:p-24">
         <div className="mb-12 md:hidden">
           <span className="text-3xl font-black italic tracking-tighter text-[#6a5a32]">BoilerSub</span>
         </div>

@@ -174,9 +174,9 @@ export default function NewListingPage() {
                   <label className="ml-1 block text-sm font-bold uppercase tracking-widest text-[#5c5b5b]/70">
                     Layout
                   </label>
-                  <div className="flex gap-4">
+                  <div className="grid grid-cols-3 gap-4">
                     <input
-                      className="w-1/2 rounded-xl bg-[#e4e2e1] px-6 py-4 font-medium text-[#2f2f2e] placeholder:text-[#5c5b5b]/40 focus:outline-none focus:ring-2 focus:ring-[#0052d0]/15"
+                      className="rounded-xl bg-[#e4e2e1] px-6 py-4 font-medium text-[#2f2f2e] placeholder:text-[#5c5b5b]/40 focus:outline-none focus:ring-2 focus:ring-[#0052d0]/15"
                       placeholder="Beds"
                       type="number"
                       value={form.bedrooms ?? ""}
@@ -188,7 +188,7 @@ export default function NewListingPage() {
                       }
                     />
                     <input
-                      className="w-1/2 rounded-xl bg-[#e4e2e1] px-6 py-4 font-medium text-[#2f2f2e] placeholder:text-[#5c5b5b]/40 focus:outline-none focus:ring-2 focus:ring-[#0052d0]/15"
+                      className="rounded-xl bg-[#e4e2e1] px-6 py-4 font-medium text-[#2f2f2e] placeholder:text-[#5c5b5b]/40 focus:outline-none focus:ring-2 focus:ring-[#0052d0]/15"
                       placeholder="Baths"
                       type="number"
                       step="0.5"
@@ -197,6 +197,20 @@ export default function NewListingPage() {
                         setForm((current) => ({
                           ...current,
                           bathrooms: event.target.value ? Number(event.target.value) : null,
+                        }))
+                      }
+                    />
+                    <input
+                      className="rounded-xl bg-[#e4e2e1] px-4 py-4 font-medium text-[#2f2f2e] placeholder:text-[#5c5b5b]/40 focus:outline-none focus:ring-2 focus:ring-[#0052d0]/15"
+                      placeholder="Miles"
+                      type="number"
+                      step="0.1"
+                      min="0"
+                      value={form.distance ?? ""}
+                      onChange={(event) =>
+                        setForm((current) => ({
+                          ...current,
+                          distance: event.target.value ? Number(event.target.value) : null,
                         }))
                       }
                     />

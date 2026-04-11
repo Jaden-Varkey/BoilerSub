@@ -51,6 +51,14 @@ function formatTermLabel(startDate: string, endDate: string) {
   })}`;
 }
 
+function formatDistance(distance: number | null) {
+  if (distance == null) {
+    return "Distance not listed";
+  }
+
+  return `${distance.toFixed(distance % 1 === 0 ? 0 : 1)} miles from campus`;
+}
+
 function ownerSummary(owner: PublicUser | null) {
   if (!owner) {
     return "Verified Purdue student";
@@ -173,6 +181,13 @@ export default function ListingDetailPage() {
                       <div>
                         <p className="font-bold text-[#2f2f2e]">{listing.address || "West Lafayette Listing"}</p>
                         <p className="text-sm text-[#5c5b5b]">Purdue sublease posting</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-[#0052d0]">📏</div>
+                      <div>
+                        <p className="font-bold text-[#2f2f2e]">{formatDistance(listing.distance)}</p>
+                        <p className="text-sm text-[#5c5b5b]">Measured in miles</p>
                       </div>
                     </div>
                   </div>

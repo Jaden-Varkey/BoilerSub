@@ -19,6 +19,7 @@ type FormState = {
   end_date: string;
   bedrooms: string;
   bathrooms: string;
+  distance: string;
   address: string;
   amenities: string[];
   images: string[];
@@ -34,6 +35,7 @@ function toFormState(initial?: Partial<Listing | ListingPayload>): FormState {
     end_date: payload.end_date ?? "",
     bedrooms: payload.bedrooms?.toString() ?? "",
     bathrooms: payload.bathrooms?.toString() ?? "",
+    distance: payload.distance?.toString() ?? "",
     address: payload.address ?? "",
     amenities: payload.amenities ?? [],
     images: payload.images ?? [],
@@ -49,6 +51,7 @@ function toPayload(state: FormState): ListingPayload {
     end_date: state.end_date,
     bedrooms: state.bedrooms ? Number(state.bedrooms) : null,
     bathrooms: state.bathrooms ? Number(state.bathrooms) : null,
+    distance: state.distance ? Number(state.distance) : null,
     address: state.address || null,
     amenities: state.amenities,
     images: state.images,
@@ -236,6 +239,15 @@ export function ListingEditor({
                       value={form.bathrooms}
                       onChange={(event) => setForm((current) => ({ ...current, bathrooms: event.target.value }))}
                     />
+                    <Input
+                      className="rounded-xl border-none bg-[#dfdcdc] px-4 py-4 font-medium text-stone-900 focus:ring-2 focus:ring-[#0052d0]"
+                      id="distance"
+                      min="0"
+                      step="0.1"
+                      type="number"
+                      value={form.distance}
+                      onChange={(event) => setForm((current) => ({ ...current, distance: event.target.value }))}
+                    />
                   </div>
                 </div>
               </div>
@@ -392,6 +404,9 @@ export function ListingEditor({
                   </span>
                 </div>
                 <p className="text-sm text-stone-500">{payload.address || "Add an address"}</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#6a5a32]">
+                  {payload.distance != null ? `${payload.distance} miles from campus` : "Add distance from campus"}
+                </p>
               </div>
             </div>
 
@@ -561,6 +576,19 @@ export function ListingEditor({
                 step="0.5"
                 value={form.bathrooms}
                 onChange={(event) => setForm((current) => ({ ...current, bathrooms: event.target.value }))}
+              />
+            </div>
+            <div>
+              <label className="label" htmlFor="distance">
+                Distance from campus (miles)
+              </label>
+              <Input
+                id="distance"
+                type="number"
+                min="0"
+                step="0.1"
+                value={form.distance}
+                onChange={(event) => setForm((current) => ({ ...current, distance: event.target.value }))}
               />
             </div>
           </div>

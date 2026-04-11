@@ -16,7 +16,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <main className="flex min-h-screen flex-col overflow-x-hidden bg-[#f9f6f5] font-body text-[#2f2f2e] md:flex-row">
+    <main className="flex min-h-screen flex-col overflow-x-hidden font-body text-[#2f2f2e] md:flex-row">
       <section className="relative min-h-[420px] w-full overflow-hidden bg-[#e4e2e1] md:min-h-screen md:w-[55%]">
         <div className="absolute inset-0 z-0">
           <Image
@@ -58,7 +58,7 @@ export default function LoginPage() {
         </div>
       </section>
 
-      <section className="flex w-full items-center justify-center bg-[#f9f6f5] p-6 md:w-[45%] md:p-12 lg:p-24">
+      <section className="flex w-full items-center justify-center bg-transparent p-6 md:w-[45%] md:p-12 lg:p-24">
         <div className="w-full max-w-md">
           <div className="mb-12">
             <h2 className="mb-3 font-display text-4xl font-extrabold tracking-tight text-[#2f2f2e]">

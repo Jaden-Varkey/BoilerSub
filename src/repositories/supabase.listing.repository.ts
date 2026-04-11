@@ -14,6 +14,7 @@ function mapListing(row: Record<string, unknown>): ListingRecord {
     end_date: String(row.end_date),
     bedrooms: row.bedrooms == null ? null : Number(row.bedrooms),
     bathrooms: row.bathrooms == null ? null : Number(row.bathrooms),
+    distance: row.distance == null ? null : Number(row.distance),
     address: row.address == null ? null : String(row.address),
     amenities: Array.isArray(row.amenities) ? row.amenities.map(String) : [],
     images: Array.isArray(row.images) ? row.images.map(String) : [],
@@ -33,7 +34,7 @@ function mapOwner(row: Record<string, unknown>): Pick<UserRecord, "id" | "full_n
 }
 
 const listingSelect =
-  "id, owner_id, title, description, price, start_date, end_date, bedrooms, bathrooms, address, amenities, images, created_at, updated_at";
+  "id, owner_id, title, description, price, start_date, end_date, bedrooms, bathrooms, distance, address, amenities, images, created_at, updated_at";
 
 export class SupabaseListingRepository implements ListingRepository {
   async findAll(filters: ListingFilters = {}): Promise<ListingRecord[]> {

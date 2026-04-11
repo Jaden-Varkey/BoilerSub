@@ -29,6 +29,7 @@ export function emptyListingPayload(): ListingPayload {
     end_date: "",
     bedrooms: null,
     bathrooms: null,
+    distance: null,
     address: "",
     amenities: [],
     images: [],

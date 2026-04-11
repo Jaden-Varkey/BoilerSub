@@ -27,7 +27,7 @@ const avatarImages = [
 export default function HomePage() {
   return (
     <>
-      <main className="bg-[#f9f6f5] font-sans text-[#2f2f2e]">
+      <main className="bg-transparent font-sans text-[#2f2f2e]">
         <section className="relative flex min-h-[800px] h-screen items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image
@@ -119,7 +119,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl bg-[#f9f6f5] px-8 py-24" id="selection">
+        <section className="mx-auto max-w-7xl bg-transparent px-8 py-24" id="selection">
           <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
               <span className="text-sm font-bold uppercase tracking-[0.2em] text-[#a03a0f]">The Selection</span>

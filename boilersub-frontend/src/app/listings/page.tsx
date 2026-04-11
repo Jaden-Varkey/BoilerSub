@@ -165,7 +165,7 @@ export default function ListingsPage() {
   const { rows, loading, error } = useListings(limit, offset);
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-[#f9f6f5] text-[#2f2f2e]">
+    <div className="flex h-screen flex-col overflow-hidden bg-transparent text-[#2f2f2e]">
       <main className="flex h-screen flex-grow overflow-hidden pt-20">
         <div className="scrollbar-hide w-full overflow-y-auto px-6 py-8 lg:w-[60%]">
           <header className="mb-8">
@@ -347,7 +347,7 @@ export default function ListingsPage() {
         </div>
       </main>
 
-      <footer className="z-50 flex h-16 w-full shrink-0 items-center justify-between border-t border-[#afadac] bg-[#f9f6f5] px-8">
+      <footer className="z-50 flex h-16 w-full shrink-0 items-center justify-between border-t border-[#afadac] bg-transparent px-8">
         <div className="flex items-center gap-4">
           <span className="text-sm font-bold text-[#6a5a32]">BoilerSub</span>
           <span className="text-[10px] text-gray-400">© 2024</span>

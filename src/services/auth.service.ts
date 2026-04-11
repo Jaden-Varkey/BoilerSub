@@ -50,7 +50,7 @@ export class AuthService {
       await this.userRepository.upsertAuthUser({
         id: authUser.id,
         email: authUser.email ?? email,
-        phone: authUser.phone ?? null,
+        phone: authUser.phone || null,
       });
     }
 

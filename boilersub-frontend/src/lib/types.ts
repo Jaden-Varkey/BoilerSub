@@ -36,6 +36,7 @@ export type Listing = {
   end_date: string;
   bedrooms: number | null;
   bathrooms: number | null;
+  distance: number | null;
   address: string | null;
   amenities: string[];
   images: string[];
@@ -65,6 +66,7 @@ export type ListingPayload = {
   end_date: string;
   bedrooms: number | null;
   bathrooms: number | null;
+  distance: number | null;
   address: string | null;
   amenities: string[];
   images: string[];

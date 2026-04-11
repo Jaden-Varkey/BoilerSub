@@ -63,7 +63,7 @@ export class SupabaseUserRepository implements UserRepository {
         {
           id: input.id,
           email: input.email,
-          phone: input.phone ?? null,
+          phone: input.phone || null,
         },
         { onConflict: "id" },
       )
@@ -86,7 +86,7 @@ export class SupabaseUserRepository implements UserRepository {
       .update({
         ...(patch.full_name !== undefined ? { full_name: patch.full_name } : {}),
         ...(patch.bio !== undefined ? { bio: patch.bio } : {}),
-        ...(patch.phone !== undefined ? { phone: patch.phone } : {}),
+        ...(patch.phone !== undefined ? { phone: patch.phone || null } : {}),
       })
       .eq("id", id)
       .select(userSelect)
