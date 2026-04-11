@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "@/components/Modal";
 import { Toast } from "@/components/Toast";
 import { apiClient } from "@/lib/apiClient";
+import { filterRenderableImages } from "@/lib/listingMedia";
 import { useAuth } from "@/context/AuthProvider";
 import type { Listing, PublicUser } from "@/lib/types";
 
@@ -16,7 +17,8 @@ const listingDetailImages = [
 ];
 
 function galleryImages(images: string[]) {
-  return images.length ? images : listingDetailImages;
+  const renderableImages = filterRenderableImages(images);
+  return renderableImages.length ? renderableImages : listingDetailImages;
 }
 
 function formatPrice(price: number) {
@@ -25,8 +27,15 @@ function formatPrice(price: number) {
   }).format(price);
 }
 
-function formatDateRange(startDate: string, endDate: string) {
+function formatDateRange(startDate: string, endDate: string | null) {
   const start = new Date(startDate);
+  if (!endDate) {
+    if (Number.isNaN(start.getTime())) {
+      return "Flexible dates";
+    }
+    const formatter = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", year: "numeric" });
+    return `From ${formatter.format(start)}`;
+  }
   const end = new Date(endDate);
 
   if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
@@ -37,8 +46,14 @@ function formatDateRange(startDate: string, endDate: string) {
   return `${formatter.format(start)} — ${formatter.format(end)}`;
 }
 
-function formatTermLabel(startDate: string, endDate: string) {
+function formatTermLabel(startDate: string, endDate: string | null) {
   const start = new Date(startDate);
+  if (!endDate) {
+    if (Number.isNaN(start.getTime())) {
+      return "Open Term";
+    }
+    return `${start.toLocaleString("en-US", { month: "short", year: "numeric" })} onward`;
+  }
   const end = new Date(endDate);
 
   if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
@@ -149,10 +164,7 @@ export default function ListingDetailPage() {
                     <span>🖼</span>
                     {images.length} Photo{images.length === 1 ? "" : "s"}
                   </button>
-                  <button className="flex items-center gap-2 rounded-lg bg-[#f9f6f5]/90 px-4 py-2 text-sm font-bold backdrop-blur-md transition-all hover:bg-[#f9f6f5]">
-                    <span>◧</span>
-                    3D
-                  </button>
+
                 </div>
               </div>
 
@@ -215,7 +227,7 @@ export default function ListingDetailPage() {
                   <p className="mb-4 text-sm leading-relaxed text-[#5c5b5b]">{owner?.bio ?? ownerSummary(owner)}</p>
                   {owner ? (
                     <Link className="flex items-center gap-1 text-sm font-bold text-[#6a5a32] hover:underline" href={`/users/${owner.id}`}>
-                      View Profile
+                      View {owner.full_name?.split(" ")[0] ?? "Owner"}&apos;s Listings
                       <span>→</span>
                     </Link>
                   ) : null}

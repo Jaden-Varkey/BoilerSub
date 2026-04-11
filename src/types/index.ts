@@ -41,7 +41,7 @@ export type ListingRecord = {
   description: string | null;
   price: number;
   start_date: string;
-  end_date: string;
+  end_date: string | null;
   bedrooms: number | null;
   bathrooms: number | null;
   distance: number | null;

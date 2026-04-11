@@ -7,17 +7,30 @@ type SeedUser = {
   email: string;
   phone: string;
   full_name: string;
+  bio: string;
 };
 
 const service = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, {
   auth: { autoRefreshToken: false, persistSession: false },
 });
 
+const personas = [
+  {
+    full_name: "Ethan Walker",
+    bio: "Student 1. Analytical, low-key, and always comparing lease details before making a move.",
+  },
+  {
+    full_name: "Maya Chen",
+    bio: "Student 2. Friendly, organized, and outgoing. She keeps her place spotless, answers quickly, and likes helping other Purdue students land a smooth sublease.",
+  },
+];
+
 const users: SeedUser[] = Array.from({ length: 10 }, (_value, index) => ({
   id: randomUUID(),
   email: `student${index + 1}@purdue.edu`,
   phone: `+1555000000${index}`,
-  full_name: `Purdue Student ${index + 1}`,
+  full_name: personas[index]?.full_name ?? `Purdue Student ${index + 1}`,
+  bio: personas[index]?.bio ?? `Seed profile for Purdue Student ${index + 1}`,
 }));
 
 async function main(): Promise<void> {
@@ -52,7 +65,7 @@ async function main(): Promise<void> {
     email: user.email,
     phone: user.phone,
     full_name: user.full_name,
-    bio: `Seed profile for ${user.full_name}`,
+    bio: user.bio,
     email_verified: true,
     phone_verified: true,
     fully_verified: true,
@@ -65,7 +78,7 @@ async function main(): Promise<void> {
   }
 
   const listings = Array.from({ length: 30 }, (_value, index) => {
-    const owner = users[index % users.length];
+    const owner = users[1];
     const startDate = new Date(2026, 4, 1 + index);
     const endDate = new Date(2026, 6, 1 + index);
     return {

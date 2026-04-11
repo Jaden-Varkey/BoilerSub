@@ -22,7 +22,7 @@ export function ListingCard({ listing }: { listing: Listing }) {
           </span>
         </div>
         <p className="text-sm text-slate-600">
-          {listing.address ?? "West Lafayette"} · {listing.start_date} to {listing.end_date}
+          {listing.address ?? "West Lafayette"} · {listing.start_date} to {listing.end_date ?? "Open"}
         </p>
         <p className="text-sm text-slate-700">
           {listing.bedrooms ?? "?"} bd · {listing.bathrooms ?? "?"} ba

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { filterRenderableImages } from "@/lib/listingMedia";
 import { Toast } from "@/components/Toast";
 import { useListings } from "@/hooks/useListings";
 
@@ -13,7 +14,8 @@ const listingImages = [
 ];
 
 function imageForListing(images: string[], index: number) {
-  return images.length ? images : [listingImages[index % listingImages.length]];
+  const renderableImages = filterRenderableImages(images);
+  return renderableImages.length ? renderableImages : [listingImages[index % listingImages.length]];
 }
 
 function ListingImageCarousel({
@@ -139,8 +141,14 @@ function formatPrice(price: number) {
   }).format(price);
 }
 
-function formatTerm(startDate: string, endDate: string) {
+function formatTerm(startDate: string, endDate: string | null) {
   const start = new Date(startDate);
+  if (!endDate) {
+    if (Number.isNaN(start.getTime())) {
+      return "Flexible term";
+    }
+    return `${start.toLocaleString("en-US", { month: "short", year: "numeric" })} onward`;
+  }
   const end = new Date(endDate);
 
   if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
@@ -165,9 +173,9 @@ export default function ListingsPage() {
   const { rows, loading, error } = useListings(limit, offset);
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden bg-transparent text-[#2f2f2e]">
-      <main className="flex h-screen flex-grow overflow-hidden pt-20">
-        <div className="scrollbar-hide w-full overflow-y-auto px-6 py-8 lg:w-[60%]">
+    <div className="min-h-screen bg-transparent text-[#2f2f2e]">
+      <main className="mx-auto max-w-7xl px-6 py-8 pt-28">
+        <div className="w-full">
           <header className="mb-8">
             <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
               <div>
@@ -177,26 +185,7 @@ export default function ListingsPage() {
             </div>
           </header>
 
-          <section className="mb-8 flex flex-wrap items-center gap-3">
-            <div className="flex items-center gap-2 rounded-full bg-[#dfdcdc] px-3 py-1.5">
-              <span className="text-sm">☰</span>
-              <span className="text-[10px] font-bold uppercase tracking-widest">Filters</span>
-            </div>
-            <div className="scrollbar-hide flex gap-2 overflow-x-auto">
-              <button className="whitespace-nowrap rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-[#2f2f2e] shadow-[0px_12px_32px_rgba(0,0,0,0.06)] transition-colors hover:bg-[#c3d0ff]">
-                Quiet Study
-              </button>
-              <button className="whitespace-nowrap rounded-full bg-[#0052d0] px-4 py-1.5 text-xs font-semibold text-[#f1f2ff] shadow-[0px_12px_32px_rgba(0,0,0,0.06)]">
-                Near Campus
-              </button>
-              <button className="whitespace-nowrap rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-[#2f2f2e] shadow-[0px_12px_32px_rgba(0,0,0,0.06)] transition-colors hover:bg-[#c3d0ff]">
-                Gym Access
-              </button>
-              <button className="whitespace-nowrap rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-[#2f2f2e] shadow-[0px_12px_32px_rgba(0,0,0,0.06)] transition-colors hover:bg-[#c3d0ff]">
-                Pet Friendly
-              </button>
-            </div>
-          </section>
+
 
           {error && <Toast kind="error" message={error} />}
 
@@ -209,7 +198,7 @@ export default function ListingsPage() {
               No listings yet.
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
               {rows.map((listing, index) => (
                 <Link
                   key={listing.id}
@@ -265,6 +254,12 @@ export default function ListingsPage() {
                           <span className="text-xs">{listing.address}</span>
                         </div>
                       ) : null}
+                      {listing.owner?.full_name ? (
+                        <div className="flex items-center gap-1 text-[#5c5b5b]/80">
+                          <span className="text-base">👤</span>
+                          <span className="text-xs font-medium">Listed by {listing.owner.full_name}</span>
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 </Link>
@@ -306,48 +301,9 @@ export default function ListingsPage() {
             </button>
           </nav>
         </div>
-
-        <div className="relative hidden border-l border-[#afadac] bg-gray-200 lg:block lg:w-[40%]">
-          <div className="absolute inset-0 overflow-hidden bg-[#e5e7eb]">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,82,208,0.12),transparent_20%),radial-gradient(circle_at_80%_30%,rgba(160,58,15,0.10),transparent_18%),linear-gradient(135deg,#eef1f4,#dde3e9)]" />
-            <div className="absolute left-[60%] top-[45%]">
-              <button className="rounded-full border-2 border-white bg-[#6a5a32] px-4 py-2 text-sm font-bold text-[#fff1d9] shadow-xl">
-                $850
-              </button>
-            </div>
-            <div className="absolute left-[35%] top-[55%]">
-              <button className="rounded-full border-2 border-white bg-[#0052d0] px-4 py-2 text-sm font-bold text-[#f1f2ff] shadow-xl">
-                $1,100
-              </button>
-            </div>
-            <div className="absolute left-[50%] top-[30%]">
-              <button className="rounded-full border-2 border-white bg-[#0052d0] px-4 py-2 text-sm font-bold text-[#f1f2ff] shadow-xl">
-                $650
-              </button>
-            </div>
-            <div className="absolute left-[75%] top-[38%]">
-              <button className="rounded-full border-2 border-white bg-[#0052d0] px-4 py-2 text-sm font-bold text-[#f1f2ff] shadow-xl">
-                $1,450
-              </button>
-            </div>
-            <div className="absolute right-6 top-6 flex flex-col gap-2">
-              <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
-                <button className="border-b border-gray-200 p-3 hover:bg-gray-100">+</button>
-                <button className="p-3 hover:bg-gray-100">−</button>
-              </div>
-              <button className="rounded-xl border border-[#afadac] bg-white p-3 shadow-lg hover:bg-gray-100">◎</button>
-            </div>
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
-              <div className="flex items-center gap-2 rounded-full border border-[#0052d0]/20 bg-white/90 px-4 py-2 shadow-lg backdrop-blur-md">
-                <span className="text-lg text-[#0052d0]">⌖</span>
-                <span className="text-xs font-bold uppercase tracking-widest text-[#2f2f2e]">West Lafayette Campus</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </main>
 
-      <footer className="z-50 flex h-16 w-full shrink-0 items-center justify-between border-t border-[#afadac] bg-transparent px-8">
+      <footer className="z-50 flex h-24 w-full shrink-0 items-center justify-between border-t border-[#afadac]/20 bg-transparent px-8">
         <div className="flex items-center gap-4">
           <span className="text-sm font-bold text-[#6a5a32]">BoilerSub</span>
           <span className="text-[10px] text-gray-400">© 2024</span>

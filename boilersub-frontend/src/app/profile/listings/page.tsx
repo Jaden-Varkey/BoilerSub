@@ -8,10 +8,14 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toast } from "@/components/Toast";
 import { useAuth } from "@/context/AuthProvider";
 import { apiClient } from "@/lib/apiClient";
+import { filterRenderableImages } from "@/lib/listingMedia";
 import { useListings } from "@/hooks/useListings";
 
-function formatDateRange(startDate: string, endDate: string) {
+function formatDateRange(startDate: string, endDate: string | null) {
   const formatter = new Intl.DateTimeFormat("en-US", { month: "short", year: "numeric" });
+  if (!endDate) {
+    return `${formatter.format(new Date(startDate))} onward`;
+  }
   return `${formatter.format(new Date(startDate))} - ${formatter.format(new Date(endDate))}`;
 }
 
@@ -23,10 +27,10 @@ function formatCurrency(value: number) {
   }).format(value);
 }
 
-function ListingStatusBadge({ startDate, endDate }: { startDate: string; endDate: string }) {
+function ListingStatusBadge({ startDate, endDate }: { startDate: string; endDate: string | null }) {
   const now = new Date();
   const start = new Date(startDate);
-  const end = new Date(endDate);
+  const end = endDate ? new Date(endDate) : null;
 
   if (start > now) {
     return (
@@ -36,7 +40,7 @@ function ListingStatusBadge({ startDate, endDate }: { startDate: string; endDate
     );
   }
 
-  if (end >= now) {
+  if (!end || end >= now) {
     return (
       <span className="rounded-full bg-[#dfe8ff] px-3 py-1 text-[0.65rem] font-bold uppercase tracking-[0.24em] text-[#0040a5]">
         Active
@@ -71,9 +75,12 @@ export default function ProfileListingsPage() {
   const stats = useMemo(() => {
     const now = new Date();
     const total = mine.length;
-    const active = mine.filter((listing) => new Date(listing.start_date) <= now && new Date(listing.end_date) >= now).length;
+    const active = mine.filter((listing) => new Date(listing.start_date) <= now && (!listing.end_date || new Date(listing.end_date) >= now)).length;
     const averagePrice = total > 0 ? Math.round(mine.reduce((sum, listing) => sum + listing.price, 0) / total) : 0;
     const endingSoon = mine.filter((listing) => {
+      if (!listing.end_date) {
+        return false;
+      }
       const end = new Date(listing.end_date);
       const daysRemaining = (end.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
       return daysRemaining >= 0 && daysRemaining <= 30;
@@ -161,14 +168,14 @@ export default function ProfileListingsPage() {
                     className="group overflow-hidden rounded-[2rem] border border-stone-200/60 bg-white/92 shadow-[0_12px_32px_rgba(0,0,0,0.04)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_44px_rgba(0,0,0,0.08)]"
                   >
                     <div className="relative h-52 overflow-hidden bg-[linear-gradient(135deg,#dfe8ff_0%,#fef2d2_45%,#ffd8cb_100%)]">
-                      {listing.images[0] ? (
+                      {filterRenderableImages(listing.images)[0] ? (
                         <Image
                           alt={listing.title}
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
                           fill
                           sizes="(min-width: 768px) 50vw, 100vw"
-                          src={listing.images[0]}
-                          unoptimized={listing.images[0].startsWith("data:image/")}
+                          src={filterRenderableImages(listing.images)[0]!}
+                          unoptimized={filterRenderableImages(listing.images)[0]!.startsWith("data:image/")}
                         />
                       ) : (
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.7),transparent_30%),linear-gradient(135deg,#dfe8ff_0%,#fef2d2_45%,#ffd8cb_100%)]" />

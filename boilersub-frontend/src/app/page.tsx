@@ -62,6 +62,7 @@ export default function HomePage() {
                     <span className="text-sm text-[#0052d0]">◎</span>
                     <input
                       className="w-full border-none bg-transparent p-0 font-bold text-[#2f2f2e] placeholder:text-[#787676] focus:ring-0"
+                      defaultValue="Purdue University"
                       placeholder="Near Campus..."
                       type="text"
                     />
@@ -73,6 +74,7 @@ export default function HomePage() {
                     <span className="text-sm text-[#0052d0]">◌</span>
                     <input
                       className="w-full border-none bg-transparent p-0 font-bold text-[#2f2f2e] placeholder:text-[#787676] focus:ring-0"
+                      defaultValue="Spring 2025"
                       placeholder="Spring 2025"
                       type="text"
                     />
@@ -82,11 +84,9 @@ export default function HomePage() {
                   <span className="mb-1 text-[10px] font-bold uppercase tracking-widest text-[#0052d0]">Budget</span>
                   <div className="flex w-full items-center gap-2">
                     <span className="text-sm text-[#0052d0]">$</span>
-                    <input
-                      className="w-full border-none bg-transparent p-0 font-bold text-[#2f2f2e] placeholder:text-[#787676] focus:ring-0"
-                      placeholder="$500 - $900"
-                      type="text"
-                    />
+                    <select className="w-full cursor-pointer border-none bg-transparent p-0 font-bold text-[#2f2f2e] focus:ring-0">
+                      <option value="500-1500">$500 - $1500</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -100,10 +100,7 @@ export default function HomePage() {
             </div>
 
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <button className="group flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-8 py-3 font-bold text-white backdrop-blur-md transition-all hover:bg-white/20">
-                <span className="transition-transform group-hover:rotate-12">◧</span>
-                3D View
-              </button>
+
               <Link
                 className="rounded-full bg-[#a03a0f] px-8 py-3 font-bold text-[#ffefeb] shadow-lg transition-all hover:brightness-110"
                 href="/listings/new"
@@ -205,62 +202,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="relative mx-auto my-24 max-w-7xl overflow-hidden rounded-[3rem] bg-gradient-to-br from-[#e0e7ff] to-[#f5f3ff] px-8 py-32">
-          <div className="relative z-10 grid items-center gap-16 lg:grid-cols-2">
-            <div className="flex flex-col gap-8">
-              <h2 className="font-display text-5xl font-extrabold leading-none text-[#001e5a] md:text-7xl">
-                See It Before
-                <br />
-                You Visit.
-              </h2>
-              <p className="max-w-md text-xl text-[#001e5a]/80">
-                Experience the space in ultra-high fidelity. Our kinetic 3D walkthroughs let you feel the vibe before you even step on campus.
-              </p>
-              <div className="flex flex-col gap-4">
-                <div className="flex w-fit items-center gap-4 rounded-2xl bg-white/40 p-4 shadow-sm backdrop-blur-md">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff946e] text-[#5c1a00]">◎</div>
-                  <div>
-                    <h4 className="font-bold text-[#001e5a]">Full Spatial View</h4>
-                    <p className="text-sm opacity-70">Interactive floorplan mapping</p>
-                  </div>
-                </div>
-                <div className="flex w-fit items-center gap-4 rounded-2xl bg-white/40 p-4 shadow-sm backdrop-blur-md">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0052d0] text-[#f1f2ff]">◉</div>
-                  <div>
-                    <h4 className="font-bold text-[#001e5a]">Vibe Check</h4>
-                    <p className="text-sm opacity-70">Check lighting and views in real-time</p>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div className="relative flex items-center justify-center">
-              <div
-                className="absolute h-[120%] w-[120%] rounded-full bg-cover bg-center opacity-30 blur-3xl"
-                style={{
-                  backgroundImage:
-                    "url('https://lh3.googleusercontent.com/aida-public/AB6AXuA9_FwICJuNVAXyAplhCjb_s39fO92NbqLIJTDzgwzAUdpQ3mr3xA9Xc6mtrFvIKajficSqjgfJJAVwRluoy4lSGqofV_pWMNb2F164aP4_PkaAuWoG97gjiomInRQvMpVnBDbMbjxyJDY3kAukmRj3dxAmKn0qOEoD7i5Qi_gac29TDwcHf2IY2tztiA5UMWcRoU3rMXYcyRoKYZpK-cWsIxj1fMmiEOtnuyD2o7gi8wY7R1OpYZqLT3Ulb0nSPcsSPiXwKybYUo09')",
-                }}
-              />
-              <div className="relative aspect-[9/19.5] w-full max-w-[320px] rotate-[-2deg] overflow-hidden rounded-[3rem] border-[12px] border-[#1a1a1a] bg-[#f9f6f5] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] transition-transform duration-700 hover:rotate-0">
-                <Image
-                  alt="3D digital architectural visualization"
-                  className="object-cover"
-                  fill
-                  sizes="320px"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9_FwICJuNVAXyAplhCjb_s39fO92NbqLIJTDzgwzAUdpQ3mr3xA9Xc6mtrFvIKajficSqjgfJJAVwRluoy4lSGqofV_pWMNb2F164aP4_PkaAuWoG97gjiomInRQvMpVnBDbMbjxyJDY3kAukmRj3dxAmKn0qOEoD7i5Qi_gac29TDwcHf2IY2tztiA5UMWcRoU3rMXYcyRoKYZpK-cWsIxj1fMmiEOtnuyD2o7gi8wY7R1OpYZqLT3Ulb0nSPcsSPiXwKybYUo09"
-                />
-                <div className="absolute inset-0 flex items-center justify-center bg-black/10">
-                  <div className="flex h-20 w-20 cursor-pointer items-center justify-center rounded-full border border-white/30 bg-white/20 text-5xl text-white shadow-2xl backdrop-blur-md transition-transform hover:scale-110">
-                    ▶
-                  </div>
-                </div>
-              </div>
-              <div className="absolute -bottom-10 -right-4 h-48 w-32 rotate-12 rounded-full bg-stone-900/10 blur-2xl" />
-            </div>
-          </div>
-          <div className="absolute -bottom-24 -right-24 h-96 w-96 rounded-full bg-[#a03a0f]/10 blur-[100px]" />
-        </section>
       </main>
 
       <footer className="mt-auto w-full bg-stone-100 py-12">

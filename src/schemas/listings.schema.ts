@@ -8,7 +8,7 @@ export const listingCreateSchema = z.object({
   description: z.string().max(5000).nullable().optional(),
   price: z.number().nonnegative(),
   start_date: z.string().date(),
-  end_date: z.string().date(),
+  end_date: z.string().date().nullable().optional(),
   bedrooms: z.number().int().nonnegative().nullable().optional(),
   bathrooms: z.number().nonnegative().nullable().optional(),
   distance: z.number().nonnegative().nullable().optional(),

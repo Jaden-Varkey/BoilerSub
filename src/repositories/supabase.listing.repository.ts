@@ -11,7 +11,7 @@ function mapListing(row: Record<string, unknown>): ListingRecord {
     description: row.description == null ? null : String(row.description),
     price: Number(row.price),
     start_date: String(row.start_date),
-    end_date: String(row.end_date),
+    end_date: row.end_date == null ? null : String(row.end_date),
     bedrooms: row.bedrooms == null ? null : Number(row.bedrooms),
     bathrooms: row.bathrooms == null ? null : Number(row.bathrooms),
     distance: row.distance == null ? null : Number(row.distance),
