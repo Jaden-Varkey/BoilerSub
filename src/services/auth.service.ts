@@ -1,4 +1,5 @@
-import { createSupabaseClient, supabaseAnonClient } from "../config/supabase.js";
+import { createSupabaseClient } from "../config/supabase.js";
+import { env } from "../config/env.js";
 import { ApiError } from "../lib/apiError.js";
 import type { UserRepository } from "../repositories/user.repository.js";
 import type { AuthSessionPayload } from "../types/index.js";
@@ -6,30 +7,88 @@ import type { AuthSessionPayload } from "../types/index.js";
 export class AuthService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async signup(email: string, password: string): Promise<{ status: string; userId: string | null }> {
-    const { data, error } = await supabaseAnonClient.auth.signUp({ email, password });
-    if (error) {
-      throw new ApiError(400, "signup_failed", error.message);
+  private async authRequest<T>(path: string, init: RequestInit, accessToken?: string): Promise<T> {
+    const response = await fetch(`${env.SUPABASE_URL}/auth/v1${path}`, {
+      ...init,
+      headers: {
+        "Content-Type": "application/json",
+        apikey: env.SUPABASE_ANON_KEY,
+        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
+        ...(init.headers ?? {}),
+      },
+    });
+
+    const payload = (await response.json().catch(() => null)) as
+      | { msg?: string; error_description?: string; code?: string; message?: string }
+      | null;
+
+    if (!response.ok) {
+      throw new ApiError(
+        response.status,
+        payload?.code ?? "auth_request_failed",
+        payload?.msg ?? payload?.error_description ?? payload?.message ?? "Supabase auth request failed",
+      );
     }
 
-    if (data.user?.id) {
+    return (payload ?? {}) as T;
+  }
+
+  async signup(email: string, password: string): Promise<{ status: string; userId: string | null }> {
+    const data = await this.authRequest<{
+      id?: string;
+      user?: { id?: string; email?: string; phone?: string | null };
+      email?: string;
+      phone?: string | null;
+    }>("/signup", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+
+    const authUser = data.user ?? data;
+
+    if (authUser?.id) {
       await this.userRepository.upsertAuthUser({
-        id: data.user.id,
-        email: data.user.email ?? email,
-        phone: data.user.phone ?? null,
+        id: authUser.id,
+        email: authUser.email ?? email,
+        phone: authUser.phone ?? null,
       });
     }
 
     return {
       status: "pending_email_verification",
-      userId: data.user?.id ?? null,
+      userId: authUser?.id ?? null,
     };
   }
 
-  async verifyEmail(email: string, token: string): Promise<{ status: string }> {
-    const { data, error } = await supabaseAnonClient.auth.verifyOtp({ email, token, type: "email" });
-    if (error || !data.user) {
-      throw new ApiError(400, "email_verification_failed", error?.message ?? "Email verification failed");
+  async verifyEmail(email: string, token: string): Promise<{ status: string } | AuthSessionPayload> {
+    const data = await this.authRequest<{
+      user?: { id: string };
+      access_token?: string;
+      refresh_token?: string;
+      expires_in?: number;
+      token_type?: string;
+    }>("/verify", {
+      method: "POST",
+      body: JSON.stringify({ email, token, type: "email" }),
+    });
+
+    if (!data.user) {
+      throw new ApiError(400, "email_verification_failed", "Email verification failed");
+    }
+
+    if (env.SKIP_PHONE_VERIFICATION) {
+      const user = await this.userRepository.markFullyVerified(data.user.id);
+      return {
+        session: data.access_token
+          ? {
+              access_token: data.access_token,
+              refresh_token: data.refresh_token ?? "",
+              expires_in: data.expires_in,
+              token_type: data.token_type,
+            }
+          : null,
+        user,
+      };
     }
 
     await this.userRepository.markEmailVerified(data.user.id);
@@ -37,28 +96,41 @@ export class AuthService {
   }
 
   async sendPhoneOtp(input: { accessToken: string; phone: string }): Promise<{ status: string }> {
-    const client = createSupabaseClient(input.accessToken);
-    const { error } = await client.auth.updateUser({ phone: input.phone });
-    if (error) {
-      throw new ApiError(400, "phone_update_failed", error.message);
-    }
+    await this.authRequest(
+      "/user",
+      {
+        method: "PUT",
+        body: JSON.stringify({ phone: input.phone }),
+      },
+      input.accessToken,
+    );
     return { status: "pending_phone_verification" };
   }
 
   async verifyPhone(phone: string, token: string): Promise<AuthSessionPayload> {
-    const { data, error } = await supabaseAnonClient.auth.verifyOtp({ phone, token, type: "sms" });
-    if (error || !data.user) {
-      throw new ApiError(400, "phone_verification_failed", error?.message ?? "Phone verification failed");
+    const data = await this.authRequest<{
+      user?: { id: string };
+      access_token?: string;
+      refresh_token?: string;
+      expires_in?: number;
+      token_type?: string;
+    }>("/verify", {
+      method: "POST",
+      body: JSON.stringify({ phone, token, type: "sms" }),
+    });
+
+    if (!data.user) {
+      throw new ApiError(400, "phone_verification_failed", "Phone verification failed");
     }
 
     const user = await this.userRepository.markFullyVerified(data.user.id);
     return {
-      session: data.session
+      session: data.access_token
         ? {
-            access_token: data.session.access_token,
-            refresh_token: data.session.refresh_token,
-            expires_in: data.session.expires_in,
-            token_type: data.session.token_type,
+            access_token: data.access_token,
+            refresh_token: data.refresh_token ?? "",
+            expires_in: data.expires_in,
+            token_type: data.token_type,
           }
         : null,
       user,
@@ -66,9 +138,19 @@ export class AuthService {
   }
 
   async login(email: string, password: string): Promise<AuthSessionPayload> {
-    const { data, error } = await supabaseAnonClient.auth.signInWithPassword({ email, password });
-    if (error || !data.user) {
-      throw new ApiError(400, "login_failed", error?.message ?? "Login failed");
+    const data = await this.authRequest<{
+      user?: { id: string };
+      access_token?: string;
+      refresh_token?: string;
+      expires_in?: number;
+      token_type?: string;
+    }>("/token?grant_type=password", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!data.user) {
+      throw new ApiError(400, "login_failed", "Login failed");
     }
 
     const user = await this.userRepository.findById(data.user.id);
@@ -80,12 +162,12 @@ export class AuthService {
     }
 
     return {
-      session: data.session
+      session: data.access_token
         ? {
-            access_token: data.session.access_token,
-            refresh_token: data.session.refresh_token,
-            expires_in: data.session.expires_in,
-            token_type: data.session.token_type,
+            access_token: data.access_token,
+            refresh_token: data.refresh_token ?? "",
+            expires_in: data.expires_in,
+            token_type: data.token_type,
           }
         : null,
       user,
@@ -93,27 +175,23 @@ export class AuthService {
   }
 
   async logout(accessToken: string): Promise<{ status: string }> {
-    const client = createSupabaseClient(accessToken);
-    const { error } = await client.auth.signOut();
-    if (error) {
-      throw new ApiError(400, "logout_failed", error.message);
-    }
+    await this.authRequest("/logout", { method: "POST" }, accessToken);
     return { status: "signed_out" };
   }
 
   async resendEmailOtp(email: string): Promise<{ status: string }> {
-    const { error } = await supabaseAnonClient.auth.resend({ type: "signup", email });
-    if (error) {
-      throw new ApiError(400, "resend_failed", error.message);
-    }
+    await this.authRequest("/resend", {
+      method: "POST",
+      body: JSON.stringify({ type: "signup", email }),
+    });
     return { status: "email_otp_resent" };
   }
 
   async resendPhoneOtp(phone: string): Promise<{ status: string }> {
-    const { error } = await supabaseAnonClient.auth.resend({ type: "sms", phone });
-    if (error) {
-      throw new ApiError(400, "resend_failed", error.message);
-    }
+    await this.authRequest("/resend", {
+      method: "POST",
+      body: JSON.stringify({ type: "sms", phone }),
+    });
     return { status: "phone_otp_resent" };
   }
 }

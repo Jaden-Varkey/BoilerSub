@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Verify Phone | BoilerSub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Manrope:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#002e7d",
+                      "primary-fixed-dim": "#efd8a5",
+                      "on-tertiary": "#ffefeb",
+                      "surface-dim": "#d6d4d3",
+                      "tertiary-fixed-dim": "#fe7e4f",
+                      "on-surface": "#2f2f2e",
+                      "on-secondary-fixed-variant": "#0048b9",
+                      "error-dim": "#b92902",
+                      "secondary-container": "#c3d0ff",
+                      "surface-tint": "#6a5a32",
+                      "secondary-dim": "#0047b7",
+                      "on-primary-fixed": "#50411b",
+                      "surface-variant": "#dfdcdc",
+                      "surface-container-high": "#e4e2e1",
+                      "on-error": "#ffefec",
+                      "on-tertiary-fixed": "#320a00",
+                      "on-secondary": "#f1f2ff",
+                      "tertiary-container": "#ff946e",
+                      "inverse-on-surface": "#9e9c9c",
+                      "surface-container-highest": "#dfdcdc",
+                      "surface": "#f9f6f5",
+                      "background": "#f9f6f5",
+                      "on-surface-variant": "#5c5b5b",
+                      "on-primary": "#fff1d9",
+                      "secondary-fixed": "#c3d0ff",
+                      "on-secondary-container": "#0040a5",
+                      "on-primary-fixed-variant": "#6e5d35",
+                      "secondary-fixed-dim": "#afc2ff",
+                      "primary-fixed": "#fee6b2",
+                      "surface-bright": "#f9f6f5",
+                      "on-error-container": "#520c00",
+                      "surface-container-low": "#f3f0ef",
+                      "error-container": "#f95630",
+                      "error": "#b02500",
+                      "on-background": "#2f2f2e",
+                      "outline": "#787676",
+                      "outline-variant": "#afadac",
+                      "primary": "#6a5a32",
+                      "primary-container": "#fee6b2",
+                      "on-tertiary-container": "#5c1a00",
+                      "surface-container": "#eae7e7",
+                      "on-primary-container": "#64532c",
+                      "tertiary-fixed": "#ff946e",
+                      "primary-dim": "#5e4e27",
+                      "inverse-primary": "#fee6b2",
+                      "inverse-surface": "#0e0e0e",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary": "#0052d0",
+                      "on-tertiary-fixed-variant": "#6b1f00",
+                      "tertiary-dim": "#902e02",
+                      "tertiary": "#a03a0f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Plus Jakarta Sans"],
+                      "body": ["Manrope"],
+                      "label": ["Manrope"]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .otp-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #0052d026;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen flex flex-col">
+<!-- TopNavBar Suppression: Page is task-focused/transactional -->
+<main class="flex-grow flex items-center justify-center px-6 py-12 relative overflow-hidden">
+<!-- Asymmetric Background Elements -->
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-primary-container/30 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-24 -left-24 w-80 h-80 bg-secondary-container/20 rounded-full blur-3xl"></div>
+<div class="max-w-2xl w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
+<!-- Left Branding Column (Editorial Hook) -->
+<div class="md:col-span-5 hidden md:flex flex-col space-y-6">
+<span class="text-primary font-headline font-black tracking-tighter text-4xl">BoilerSub</span>
+<div class="space-y-4">
+<h2 class="font-headline text-3xl font-bold tracking-tight text-on-surface leading-tight">
+                        Securing the <span class="text-secondary">Boilermaker</span> Network.
+                    </h2>
+<p class="text-on-surface-variant text-sm leading-relaxed max-w-xs">
+                        Verification ensures that our community remains exclusive to verified Purdue students and alumni.
+                    </p>
+</div>
+<!-- Trust Badge -->
+<div class="flex items-center space-y-1">
+<div class="bg-surface-container-high px-4 py-2 rounded-xl flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="verified_user">verified_user</span>
+<div>
+<p class="text-[10px] font-bold tracking-widest uppercase text-on-surface-variant">Step 2: Account Security</p>
+<p class="text-xs font-semibold text-on-surface">Verified Identity</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Verification Module (Glassmorphic) -->
+<div class="md:col-span-7">
+<div class="glass-panel p-8 md:p-10 rounded-[2rem] shadow-[0_12px_32px_rgba(0,0,0,0.06)] border border-white/40">
+<!-- Mobile Branding -->
+<div class="md:hidden mb-8">
+<span class="text-primary font-headline font-black tracking-tighter text-2xl">BoilerSub</span>
+</div>
+<div class="space-y-2 mb-8">
+<h1 class="font-headline text-2xl md:text-3xl font-extrabold tracking-tight text-on-surface">Verify your Purdue phone</h1>
+<p class="text-on-surface-variant text-sm md:text-base">A 6-digit code was sent to <span class="font-semibold text-on-surface">student@purdue.edu</span></p>
+</div>
+<form class="space-y-8">
+<!-- OTP Input Group -->
+<div class="grid grid-cols-6 gap-2 md:gap-3">
+<input aria-label="Digit 1" class="otp-input w-full aspect-square text-center text-2xl font-bold rounded-xl bg-surface-container-highest border-none focus:ring-2 focus:ring-secondary transition-all" maxlength="1" type="text"/>
+<input aria-label="Digit 2" class="otp-input w-full aspect-square text-center text-2xl font-bold rounded-xl bg-surface-container-highest border-none focus:ring-2 focus:ring-secondary transition-all" maxlength="1" type="text"/>
+<input aria-label="Digit 3" class="otp-input w-full aspect-square text-center text-2xl font-bold rounded-xl bg-surface-container-highest border-none focus:ring-2 focus:ring-secondary transition-all" maxlength="1" type="text"/>
+<input aria-label="Digit 4" class="otp-input w-full aspect-square text-center text-2xl font-bold rounded-xl bg-surface-container-highest border-none focus:ring-2 focus:ring-secondary transition-all" maxlength="1" type="text"/>
+<input aria-label="Digit 5" class="otp-input w-full aspect-square text-center text-2xl font-bold rounded-xl bg-surface-container-highest border-none focus:ring-2 focus:ring-secondary transition-all" maxlength="1" type="text"/>
+<input aria-label="Digit 6" class="otp-input w-full aspect-square text-center text-2xl font-bold rounded-xl bg-surface-container-highest border-none focus:ring-2 focus:ring-secondary transition-all" maxlength="1" type="text"/>
+</div>
+<!-- Primary Action -->
+<div class="space-y-4">
+<button class="w-full py-4 bg-gradient-to-r from-secondary to-secondary-dim text-on-secondary font-bold rounded-xl shadow-lg hover:shadow-secondary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2" type="submit">
+                                Verify Phone
+                                <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<div class="flex flex-col items-center gap-2">
+<button class="text-sm font-semibold text-secondary hover:text-on-secondary-fixed-variant transition-colors flex items-center gap-1 group" type="button">
+                                    Resend Code
+                                    <span class="text-on-surface-variant font-normal">(00:59)</span>
+</button>
+<div class="flex items-center gap-2 text-[11px] font-medium text-on-surface-variant/70 uppercase tracking-widest">
+<span class="material-symbols-outlined text-[14px]" data-icon="info">info</span>
+                                    Next step: Phone verification
+                                </div>
+</div>
+</div>
+</form>
+<!-- Trust Footer (Mobile Only) -->
+<div class="mt-8 pt-8 border-t border-surface-variant md:hidden">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-lg" data-icon="lock" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Step 2: Account Security</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Simple Footer for transactional pages -->
+<footer class="w-full py-8 px-8 bg-surface-container-low">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<span class="font-['Manrope'] text-sm tracking-wide text-stone-500 dark:text-stone-400">© 2024 BoilerSub. A Purdue Student Initiative.</span>
+<div class="flex gap-6">
+<a class="text-stone-500 hover:text-blue-500 transition-colors text-sm" href="#">Privacy Policy</a>
+<a class="text-stone-500 hover:text-blue-500 transition-colors text-sm" href="#">Support</a>
+</div>
+</div>
+</footer>
+</body></html>

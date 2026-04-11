@@ -30,10 +30,19 @@ async function main(): Promise<void> {
     });
 
     if (error) {
-      throw error;
-    }
-
-    if (data.user?.id) {
+      if (error.status === 422 && error.code === "email_exists") {
+        const { data: listData, error: listError } = await service.auth.admin.listUsers();
+        if (listError) throw listError;
+        const existingUser = listData.users.find((u) => u.email === user.email);
+        if (existingUser) {
+          user.id = existingUser.id;
+        } else {
+          throw new Error(`User with email ${user.email} exists but could not be found in listUsers.`);
+        }
+      } else {
+        throw error;
+      }
+    } else if (data.user?.id) {
       user.id = data.user.id;
     }
   }

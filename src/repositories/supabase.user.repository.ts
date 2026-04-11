@@ -132,7 +132,7 @@ export class SupabaseUserRepository implements UserRepository {
   async markFullyVerified(id: string): Promise<UserRecord> {
     const { data, error } = await supabaseAdmin
       .from("users")
-      .update({ phone_verified: true, fully_verified: true })
+      .update({ email_verified: true, phone_verified: true, fully_verified: true })
       .eq("id", id)
       .select(userSelect)
       .single();

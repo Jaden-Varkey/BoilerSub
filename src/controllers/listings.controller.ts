@@ -68,7 +68,7 @@ export function createListingsController(listingsService: ListingsService) {
           throw new ApiError(401, "unauthorized", "Missing authenticated user");
         }
         await listingsService.delete(request.user, id);
-        respond(res, { status: "deleted" });
+        respond(res, { ok: true });
       } catch (error) {
         next(error);
       }

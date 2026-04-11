@@ -10,6 +10,7 @@ function toPublicUser(user: UserRecord): PublicUser {
     full_name: user.full_name,
     bio: user.bio,
     role: user.role,
+    fully_verified: user.fully_verified,
     created_at: user.created_at,
     updated_at: user.updated_at,
   };

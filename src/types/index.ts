@@ -31,7 +31,7 @@ export type AppUser = UserRecord;
 
 export type PublicUser = Pick<
   UserRecord,
-  "id" | "email" | "phone" | "full_name" | "bio" | "role" | "created_at" | "updated_at"
+  "id" | "email" | "phone" | "full_name" | "bio" | "role" | "fully_verified" | "created_at" | "updated_at"
 >;
 
 export type ListingRecord = {

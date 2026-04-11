@@ -1,26 +1,11 @@
 import type { RequestHandler } from "express";
 import { sendSuccess } from "../lib/envelope.js";
 import { asyncHandler } from "../middleware/asyncHandler.js";
-import type { AuthenticatedRequest, PublicUser } from "../types/index.js";
+import type { AuthenticatedRequest } from "../types/index.js";
 import type { AuthService } from "../services/auth.service.js";
 
 function send<T>(res: Parameters<RequestHandler>[1], statusCode: number, data: T) {
   return sendSuccess(res, data, statusCode);
-}
-
-function publicUserFromRequest(req: AuthenticatedRequest): PublicUser | null {
-  return req.user
-    ? {
-        id: req.user.id,
-        email: req.user.email,
-        phone: req.user.phone,
-        full_name: req.user.full_name,
-        bio: req.user.bio,
-        role: req.user.role,
-        created_at: req.user.created_at,
-        updated_at: req.user.updated_at,
-      }
-    : null;
 }
 
 export function createAuthController(authService: AuthService) {
@@ -69,7 +54,7 @@ export function createAuthController(authService: AuthService) {
     }),
 
     me: asyncHandler(async (req, res) => {
-      send(res, 200, publicUserFromRequest(req as AuthenticatedRequest));
+      send(res, 200, { user: (req as AuthenticatedRequest).user });
     }),
   };
 }
