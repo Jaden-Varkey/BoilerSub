@@ -170,13 +170,6 @@ export default function ListingDetailPage() {
                     <span>🖼</span>
                     {images.length} Photo{images.length === 1 ? "" : "s"}
                   </button>
-                  <button
-                    className="flex items-center gap-2 rounded-lg bg-[#f9f6f5]/90 px-4 py-2 text-sm font-bold backdrop-blur-md transition-all hover:bg-[#f9f6f5]"
-                    onClick={openBlank3DView}
-                  >
-                    <span>◧</span>
-                    3D
-                  </button>
                 </div>
               </div>
 
@@ -331,6 +324,15 @@ export default function ListingDetailPage() {
         onConfirm={async () => {
           if (!listing) {
             return;
+          }
+          await apiClient.listings.delete(listing.id);
+          router.push("/listings");
+        }}
+      />
+    </>
+  );
+}
+      return;
           }
           await apiClient.listings.delete(listing.id);
           router.push("/listings");
