@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profile | BoilerSub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#fee6b2",
+                    "on-primary-fixed-variant": "#6e5d35",
+                    "surface-container-high": "#e4e2e1",
+                    "surface-variant": "#dfdcdc",
+                    "on-tertiary-fixed": "#320a00",
+                    "tertiary-fixed-dim": "#fe7e4f",
+                    "on-secondary-fixed-variant": "#0048b9",
+                    "surface-container": "#eae7e7",
+                    "on-surface-variant": "#5c5b5b",
+                    "primary-container": "#fee6b2",
+                    "on-secondary-container": "#0040a5",
+                    "on-error": "#ffefec",
+                    "error": "#b02500",
+                    "tertiary-dim": "#902e02",
+                    "on-primary-fixed": "#50411b",
+                    "surface-container-highest": "#dfdcdc",
+                    "tertiary-fixed": "#ff946e",
+                    "on-surface": "#2f2f2e",
+                    "background": "#f9f6f5",
+                    "on-background": "#2f2f2e",
+                    "on-primary": "#fff1d9",
+                    "on-tertiary": "#ffefeb",
+                    "on-secondary-fixed": "#002e7d",
+                    "secondary-container": "#c3d0ff",
+                    "surface-dim": "#d6d4d3",
+                    "surface": "#f9f6f5",
+                    "primary-dim": "#5e4e27",
+                    "tertiary-container": "#ff946e",
+                    "primary-fixed-dim": "#efd8a5",
+                    "surface-container-low": "#f3f0ef",
+                    "inverse-on-surface": "#9e9c9c",
+                    "secondary-dim": "#0047b7",
+                    "tertiary": "#a03a0f",
+                    "surface-tint": "#6a5a32",
+                    "surface-bright": "#f9f6f5",
+                    "outline": "#787676",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed-dim": "#afc2ff",
+                    "error-dim": "#b92902",
+                    "on-primary-container": "#64532c",
+                    "on-secondary": "#f1f2ff",
+                    "on-tertiary-fixed-variant": "#6b1f00",
+                    "on-tertiary-container": "#5c1a00",
+                    "error-container": "#f95630",
+                    "primary": "#6a5a32",
+                    "outline-variant": "#afadac",
+                    "on-error-container": "#520c00",
+                    "inverse-primary": "#fee6b2",
+                    "secondary-fixed": "#c3d0ff",
+                    "secondary": "#0052d0",
+                    "inverse-surface": "#0e0e0e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(249, 246, 245, 0.7);
+            backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#f9f6f5]/70 backdrop-blur-xl shadow-[0px_12px_32px_rgba(0,0,0,0.06)]">
+<div class="flex justify-between items-center px-6 py-4 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black italic text-[#6a5a32] font-headline tracking-tight">BoilerSub</span>
+<div class="hidden md:flex gap-6 font-headline text-sm font-semibold">
+<a class="text-stone-500 hover:bg-stone-200/50 transition-all px-3 py-1 rounded-lg" href="#">Explore</a>
+<a class="text-stone-500 hover:bg-stone-200/50 transition-all px-3 py-1 rounded-lg" href="#">Saved</a>
+<a class="text-stone-500 hover:bg-stone-200/50 transition-all px-3 py-1 rounded-lg" href="#">Messages</a>
+<a class="text-[#0052d0] font-bold border-b-2 border-[#0052d0] px-3 py-1" href="#">Profile</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex bg-surface-container-highest rounded-full px-4 py-2 items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-lg" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48" placeholder="Search subleases..." type="text"/>
+</div>
+<button class="p-2 hover:bg-stone-200/50 rounded-full transition-all">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 hover:bg-stone-200/50 rounded-full transition-all">
+<span class="material-symbols-outlined text-primary" data-icon="tune">tune</span>
+</button>
+<img alt="Student avatar" class="w-10 h-10 rounded-full object-cover ring-2 ring-primary/20" data-alt="Close up portrait of a confident university student smiling outdoors on a bright college campus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDaSnqTEKQsTs52N4G1oYeTM-0SLEdY1p5R-md48HgFy1yEVAbhas0lWx6Ddb6zwr0M8zjj8jds-JypN1ha69cQLp45rYkr2GaC1dRWjcIdhitOnibWmTvyUG3-sQMQMdRuljLqAjUb098z8Nxm25gQXq_U3eTDP71qSv1fK1mCfZXuuhwdmE0YRnGWc4HbGTDWya9Dfgo2lRuJ-84ZITlsIrM_xACKqGb6ibPATf0iS9dTER1PMDDBVgFfr-QJRNiJjzeccu9R_7q"/>
+</div>
+</div>
+</nav>
+<main class="pt-28 pb-24 px-6 max-w-screen-2xl mx-auto">
+<!-- Editorial Heading -->
+<header class="mb-12">
+<h1 class="text-6xl font-black font-headline tracking-tighter text-on-surface">My Profile</h1>
+<p class="text-on-surface-variant mt-2 text-lg">Manage your Boilermaker identity and listings.</p>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+<!-- Profile Main Canvas -->
+<div class="md:col-span-8 space-y-8">
+<!-- Profile Header Card -->
+<section class="bg-surface-container-lowest p-8 rounded-[2rem] shadow-[0px_12px_32px_rgba(0,0,0,0.04)] relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+<div class="flex flex-col md:flex-row items-center md:items-start gap-8 relative z-10">
+<div class="relative">
+<img alt="Profile avatar" class="w-40 h-40 rounded-[2.5rem] object-cover shadow-xl" data-alt="High resolution professional headshot of a smiling young man in a casual sweater against a soft natural background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCHJpE5p1_29TQDg4BICkX9VjBGcxiqPZJ_XGa_zp5QYrx1g1Vza-z_nNb0cB5BuwrDTY2ETh9uCEnDXqSYKoG2e-5C2KXWQVCeqRM99j-y-FjP4yIit3EHn3DwzaZVx19_q5hdNImeEXZwa6aB-pQExNqS_7AQ6VdoqymXh7hwu2vHJEDK1onPT3B-5YBTZ7-88mmY7TgCfOdfMofSdOphRB-jnyirdcMyu7Gqh_qn4b6M5v1NrrflUvnN6G2kkVsSdukWxx1TeNQ"/>
+<div class="absolute -bottom-2 -right-2 bg-white p-2 rounded-2xl shadow-lg">
+<span class="material-symbols-outlined text-secondary text-2xl" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<div class="flex-1 text-center md:text-left">
+<div class="flex flex-col md:flex-row md:items-center gap-3 mb-4">
+<h2 class="text-4xl font-bold font-headline">Leo Thompson</h2>
+<span class="inline-flex items-center px-4 py-1.5 rounded-full bg-primary-container text-on-primary-container text-xs font-bold font-label tracking-widest uppercase">
+                                    Verified Purdue Student
+                                </span>
+</div>
+<div class="flex flex-wrap justify-center md:justify-start gap-3 mt-6">
+<span class="bg-surface-container-high px-4 py-2 rounded-full text-xs font-bold font-label flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                    Email Verified
+                                </span>
+<span class="bg-surface-container-high px-4 py-2 rounded-full text-xs font-bold font-label flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                    Phone Verified
+                                </span>
+<span class="bg-tertiary-container text-on-tertiary-container px-4 py-2 rounded-full text-xs font-bold font-label flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="stars" style="font-variation-settings: 'FILL' 1;">stars</span>
+                                    Fully Verified
+                                </span>
+</div>
+</div>
+</div>
+</section>
+<!-- Information Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Read-only Security -->
+<div class="bg-surface-container-low p-8 rounded-[2rem] space-y-6">
+<h3 class="text-lg font-bold font-headline mb-4">Security &amp; Verification</h3>
+<div class="space-y-4">
+<div class="flex flex-col">
+<label class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant mb-1">Purdue Email</label>
+<div class="flex items-center justify-between group">
+<span class="text-on-surface font-medium">lthompson@purdue.edu</span>
+<span class="material-symbols-outlined text-secondary opacity-50" data-icon="lock">lock</span>
+</div>
+</div>
+<div class="flex flex-col">
+<label class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant mb-1">Mobile Number</label>
+<div class="flex items-center justify-between">
+<span class="text-on-surface font-medium">•••-•••-1234</span>
+<span class="material-symbols-outlined text-secondary opacity-50" data-icon="verified_user">verified_user</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Activity Preview -->
+<div class="bg-surface-container-low p-8 rounded-[2rem] flex flex-col justify-between">
+<div>
+<h3 class="text-lg font-bold font-headline mb-2">Marketplace Activity</h3>
+<p class="text-sm text-on-surface-variant">Your current presence on BoilerSub.</p>
+</div>
+<div class="mt-6 flex items-baseline gap-2">
+<span class="text-6xl font-black font-headline text-primary">02</span>
+<span class="text-on-surface-variant font-bold uppercase tracking-tighter">Active Listings</span>
+</div>
+</div>
+</div>
+<!-- Editable Fields -->
+<section class="bg-surface-container-low p-8 rounded-[2rem] space-y-8">
+<h3 class="text-lg font-bold font-headline">Profile Details</h3>
+<div class="space-y-6">
+<div class="group">
+<label class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant mb-2 block">Full Name</label>
+<input class="w-full bg-surface-container-highest border-none rounded-xl py-4 px-6 focus:ring-2 focus:ring-secondary/20 transition-all font-medium" type="text" value="Leo Thompson"/>
+</div>
+<div class="group">
+<label class="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant mb-2 block">Bio</label>
+<textarea class="w-full bg-surface-container-highest border-none rounded-xl py-4 px-6 focus:ring-2 focus:ring-secondary/20 transition-all font-medium resize-none" rows="4">Senior at Krannert. Looking for a quiet place near Discovery Park for the Spring semester. Clean, organized, and focused on my capstone project.</textarea>
+</div>
+</div>
+<div class="pt-4">
+<button class="bg-secondary hover:bg-secondary-dim text-on-secondary px-8 py-4 rounded-xl font-bold transition-all flex items-center gap-3 shadow-lg shadow-secondary/20">
+<span>Save Changes</span>
+<span class="material-symbols-outlined" data-icon="save">save</span>
+</button>
+</div>
+</section>
+</div>
+<!-- Sidebar Actions & Trust -->
+<aside class="md:col-span-4 space-y-6">
+<!-- Trust Panel -->
+<div class="bg-primary/5 p-8 rounded-[2rem] border border-primary/10 relative overflow-hidden">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" data-icon="gpp_good" style="font-variation-settings: 'FILL' 1;">gpp_good</span>
+<h4 class="text-xl font-bold font-headline text-primary mb-2">Boiler Trust</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                            Verified BoilerSub members build trust faster and receive 4x more inquiries on their subleases. Keep your profile updated to maintain your student status.
+                        </p>
+</div>
+</div>
+<!-- Action Menu -->
+<div class="bg-surface-container-low p-4 rounded-[2rem] space-y-1">
+<a class="flex items-center gap-4 p-4 rounded-2xl hover:bg-surface-container-high transition-all text-on-surface group" href="#">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform" data-icon="list_alt">list_alt</span>
+<span class="font-bold">My Listings</span>
+<span class="ml-auto material-symbols-outlined text-sm opacity-30" data-icon="chevron_right">chevron_right</span>
+</a>
+<a class="flex items-center gap-4 p-4 rounded-2xl hover:bg-surface-container-high transition-all text-on-surface group" href="#">
+<span class="material-symbols-outlined text-primary" data-icon="payments">payments</span>
+<span class="font-bold">Payout Methods</span>
+<span class="ml-auto material-symbols-outlined text-sm opacity-30" data-icon="chevron_right">chevron_right</span>
+</a>
+<a class="flex items-center gap-4 p-4 rounded-2xl hover:bg-surface-container-high transition-all text-on-surface group" href="#">
+<span class="material-symbols-outlined text-primary" data-icon="settings">settings</span>
+<span class="font-bold">Account Settings</span>
+<span class="ml-auto material-symbols-outlined text-sm opacity-30" data-icon="chevron_right">chevron_right</span>
+</a>
+<div class="h-px bg-surface-variant mx-4 my-2"></div>
+<button class="w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-error-container/10 transition-all text-error group text-left">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-bold">Log Out</span>
+</button>
+</div>
+<!-- Support Card -->
+<div class="bg-secondary-container/30 p-8 rounded-[2rem]">
+<h5 class="font-bold mb-2">Need help?</h5>
+<p class="text-sm text-on-surface-variant mb-4">Our support team is available for students 24/7.</p>
+<button class="text-secondary font-bold text-sm flex items-center gap-2 hover:underline">
+                        Contact Support <span class="material-symbols-outlined text-sm" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+</aside>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-[#f9f6f5]/70 backdrop-blur-xl shadow-[0px_-8px_24px_rgba(0,0,0,0.04)] rounded-t-[1.5rem] z-50">
+<button class="flex flex-col items-center justify-center text-stone-400 px-5 py-2 hover:text-[#6a5a32] transition-colors active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-['Manrope'] text-[10px] uppercase tracking-[0.1em] font-bold mt-1">Explore</span>
+</button>
+<button class="flex flex-col items-center justify-center text-stone-400 px-5 py-2 hover:text-[#6a5a32] transition-colors active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span class="font-['Manrope'] text-[10px] uppercase tracking-[0.1em] font-bold mt-1">Saved</span>
+</button>
+<button class="flex flex-col items-center justify-center text-stone-400 px-5 py-2 hover:text-[#6a5a32] transition-colors active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-['Manrope'] text-[10px] uppercase tracking-[0.1em] font-bold mt-1">Messages</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-[#0052d0] text-white rounded-2xl px-5 py-2 active:scale-90 duration-300">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Manrope'] text-[10px] uppercase tracking-[0.1em] font-bold mt-1">Profile</span>
+</button>
+</nav>
+</body></html>

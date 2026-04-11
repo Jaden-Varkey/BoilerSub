@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Browse Subleases | BoilerSub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e4e2e1",
+                    "background": "#f9f6f5",
+                    "tertiary": "#a03a0f",
+                    "primary-fixed": "#fee6b2",
+                    "inverse-on-surface": "#9e9c9c",
+                    "inverse-primary": "#fee6b2",
+                    "surface-container": "#eae7e7",
+                    "on-tertiary-fixed-variant": "#6b1f00",
+                    "surface": "#f9f6f5",
+                    "on-error": "#ffefec",
+                    "secondary-dim": "#0047b7",
+                    "outline": "#787676",
+                    "on-secondary-container": "#0040a5",
+                    "error": "#b02500",
+                    "inverse-surface": "#0e0e0e",
+                    "secondary-container": "#c3d0ff",
+                    "on-error-container": "#520c00",
+                    "on-tertiary-fixed": "#320a00",
+                    "outline-variant": "#afadac",
+                    "on-tertiary-container": "#5c1a00",
+                    "on-primary": "#fff1d9",
+                    "primary": "#6a5a32",
+                    "surface-container-low": "#f3f0ef",
+                    "primary-container": "#fee6b2",
+                    "tertiary-dim": "#902e02",
+                    "on-primary-fixed": "#50411b",
+                    "on-secondary-fixed-variant": "#0048b9",
+                    "error-container": "#f95630",
+                    "on-secondary": "#f1f2ff",
+                    "on-primary-fixed-variant": "#6e5d35",
+                    "primary-dim": "#5e4e27",
+                    "surface-bright": "#f9f6f5",
+                    "tertiary-container": "#ff946e",
+                    "on-primary-container": "#64532c",
+                    "tertiary-fixed": "#ff946e",
+                    "surface-dim": "#d6d4d3",
+                    "surface-tint": "#6a5a32",
+                    "on-surface": "#2f2f2e",
+                    "surface-container-highest": "#dfdcdc",
+                    "on-background": "#2f2f2e",
+                    "secondary-fixed": "#c3d0ff",
+                    "tertiary-fixed-dim": "#fe7e4f",
+                    "on-surface-variant": "#5c5b5b",
+                    "on-secondary-fixed": "#002e7d",
+                    "surface-variant": "#dfdcdc",
+                    "on-tertiary": "#ffefeb",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#0052d0",
+                    "primary-fixed-dim": "#efd8a5",
+                    "secondary-fixed-dim": "#afc2ff",
+                    "error-dim": "#b92902"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow { box-shadow: 0px 12px 32px rgba(0,0,0,0.06); }
+        .glass-nav { backdrop-filter: blur(24px); }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .map-marker { filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.15)); }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased overflow-hidden h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#f9f6f5]/70 backdrop-blur-xl flex justify-between items-center px-8 py-4 max-w-full shadow-[0px_12px_32px_rgba(0,0,0,0.06)] h-20">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black tracking-tighter text-[#6a5a32] dark:text-white">BoilerSub</span>
+<div class="hidden md:flex items-center gap-6">
+<a class="text-[#0052d0] font-bold border-b-2 border-[#0052d0] pb-1 text-xs tracking-widest uppercase font-label" href="#">Browse</a>
+<a class="text-gray-600 font-medium hover:text-[#0052d0] transition-colors duration-300 text-xs tracking-widest uppercase font-label" href="#">List Your Sublease</a>
+<a class="text-gray-600 font-medium hover:text-[#0052d0] transition-colors duration-300 text-xs tracking-widest uppercase font-label" href="#">Profile</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-white/20 transition-colors duration-300 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<button class="p-2 hover:bg-white/20 transition-colors duration-300 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant">favorite</span>
+</button>
+<img alt="Student profile avatar" class="w-10 h-10 rounded-full object-cover editorial-shadow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQ7IqzAGFRXKRLZVBJ8rlvNU81-s7B5S-EJDkRvuA3f221ieyYZe7P774JklM7aQe3YhcSBViBG62VM8BSlisd7zn_iuTHzz4gLBVv3KLtp9hnuzHpSZvbgnmXQ4d0gCaPSXLeYKZrSuFos8wuHucwjz1YzVk5HOtXtySTMM1I0EfZ2_C7Zy8LIxUc4x2p71Lsn94djKgjGvWCDeKb9WdlLKsNbe8yQKSdSnYIhUjamGhLoeUdu4hEbZH93bocdolDYnChw5E-GB_n"/>
+</div>
+</nav>
+<!-- Main Split Screen Content -->
+<main class="flex-grow flex pt-20 h-screen overflow-hidden">
+<!-- Left Side: Scrollable Listings -->
+<div class="w-full lg:w-[60%] overflow-y-auto px-6 py-8 scrollbar-hide">
+<!-- Hero/Header in scroll area -->
+<header class="mb-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter text-on-surface mb-1">Available Subleases</h1>
+<p class="text-lg text-on-surface-variant font-medium">Curated, trusted, Purdue-only marketplace.</p>
+</div>
+</div>
+</header>
+<!-- Kinetic Filters -->
+<section class="mb-8 flex flex-wrap items-center gap-3">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-highest rounded-full">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+<span class="font-label text-[10px] font-bold tracking-widest uppercase">Filters</span>
+</div>
+<div class="flex gap-2 overflow-x-auto scrollbar-hide">
+<button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-surface-container-lowest editorial-shadow text-on-surface text-xs font-semibold hover:bg-secondary-container transition-colors">Quiet Study</button>
+<button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-secondary text-on-secondary editorial-shadow text-xs font-semibold">Near Campus</button>
+<button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-surface-container-lowest editorial-shadow text-on-surface text-xs font-semibold hover:bg-secondary-container transition-colors">Gym Access</button>
+<button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-surface-container-lowest editorial-shadow text-on-surface text-xs font-semibold hover:bg-secondary-container transition-colors">Pet Friendly</button>
+</div>
+</section>
+<!-- Listing Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Card 1 -->
+<article class="group bg-surface-container-lowest rounded-[1.5rem] overflow-hidden editorial-shadow transition-transform duration-300 hover:-translate-y-1">
+<div class="relative h-56 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpAqjzYoW6JBV5yjgYfOhQ62pV2ml7E-e7et6z8mlznGZJS1_vAw0mMrHGI0SuNuBHSyPKhAGPVgk7uZ-2xLbw591ELSf7KsBffSgnXRtv76gu-fjWXkS9nL5I-lUC11j7Z-rzNn6dxNSp1uHI1N5s999Exn8skOP-OWnD_zSSOJGje08X3rUhQlgtwOl5d7mAMs2P9-aPG7CcQ9QiTLyf2w8CS2hpeSn-56KAuWAPR8kwr4gVQ-6RKCbRJcugWtmlUHdx4DsFqZwp"/>
+<div class="absolute top-4 left-4 flex gap-2">
+<span class="px-3 py-1 bg-tertiary-container text-on-tertiary-container rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+                            Available Now
+                        </span>
+</div>
+<div class="absolute bottom-4 left-4">
+<span class="px-3 py-1 bg-white/70 backdrop-blur-md rounded-lg text-secondary text-[10px] font-black uppercase tracking-widest flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">3d_rotation</span>
+                            3D View
+                        </span>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold tracking-tight text-on-surface group-hover:text-secondary transition-colors leading-tight">Luxury Studio near Chauncey</h3>
+<div class="text-right">
+<span class="block text-2xl font-black text-primary leading-none">$850</span>
+<span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">/ month</span>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base">calendar_month</span>
+<span class="text-xs font-medium">Spring 2025</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base">bed</span>
+<span class="text-xs font-medium">1 Bed / 1 Bath</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant/80">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span class="text-xs">201 S Chauncey Ave, West Lafayette</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="group bg-surface-container-lowest rounded-[1.5rem] overflow-hidden editorial-shadow transition-transform duration-300 hover:-translate-y-1">
+<div class="relative h-56 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASik-WE3fz7hdywsQGKR4TzEdzrSOnUq5AvdPxKOwb0WRja6z1tF4phzUJWMWmaH2D-k-H7ojcSZ6kkIEXPm-DNzTItX9zCiQQTfDMP-y97wQ0dRfeAK3HDzHGWn45lzWL9LAESSKNjy9zlVkqK_0u3iIGmgUwWRuCXzEeMOnYLotoGMA_g0HJj05CTfHDN4tBva9cGQZNVoD8yHhbNCEb8aEUWFNsEf7f3Vi5dubg3m_ND933us1GL5OGHfKC6t9hrs4xF-xxYQP6"/>
+<div class="absolute bottom-4 left-4">
+<span class="px-3 py-1 bg-white/70 backdrop-blur-md rounded-lg text-secondary text-[10px] font-black uppercase tracking-widest flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">3d_rotation</span>
+                            3D View
+                        </span>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold tracking-tight text-on-surface group-hover:text-secondary transition-colors leading-tight">Aspire at Discovery Park 2BR</h3>
+<div class="text-right">
+<span class="block text-2xl font-black text-primary leading-none">$1,100</span>
+<span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">/ month</span>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base">calendar_month</span>
+<span class="text-xs font-medium">Full Year 24-25</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base">group</span>
+<span class="text-xs font-medium">2 Bed / 2 Bath</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant/80">
+<span class="material-symbols-outlined text-base">location_on</span>
+<span class="text-xs">Discovery Park, West Lafayette</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="group bg-surface-container-lowest rounded-[1.5rem] overflow-hidden editorial-shadow transition-transform duration-300 hover:-translate-y-1">
+<div class="relative h-56 overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8dFGd9MefqXelmIHMh580k1T5pM-7linaGVsMZMmlkk0LZTw8185-OiTCDeKznm0cNFr5w9waFW3NM2tmojdWNTdjVJ7xOszHbY_lHTJgaJiaxVWW_Vzk-NhD2520ri-Atk__tDx80xbdoYVBu6j0lQ8OfFeAjartNlFc8Vr4ZzMCaycER6p9ZDr1MBLN27aRdESl8uL5D2A_C5GcmnEy-I8xwh_hXuxovhr-gu9iXzhAZlj4fIsnhW_7-uthNtgqkW4pVzRirHf5"/>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-xl font-bold tracking-tight text-on-surface group-hover:text-secondary transition-colors leading-tight">Cozy Room in Historic Home</h3>
+<div class="text-right">
+<span class="block text-2xl font-black text-primary leading-none">$650</span>
+<span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">/ month</span>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base">calendar_month</span>
+<span class="text-xs font-medium">Summer 2025</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-base">person</span>
+<span class="text-xs font-medium">1 Bed / Shared</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- CTA Card -->
+<article class="flex flex-col justify-center items-center p-6 bg-secondary-container rounded-[1.5rem] text-center border-2 border-dashed border-secondary/30 relative overflow-hidden group">
+<span class="material-symbols-outlined text-5xl text-secondary mb-3 group-hover:scale-110 transition-transform">add_home</span>
+<h3 class="text-lg font-extrabold text-on-secondary-container mb-1">Have a place to list?</h3>
+<p class="text-[11px] text-on-secondary-container/70 mb-4 font-medium uppercase tracking-wider">Join 2,000+ verified Boilermakers</p>
+<button class="px-6 py-2.5 bg-secondary text-on-secondary rounded-xl font-bold text-sm shadow-lg hover:bg-secondary-dim transition-all">Start Listing</button>
+</article>
+</div>
+<!-- Simple Pagination -->
+<nav class="mt-12 flex justify-center items-center gap-2 pb-12">
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container-low text-on-surface-variant"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-secondary text-on-secondary font-bold text-sm">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container-lowest text-on-surface-variant font-bold text-sm">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-xl bg-surface-container-low text-on-surface-variant"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+</nav>
+</div>
+<!-- Right Side: Large Interactive Map -->
+<div class="hidden lg:block w-[40%] relative bg-gray-200 border-l border-outline-variant">
+<!-- Mock Map Content -->
+<div class="absolute inset-0 bg-[#e5e7eb] overflow-hidden">
+<!-- Simulated Map Background (Satellite/Streets style) -->
+<div class="absolute inset-0 opacity-40 bg-[url('https://www.google.com/maps/vt/pb=!1m4!1m3!1i14!2i4346!3i6244!2m3!1e0!2sm!3i622285108!3m8!2sen!3sus!5e1105!12m4!1e68!2m2!1sset!2sRoadmap!4e0!5m1!1e0!23i4111425')] bg-center bg-cover"></div>
+<!-- Price Markers (Hello Landing Inspired) -->
+<!-- Marker 1 (Chauncey) -->
+<div class="absolute top-[45%] left-[60%] map-marker animate-bounce" style="animation-duration: 3s;">
+<button class="px-4 py-2 bg-[#6a5a32] text-[#fff1d9] rounded-full font-bold text-sm shadow-xl hover:scale-110 transition-transform flex items-center gap-1 border-2 border-white">
+                    $850
+                </button>
+</div>
+<!-- Marker 2 (Discovery Park) -->
+<div class="absolute top-[55%] left-[35%] map-marker">
+<button class="px-4 py-2 bg-secondary text-on-secondary rounded-full font-bold text-sm shadow-xl hover:scale-110 transition-transform flex items-center gap-1 border-2 border-white">
+                    $1,100
+                </button>
+</div>
+<!-- Marker 3 (Grant Street) -->
+<div class="absolute top-[30%] left-[50%] map-marker">
+<button class="px-4 py-2 bg-secondary text-on-secondary rounded-full font-bold text-sm shadow-xl hover:scale-110 transition-transform flex items-center gap-1 border-2 border-white">
+                    $650
+                </button>
+</div>
+<!-- Marker 4 (Hub) -->
+<div class="absolute top-[38%] left-[75%] map-marker">
+<button class="px-4 py-2 bg-secondary text-on-secondary rounded-full font-bold text-sm shadow-xl hover:scale-110 transition-transform flex items-center gap-1 border-2 border-white">
+                    $1,450
+                </button>
+</div>
+<!-- Map UI Controls -->
+<div class="absolute top-6 right-6 flex flex-col gap-2">
+<div class="flex flex-col bg-white rounded-xl shadow-lg overflow-hidden border border-outline-variant">
+<button class="p-3 hover:bg-gray-100 border-b border-gray-200"><span class="material-symbols-outlined">add</span></button>
+<button class="p-3 hover:bg-gray-100"><span class="material-symbols-outlined">remove</span></button>
+</div>
+<button class="p-3 bg-white rounded-xl shadow-lg border border-outline-variant hover:bg-gray-100">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+</div>
+<!-- Bottom Map Badge -->
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2">
+<div class="px-4 py-2 bg-white/90 backdrop-blur-md rounded-full shadow-lg border border-secondary/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-lg">explore</span>
+<span class="text-xs font-bold text-on-surface uppercase tracking-widest">West Lafayette Campus</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Footer (Simplified for Split View) -->
+<footer class="w-full h-16 px-8 bg-[#f9f6f5] border-t border-outline-variant flex justify-between items-center z-50 shrink-0">
+<div class="flex items-center gap-4">
+<span class="text-sm font-bold text-[#6a5a32]">BoilerSub</span>
+<span class="text-[10px] text-gray-400">© 2024</span>
+</div>
+<div class="flex gap-6 items-center">
+<a class="text-[10px] font-bold text-gray-500 hover:text-[#0052d0] uppercase tracking-widest" href="#">Support</a>
+<a class="text-[10px] font-bold text-gray-500 hover:text-[#0052d0] uppercase tracking-widest" href="#">Terms</a>
+<div class="flex items-center gap-1 px-3 py-1 bg-surface-container rounded-full">
+<span class="material-symbols-outlined text-xs text-[#6a5a32]">verified_user</span>
+<span class="text-[9px] font-bold text-[#6a5a32] uppercase tracking-tighter">Verified</span>
+</div>
+</div>
+</footer>
+</body></html>

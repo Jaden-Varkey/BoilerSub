@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>List Your Sublease | BoilerSub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#9e9c9c",
+                      "inverse-surface": "#0e0e0e",
+                      "outline-variant": "#afadac",
+                      "on-tertiary": "#ffefeb",
+                      "on-error": "#ffefec",
+                      "on-background": "#2f2f2e",
+                      "surface-container": "#eae7e7",
+                      "secondary-fixed-dim": "#afc2ff",
+                      "secondary-dim": "#0047b7",
+                      "outline": "#787676",
+                      "error": "#b02500",
+                      "tertiary-fixed-dim": "#fe7e4f",
+                      "on-tertiary-fixed-variant": "#6b1f00",
+                      "on-secondary-fixed-variant": "#0048b9",
+                      "secondary": "#0052d0",
+                      "primary-container": "#fee6b2",
+                      "surface-dim": "#d6d4d3",
+                      "on-tertiary-container": "#5c1a00",
+                      "error-dim": "#b92902",
+                      "on-primary-container": "#64532c",
+                      "surface-variant": "#dfdcdc",
+                      "on-secondary-container": "#0040a5",
+                      "on-secondary-fixed": "#002e7d",
+                      "error-container": "#f95630",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary": "#a03a0f",
+                      "on-secondary": "#f1f2ff",
+                      "on-surface-variant": "#5c5b5b",
+                      "surface-container-high": "#e4e2e1",
+                      "on-primary-fixed-variant": "#6e5d35",
+                      "secondary-fixed": "#c3d0ff",
+                      "tertiary-container": "#ff946e",
+                      "tertiary-fixed": "#ff946e",
+                      "surface": "#f9f6f5",
+                      "surface-bright": "#f9f6f5",
+                      "on-error-container": "#520c00",
+                      "secondary-container": "#c3d0ff",
+                      "background": "#f9f6f5",
+                      "on-primary": "#fff1d9",
+                      "tertiary-dim": "#902e02",
+                      "on-surface": "#2f2f2e",
+                      "on-tertiary-fixed": "#320a00",
+                      "on-primary-fixed": "#50411b",
+                      "surface-container-low": "#f3f0ef",
+                      "primary-fixed": "#fee6b2",
+                      "surface-container-highest": "#dfdcdc",
+                      "inverse-primary": "#fee6b2",
+                      "primary-dim": "#5e4e27",
+                      "primary-fixed-dim": "#efd8a5",
+                      "surface-tint": "#6a5a32",
+                      "primary": "#6a5a32"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Plus Jakarta Sans"],
+                      "body": ["Manrope"],
+                      "label": ["Manrope"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f9f6f5;
+        }
+        h1, h2, h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .plinth-input {
+            border: none !important;
+            box-shadow: none !important;
+        }
+        .plinth-input:focus {
+            outline: 2px solid #0052d026;
+        }
+    </style>
+</head>
+<body class="text-on-background">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-stone-50/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.06)]">
+<div class="flex justify-between items-center px-8 py-4 max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-12">
+<span class="text-2xl font-black text-yellow-700 dark:text-yellow-500 italic font-['Plus_Jakarta_Sans'] tracking-tight">BoilerSub</span>
+<div class="hidden md:flex gap-8">
+<a class="text-stone-600 dark:text-stone-400 hover:text-blue-500 font-['Plus_Jakarta_Sans'] font-bold tracking-tight transition-all duration-300" href="#">Browse</a>
+<a class="text-blue-700 dark:text-blue-400 border-b-2 border-blue-600 pb-1 font-['Plus_Jakarta_Sans'] font-bold tracking-tight transition-all duration-300" href="#">List Your Sublease</a>
+<a class="text-stone-600 dark:text-stone-400 hover:text-blue-500 font-['Plus_Jakarta_Sans'] font-bold tracking-tight transition-all duration-300" href="#">Messages</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-stone-200/50 dark:hover:bg-zinc-800/50 p-2 rounded-full transition-all duration-300">notifications</button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-primary-container">
+<img alt="Student Profile" data-alt="portrait of a smiling college student in a casual hoodie with a campus building in the soft focus background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXT0YVOVUuWqV545Rf9PPHlD8M2jzUL0KNcyN2O_nkuGeJxixXrQL4hhhRXlo79G0YFuOfI5gFnrs3VgzRMhyTWQ-RU-gPZ0flrHhu4XMOV8OdlEyACDjNBByHF3AxlykMdVrcgkqE1zvVafwra3N-5B_G3HVO5nDeSY76m_GdmCHV6J9jqIvqFXoVieHFu9gbaXotFo0S3sv7qcg6yrLA2bHa6EFZ7q1z9_Pekb-Nk9hmBjgMj5mi-fxS6Zy6aQD8jyLqlfPdAh44"/>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-6 md:px-12 max-w-screen-2xl mx-auto">
+<div class="flex flex-col lg:flex-row gap-16">
+<!-- Left Side: Form Content -->
+<div class="flex-1">
+<header class="mb-12">
+<h1 class="text-5xl md:text-6xl font-extrabold tracking-tight text-on-surface mb-4">List Your Sublease</h1>
+<p class="text-lg text-on-surface-variant max-w-xl">Join the community of Boilermakers helping each other find the perfect home away from home.</p>
+</header>
+<form class="space-y-10">
+<!-- Media Placeholder Section -->
+<section class="space-y-4">
+<label class="block text-sm font-bold tracking-widest uppercase text-on-surface-variant/70">Gallery</label>
+<div class="relative group aspect-video md:aspect-[21/9] bg-surface-container-high rounded-xl overflow-hidden flex flex-col items-center justify-center border-2 border-dashed border-outline-variant/30 hover:bg-surface-container-highest transition-colors duration-300 cursor-pointer">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant mb-2">add_a_photo</span>
+<span class="font-bold text-on-surface-variant">Future Image Upload</span>
+<span class="text-sm text-on-surface-variant/60">Upload up to 10 high-resolution photos</span>
+<div class="absolute inset-0 bg-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+</div>
+</section>
+<!-- Core Details -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="md:col-span-2 space-y-2">
+<label class="block text-sm font-bold tracking-widest uppercase text-on-surface-variant/70 ml-1">Listing Title</label>
+<input class="plinth-input w-full bg-surface-container-high rounded-xl px-6 py-4 text-on-surface font-medium placeholder:text-on-surface-variant/40" placeholder="e.g. Spacious 1BR in Hub State Street" type="text"/>
+</div>
+<div class="md:col-span-2 space-y-2">
+<label class="block text-sm font-bold tracking-widest uppercase text-on-surface-variant/70 ml-1">Address</label>
+<div class="relative">
+<input class="plinth-input w-full bg-surface-container-high rounded-xl px-6 py-4 text-on-surface font-medium placeholder:text-on-surface-variant/40" placeholder="Street Address, West Lafayette, IN" type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant">location_on</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-bold tracking-widest uppercase text-on-surface-variant/70 ml-1">Monthly Price ($)</label>
+<div class="relative">
+<input class="plinth-input w-full bg-surface-container-high rounded-xl px-6 py-4 text-on-surface font-medium placeholder:text-on-surface-variant/40" placeholder="850" type="number"/>
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant font-bold">/mo</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-bold tracking-widest uppercase text-on-surface-variant/70 ml-1">Layout</label>
+<div class="flex gap-4">
+<input class="plinth-input w-1/2 bg-surface-container-high rounded-xl px-6 py-4 text-on-surface font-medium placeholder:text-on-surface-variant/40" placeholder="Beds" type="number"/>
+<input class="plinth-input w-1/2 bg-surface-container-high rounded-xl px-6 py-4 text-on-surface font-medium placeholder:text-on-surface-variant/40" placeholder="Baths" type="number"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-bold tracking-widest uppercase text-on-surface-variant/70 ml-1">Available From</label>
+<input class="plinth-input w-full bg-surface-container-high rounded-xl px-6 py-4 text-on-surface font-medium uppercase text-sm" type="date"/>
+</div>
+<div class="space-y-2">
+<label class="block text-sm font-bold tracking-widest uppercase text-on-surface-variant/70 ml-1">Available To</label>
+<input class="plinth-input w-full bg-surface-container-high rounded-xl px-6 py-4 text-on-surface font-medium uppercase text-sm" type="date"/>
+</div>
+</section>
+<!-- Amenities Chips -->
+<section class="space-y-4">
+<label class="block text-sm font-bold tracking-widest uppercase text-on-surface-variant/70 ml-1">Amenities</label>
+<div class="flex flex-wrap gap-3">
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface font-semibold text-sm hover:bg-secondary/10 hover:text-secondary transition-all" type="button">WiFi</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface font-semibold text-sm hover:bg-secondary/10 hover:text-secondary transition-all" type="button">Parking</button>
+<button class="px-5 py-2 rounded-full bg-secondary text-on-secondary font-semibold text-sm shadow-lg shadow-secondary/20" type="button">Furnished</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface font-semibold text-sm hover:bg-secondary/10 hover:text-secondary transition-all" type="button">Laundry</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface font-semibold text-sm hover:bg-secondary/10 hover:text-secondary transition-all" type="button">Gym</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface font-semibold text-sm hover:bg-secondary/10 hover:text-secondary transition-all" type="button">Pet Friendly</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface font-semibold text-sm hover:bg-secondary/10 hover:text-secondary transition-all" type="button">Utilities Included</button>
+<button class="px-5 py-2 rounded-full bg-surface-container-high text-on-surface font-semibold text-sm hover:bg-secondary/10 hover:text-secondary transition-all" type="button">AC</button>
+</div>
+</section>
+<!-- Description Area -->
+<section class="space-y-2">
+<label class="block text-sm font-bold tracking-widest uppercase text-on-surface-variant/70 ml-1">Description</label>
+<textarea class="plinth-input w-full bg-surface-container-high rounded-2xl px-6 py-6 text-on-surface font-medium placeholder:text-on-surface-variant/40 resize-none" placeholder="Tell us about the roommates, the vibe, and why someone should live here..." rows="6"></textarea>
+</section>
+<!-- Form Footer Actions -->
+<footer class="pt-8 flex flex-col md:flex-row items-center justify-between gap-8 border-t-0">
+<div class="flex items-center gap-3 text-on-surface-variant/80">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<p class="text-sm font-medium">Only verified Purdue students can publish listings</p>
+</div>
+<div class="flex items-center gap-8 w-full md:w-auto">
+<button class="text-on-surface-variant hover:text-tertiary font-bold tracking-tight transition-colors" type="button">Cancel</button>
+<button class="flex-1 md:flex-none px-10 py-4 bg-gradient-to-br from-secondary to-secondary-dim text-on-secondary rounded-xl font-bold shadow-xl shadow-secondary/20 hover:scale-[1.02] active:scale-[0.98] transition-all" type="submit">Publish Listing</button>
+</div>
+</footer>
+</form>
+</div>
+<!-- Right Side: Sidebar Helper -->
+<aside class="lg:w-96 space-y-8">
+<div class="sticky top-32">
+<div class="bg-surface-container-low p-8 rounded-3xl relative overflow-hidden group">
+<div class="absolute -top-12 -right-12 w-32 h-32 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all duration-700"></div>
+<h3 class="text-2xl font-extrabold text-on-surface mb-6 relative z-10">Tips for a strong listing</h3>
+<ul class="space-y-6 relative z-10">
+<li class="flex gap-4">
+<div class="w-10 h-10 shrink-0 bg-surface-container-lowest rounded-xl flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">photo_library</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface text-sm">Visuals Matter</h4>
+<p class="text-sm text-on-surface-variant mt-1 leading-relaxed">Bright, well-lit photos increase clicks by over 40%. Show the common areas too.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<div class="w-10 h-10 shrink-0 bg-surface-container-lowest rounded-xl flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-tertiary text-lg" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface text-sm">Be Kinetic</h4>
+<p class="text-sm text-on-surface-variant mt-1 leading-relaxed">Mention if it's near a bus stop or a specific academic building like WALC or PMU.</p>
+</div>
+</li>
+<li class="flex gap-4">
+<div class="w-10 h-10 shrink-0 bg-surface-container-lowest rounded-xl flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">forum</span>
+</div>
+<div>
+<h4 class="font-bold text-on-surface text-sm">Clear Details</h4>
+<p class="text-sm text-on-surface-variant mt-1 leading-relaxed">Clearly state the utility situation. Students prefer "all-inclusive" pricing.</p>
+</div>
+</li>
+</ul>
+<div class="mt-10 p-4 bg-tertiary-container/20 rounded-2xl border-l-4 border-tertiary">
+<p class="text-xs font-bold text-tertiary-dim uppercase tracking-widest mb-1">High Demand</p>
+<p class="text-sm text-on-tertiary-container font-medium">Listings for the Spring semester are currently receiving 2x normal traffic.</p>
+</div>
+</div>
+<!-- Safety/Help Section -->
+<div class="mt-8 px-8 flex items-center gap-4 group cursor-pointer">
+<div class="w-12 h-12 rounded-2xl bg-surface-container-high group-hover:bg-primary-container transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">help_center</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Need help?</p>
+<p class="text-sm text-on-surface-variant">View our Safety Guide</p>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-stone-100 dark:bg-zinc-950 mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 py-16 gap-8 max-w-screen-2xl mx-auto">
+<div class="flex flex-col items-center md:items-start gap-4">
+<span class="text-lg font-bold text-stone-900 dark:text-stone-100 font-['Manrope']">BoilerSub</span>
+<p class="font-['Manrope'] text-sm tracking-wide text-stone-500 dark:text-stone-400">© 2024 BoilerSub. Built for Boilermakers.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-['Manrope'] text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-yellow-700 dark:hover:text-yellow-500 transition-colors opacity-80 hover:opacity-100" href="#">Safety Guide</a>
+<a class="font-['Manrope'] text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-yellow-700 dark:hover:text-yellow-500 transition-colors opacity-80 hover:opacity-100" href="#">Roommate Agreement</a>
+<a class="font-['Manrope'] text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-yellow-700 dark:hover:text-yellow-500 transition-colors opacity-80 hover:opacity-100" href="#">Purdue Housing Policy</a>
+<a class="font-['Manrope'] text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-yellow-700 dark:hover:text-yellow-500 transition-colors opacity-80 hover:opacity-100" href="#">Support</a>
+</div>
+</div>
+</footer>
+</body></html>

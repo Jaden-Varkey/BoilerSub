@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alex Peterson | The Academic Kinetic</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-dim": "#0047b7",
+                        "on-background": "#2f2f2e",
+                        "tertiary-dim": "#902e02",
+                        "outline-variant": "#afadac",
+                        "on-secondary-container": "#0040a5",
+                        "on-secondary": "#f1f2ff",
+                        "on-tertiary-fixed": "#320a00",
+                        "surface-tint": "#6a5a32",
+                        "tertiary-container": "#ff946e",
+                        "inverse-surface": "#0e0e0e",
+                        "surface-container-highest": "#dfdcdc",
+                        "surface-container-high": "#e4e2e1",
+                        "on-tertiary": "#ffefeb",
+                        "on-error": "#ffefec",
+                        "outline": "#787676",
+                        "background": "#f9f6f5",
+                        "on-primary-fixed-variant": "#6e5d35",
+                        "primary-fixed-dim": "#efd8a5",
+                        "error-container": "#f95630",
+                        "surface": "#f9f6f5",
+                        "secondary-fixed-dim": "#afc2ff",
+                        "secondary-container": "#c3d0ff",
+                        "tertiary": "#a03a0f",
+                        "inverse-on-surface": "#9e9c9c",
+                        "on-primary-container": "#64532c",
+                        "surface-dim": "#d6d4d3",
+                        "surface-container-low": "#f3f0ef",
+                        "on-primary": "#fff1d9",
+                        "surface-container": "#eae7e7",
+                        "on-tertiary-fixed-variant": "#6b1f00",
+                        "surface-variant": "#dfdcdc",
+                        "surface-bright": "#f9f6f5",
+                        "on-secondary-fixed-variant": "#0048b9",
+                        "primary-dim": "#5e4e27",
+                        "on-primary-fixed": "#50411b",
+                        "secondary": "#0052d0",
+                        "error-dim": "#b92902",
+                        "tertiary-fixed-dim": "#fe7e4f",
+                        "inverse-primary": "#fee6b2",
+                        "tertiary-fixed": "#ff946e",
+                        "secondary-fixed": "#c3d0ff",
+                        "primary-container": "#fee6b2",
+                        "primary-fixed": "#fee6b2",
+                        "on-surface-variant": "#5c5b5b",
+                        "primary": "#6a5a32",
+                        "on-error-container": "#520c00",
+                        "on-secondary-fixed": "#002e7d",
+                        "on-tertiary-container": "#5c1a00",
+                        "on-surface": "#2f2f2e",
+                        "error": "#b02500"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #f9f6f5; color: #2f2f2e; }
+        h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-nav { backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-background selection:bg-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-stone-50/70 dark:bg-zinc-900/70 backdrop-blur-xl shadow-sm shadow-stone-200/50 dark:shadow-none">
+<div class="flex justify-between items-center px-8 py-4 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-8">
+<a class="text-2xl font-black italic tracking-tighter text-stone-900 dark:text-stone-50" href="#">The Academic Kinetic</a>
+<div class="hidden md:flex items-center space-x-6">
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="#">Explore</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="#">Saved</a>
+<a class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors" href="#">Messages</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden lg:flex items-center gap-2 px-4 py-2 bg-secondary text-on-secondary rounded-lg font-bold hover:bg-secondary-dim transition-all scale-95 active:duration-150 ease-in-out">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+                    List Sublease
+                </button>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="Student avatar" data-alt="Close-up portrait of a young male student smiling, wearing a casual sweater, clean studio lighting with soft background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoScFacotiWWZDTYTFksFOCK-gUWPou2Oxq6-fOPYmLfzp3tvCov1iLq9DlNXWP2fkois6if_0Egj-ec4MJ9CmanxhoJQMZt0t2JYzFzCIeSzrIxEvtNp57wFbEBZaIWJnYIqpJY7BTbFF5DByfV_2ZOBwonLbGrbhx5FBbXKlpoNy6Mgpj83mXAUUU6rVk2i1_ZLOrv3KEZUZqQqtnmyzc5S1baGbeT4c9k9858rLnOHwWpu-lhEv6qKkf6F9-9kxT9JVseZMM-c4"/>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-28 pb-20 px-6 max-w-screen-2xl mx-auto">
+<!-- Profile Header Section -->
+<section class="grid lg:grid-cols-[320px_1fr] gap-12 items-start mb-20">
+<!-- Left Column: Avatar & Quick Info -->
+<div class="flex flex-col items-center lg:items-start text-center lg:text-left">
+<div class="relative mb-6">
+<div class="w-48 h-48 rounded-full overflow-hidden p-1 bg-gradient-to-tr from-primary to-secondary">
+<div class="w-full h-full rounded-full overflow-hidden border-4 border-surface shadow-2xl shadow-on-surface/10">
+<img alt="Alex Peterson" class="w-full h-full object-cover" data-alt="Natural portrait of a young man with a friendly expression, outdoor campus setting with soft golden afternoon light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwj0nJfDq8czYZgxRWBN9_4nK5FP6BsfmwbCxFg4HbMt_Rlc-3eKazTcUj3gl-1RhnCzj6iVQ4mLhUbiCcjHPi9J_IdiYqlHEjICQe4QJPxm3yuKJkxHfwVSrJ64pA2m-VRQ9pIZcbUyGFYzXdzsJOXhZS48fgAAsLge3cV8m7ogckZau1yJLC-ZKExR_CoL90-TBvhtllc-4yvaNqryz4L-7WTFxdK9LV5YDRCFhnA2cRiaVaGdua12YGwcTbExLW99PJgpGLNb7a"/>
+</div>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-md border border-surface">
+<span class="material-symbols-outlined text-sm" data-weight="fill">verified</span>
+                        Verified Student
+                    </div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl w-full">
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-3 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+                            Member since 2024
+                        </div>
+<div class="flex items-center gap-3 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-lg">home_work</span>
+                            03 Active Listings
+                        </div>
+<div class="flex items-center gap-3 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-lg text-primary">verified_user</span>
+                            Verified BoilerSub Member
+                        </div>
+</div>
+</div>
+</div>
+<!-- Right Column: Bio & Name -->
+<div class="flex flex-col gap-6">
+<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+<div>
+<h1 class="text-5xl md:text-6xl font-black tracking-tighter text-on-surface mb-2">Alex Peterson</h1>
+<p class="text-primary font-bold tracking-widest uppercase text-sm">Senior at Purdue University</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-3 bg-secondary text-on-secondary rounded-lg font-bold shadow-lg shadow-secondary/20 hover:scale-[1.02] transition-transform">
+                            Message Alex
+                        </button>
+<button class="p-3 bg-surface-container-high rounded-lg hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+<div class="relative">
+<p class="text-xl leading-relaxed text-on-surface-variant max-w-2xl font-medium">
+                        "Senior at Purdue. Dedicated student, clean and respectful. Looking for a reliable student to take over my lease for the Spring semester."
+                    </p>
+</div>
+<!-- Bento Tags -->
+<div class="flex flex-wrap gap-2 mt-2">
+<span class="px-4 py-2 bg-surface-container rounded-full text-xs font-bold text-on-surface-variant">Computer Science</span>
+<span class="px-4 py-2 bg-surface-container rounded-full text-xs font-bold text-on-surface-variant">Non-Smoker</span>
+<span class="px-4 py-2 bg-surface-container rounded-full text-xs font-bold text-on-surface-variant">Early Bird</span>
+<span class="px-4 py-2 bg-surface-container rounded-full text-xs font-bold text-on-surface-variant">Quiet Study Vibe</span>
+</div>
+</div>
+</section>
+<!-- Listings Section -->
+<section class="mt-24">
+<div class="flex items-baseline justify-between mb-10">
+<h2 class="text-4xl font-black tracking-tight text-on-surface">Listings by Alex Peterson</h2>
+<div class="h-[2px] flex-grow mx-8 bg-surface-container hidden md:block"></div>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Listing Card 1 -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer">
+<div class="relative h-64 overflow-hidden">
+<img alt="The Aspire Loft" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Modern high-end apartment interior with large windows, minimalist furniture, and sunlight streaming onto polished wooden floors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqQ8O1kAlwcQHmQnTzIUkfnFpO1SdgjaOrkv2c3xNE5s-Asb1xRe60SAwYe-nZ6lTndgKjQusY5CntGECQJRpVsCv_67aaqkE4yyEEaDZSvq7jrIfcU9uV4dZ603Ib4gYwz5fXnUt-83bHIuPKBA1C28J4SkeHVRvXlONW3wFGZcQT-QjX4E_sNtVkHiyNkI_21n8_hJ9hmD7Sfv-HpYWDw-mFL02-a2K3zVgeeSr_VigsLzkx6QXjIFJzN1LCJWLTpZ2hXh4c48md"/>
+<div class="absolute top-4 left-4">
+<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm">Available Now</span>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div>
+<h3 class="text-xl font-bold text-on-surface group-hover:text-secondary transition-colors">The Aspire Loft — Modern 1BR</h3>
+<p class="text-on-surface-variant text-sm">Discovery Park District</p>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant text-xs">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">calendar_month</span>Jan 1 – May 15</span>
+</div>
+<div class="mt-4 flex items-center justify-between">
+<p class="text-3xl font-black tracking-tighter text-on-surface">$1,150<span class="text-sm font-normal tracking-normal text-on-surface-variant ml-1">/mo</span></p>
+<span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Listing Card 2 -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer">
+<div class="relative h-64 overflow-hidden">
+<img alt="Historic State Street Studio" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Cozy vintage studio apartment with exposed brick walls, warm ambient lighting, and artistic decor elements" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkgP6TxDNJ1FiGj2GV0XG8mqKLPsHbkXmo3wgrEI08JLHrJTdBa8p4f9VTeH_eIGrR4j43_8xxeisneaUYCcvaKpJDGgmXOCd9jzyJ30r_c8TKNybLG8ZOcth046HdELKDx-MW7tJu-yxXc8qjdQddQTuNKS6HfRjrmxWtHoiIhVP0BrUDMi0-ZZL-x_5G-1SnXwSeL5JZydDZDLEOttq2Ba-IvrMIhDDNMowwfqn1yo76mjJpFQ3rDQOC44vboJeJf3k7YqwhqC6R"/>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div>
+<h3 class="text-xl font-bold text-on-surface group-hover:text-secondary transition-colors">Historic State Street Studio</h3>
+<p class="text-on-surface-variant text-sm">Near Campus</p>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant text-xs">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">calendar_month</span>Aug 2026 – May 2027</span>
+</div>
+<div class="mt-4 flex items-center justify-between">
+<p class="text-3xl font-black tracking-tighter text-on-surface">$950<span class="text-sm font-normal tracking-normal text-on-surface-variant ml-1">/mo</span></p>
+<span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Listing Card 3 -->
+<div class="group flex flex-col bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer">
+<div class="relative h-64 overflow-hidden">
+<img alt="Fairview 2BR Shared Room" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Spacious shared bedroom in a student housing complex, two clean single beds, large desks, and bright window light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxhpVCZfdbSjIfNclRaT1BZcb5dO8mvD7dPuiIqfRnjglh-bB181W48w9XfR-WJAC4SS_ugC946-T2OylYhNbjIOVqzUMoSz2Hh0B4YRqvmsaOMTgu49wzSusmRkNmsYcdbojZSjYa8A5QBCWIk5-NHohQY5Lahj3XXQD3YeSfBWDMhq94QP6uyHRNpiZ_IAjamC94Ypdn9dAWmaZicYyLiZfS1gZizK1gelbeBpJ2iEhSzqtxJKuF-uO1yuM8nIf__WcCZLrfqhaf"/>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div>
+<h3 class="text-xl font-bold text-on-surface group-hover:text-secondary transition-colors">Fairview 2BR Shared Room</h3>
+<p class="text-on-surface-variant text-sm">West Lafayette</p>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant text-xs">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">calendar_month</span>Summer 2026</span>
+</div>
+<div class="mt-4 flex items-center justify-between">
+<p class="text-3xl font-black tracking-tighter text-on-surface">$750<span class="text-sm font-normal tracking-normal text-on-surface-variant ml-1">/mo</span></p>
+<span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-16 flex justify-center">
+<a class="group flex items-center gap-2 text-primary font-black uppercase tracking-widest text-sm hover:text-on-background transition-colors" href="#">
+                    View all listings
+                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">trending_flat</span>
+</a>
+</div>
+</section>
+<!-- Trust & Safety Banner -->
+<section class="mt-32 p-12 bg-surface-container-low rounded-[2rem] flex flex-col md:flex-row items-center justify-between gap-8 border border-outline-variant/10">
+<div class="max-w-xl">
+<h3 class="text-3xl font-black tracking-tighter mb-4">Why trust Alex?</h3>
+<p class="text-on-surface-variant leading-relaxed">Verified students have completed a valid edu-mail verification and identity check. BoilerSub ensures all communication remains within our secure portal to protect your personal information.</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="text-center">
+<p class="text-4xl font-black text-primary">100%</p>
+<p class="text-[10px] font-bold uppercase tracking-widest opacity-60">Response Rate</p>
+</div>
+<div class="w-px h-12 bg-outline-variant/30"></div>
+<div class="text-center">
+<p class="text-4xl font-black text-primary">2h</p>
+<p class="text-[10px] font-bold uppercase tracking-widest opacity-60">Avg. Response</p>
+</div>
+</div>
+</section>
+</main>
+<!-- SideNavBar (Mobile Bottom Pivot) -->
+<div class="lg:hidden fixed bottom-0 left-0 w-full bg-stone-50/90 backdrop-blur-xl px-6 py-4 flex justify-around items-center z-50 shadow-[0_-8px_30px_rgb(0,0,0,0.04)]">
+<a class="text-stone-500 transition-all flex flex-col items-center gap-1" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="text-[10px] font-bold uppercase">Explore</span>
+</a>
+<a class="text-stone-500 transition-all flex flex-col items-center gap-1" href="#">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="text-[10px] font-bold uppercase">Saved</span>
+</a>
+<a class="text-stone-500 transition-all flex flex-col items-center gap-1" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="text-[10px] font-bold uppercase">Messages</span>
+</a>
+<a class="bg-stone-200 dark:bg-zinc-800 text-stone-900 dark:text-stone-50 font-semibold rounded-xl flex flex-col items-center gap-1 px-4 py-1" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase">Profile</span>
+</a>
+</div>
+</body></html>

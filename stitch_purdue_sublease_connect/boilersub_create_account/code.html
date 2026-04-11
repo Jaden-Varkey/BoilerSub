@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign Up | BoilerSub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f9f6f5;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#0e0e0e",
+                      "outline-variant": "#afadac",
+                      "on-tertiary": "#ffefeb",
+                      "secondary-fixed-dim": "#afc2ff",
+                      "secondary-dim": "#0047b7",
+                      "background": "#f9f6f5",
+                      "surface-container": "#eae7e7",
+                      "surface": "#f9f6f5",
+                      "inverse-on-surface": "#9e9c9c",
+                      "on-tertiary-container": "#5c1a00",
+                      "on-primary-fixed": "#50411b",
+                      "on-surface": "#2f2f2e",
+                      "surface-container-highest": "#dfdcdc",
+                      "tertiary-fixed-dim": "#fe7e4f",
+                      "tertiary-fixed": "#ff946e",
+                      "surface-bright": "#f9f6f5",
+                      "primary-container": "#fee6b2",
+                      "on-error-container": "#520c00",
+                      "primary-fixed": "#fee6b2",
+                      "secondary": "#0052d0",
+                      "on-primary-fixed-variant": "#6e5d35",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed-variant": "#0048b9",
+                      "tertiary": "#a03a0f",
+                      "surface-variant": "#dfdcdc",
+                      "primary": "#6a5a32",
+                      "on-tertiary-fixed-variant": "#6b1f00",
+                      "tertiary-container": "#ff946e",
+                      "on-secondary-fixed": "#002e7d",
+                      "on-secondary-container": "#0040a5",
+                      "error-container": "#f95630",
+                      "on-primary": "#fff1d9",
+                      "surface-container-high": "#e4e2e1",
+                      "on-tertiary-fixed": "#320a00",
+                      "secondary-fixed": "#c3d0ff",
+                      "tertiary-dim": "#902e02",
+                      "on-background": "#2f2f2e",
+                      "surface-container-low": "#f3f0ef",
+                      "error-dim": "#b92902",
+                      "on-primary-container": "#64532c",
+                      "surface-dim": "#d6d4d3",
+                      "surface-tint": "#6a5a32",
+                      "inverse-primary": "#fee6b2",
+                      "error": "#b02500",
+                      "secondary-container": "#c3d0ff",
+                      "on-surface-variant": "#5c5b5b",
+                      "outline": "#787676",
+                      "on-error": "#ffefec",
+                      "primary-fixed-dim": "#efd8a5",
+                      "primary-dim": "#5e4e27",
+                      "on-secondary": "#f1f2ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Plus Jakarta Sans"],
+                      "body": ["Manrope"],
+                      "label": ["Manrope"]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface selection:bg-secondary/30 selection:text-secondary overflow-x-hidden">
+<!-- Auth Layout Wrapper -->
+<main class="min-h-screen flex flex-col md:flex-row">
+<!-- Left Visual Panel (Editorial Asymmetry) -->
+<section class="hidden md:flex relative w-full md:w-5/12 bg-primary overflow-hidden items-end p-12 lg:p-20">
+<div class="absolute inset-0 z-0 opacity-40">
+<img alt="Purdue University campus architecture with classical brick buildings and modern student pathways under a clear sky" class="w-full h-full object-cover" data-alt="Cinematic wide shot of Purdue University campus architecture, golden hour lighting on red brick, soft academic atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJpMMDbdEFh7srZoyw782uwhL1gbQVeEAqye4OBYoikH2f5JkMGlxCnZTZYKQBU8yIz6zEWZQ1NeEcqNZBVgv6qq6BV_JSB4CwidjBcmVyOiVI_nvH1yNlYlUj8yXIgkGuFUuo8aFr1snqggnminiV-THFKdOpfhGV7119rqBZJrXHHmGKJDDEP2GSrEn2xh5LItei_g4W_zQDkbI8Q_agUJGJUPZvOC3uYigbQl3nAVsfpzja3sQqtnn8aDBT-rAyMdUQKnG0cleV"/>
+<div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent"></div>
+</div>
+<!-- Branding Overlay -->
+<div class="relative z-10 w-full">
+<div class="flex items-center gap-2 mb-12">
+<span class="text-3xl font-black italic tracking-tighter text-on-primary">BoilerSub</span>
+</div>
+<h2 class="text-5xl lg:text-7xl font-headline font-extrabold text-on-primary leading-tight tracking-tighter mb-8 max-w-sm">
+                    Student <span class="italic font-light">Housing</span> Redefined.
+                </h2>
+<!-- Proof Points (Tonal Layering Chips) -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-lowest/10 backdrop-blur-md border border-on-primary/10 transition-all hover:bg-surface-container-lowest/20">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-primary-container/30 flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-primary text-sm uppercase tracking-wider">Purdue-only access</p>
+<p class="text-on-primary/70 text-xs">Exclusively for @purdue.edu emails.</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-lowest/10 backdrop-blur-md border border-on-primary/10 transition-all hover:bg-surface-container-lowest/20">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-primary-container/30 flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-primary text-sm uppercase tracking-wider">Verified students</p>
+<p class="text-on-primary/70 text-xs">Join 5,000+ Boilermakers today.</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-surface-container-lowest/10 backdrop-blur-md border border-on-primary/10 transition-all hover:bg-surface-container-lowest/20">
+<div class="flex-shrink-0 w-10 h-10 rounded-lg bg-primary-container/30 flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">lock</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-primary text-sm uppercase tracking-wider">Secure sublease flow</p>
+<p class="text-on-primary/70 text-xs">End-to-end encryption for every lease.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Content Panel (Form) -->
+<section class="flex-1 flex flex-col justify-center items-center p-6 md:p-12 lg:p-24 bg-surface">
+<!-- Mobile Logo -->
+<div class="md:hidden mb-12">
+<span class="text-3xl font-black italic tracking-tighter text-primary">BoilerSub</span>
+</div>
+<div class="w-full max-w-md">
+<!-- Header -->
+<header class="mb-10 text-center md:text-left">
+<h1 class="text-4xl lg:text-5xl font-headline font-extrabold text-on-surface tracking-tighter mb-4 leading-none">
+                        Create your BoilerSub account
+                    </h1>
+<div class="inline-flex items-center gap-2 bg-tertiary-container/30 px-3 py-1.5 rounded-full border border-tertiary/10">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">emergency</span>
+<p class="text-on-tertiary-container font-label text-xs font-bold uppercase tracking-widest">
+                            @purdue.edu only access for verified Boilermakers
+                        </p>
+</div>
+</header>
+<!-- Form Section -->
+<form class="space-y-6">
+<!-- Input Group -->
+<div class="space-y-1.5">
+<label class="text-[10px] font-bold text-primary uppercase tracking-[0.2em] ml-1" for="email">Purdue Email Address</label>
+<div class="relative group">
+<input class="w-full h-14 px-5 bg-surface-container-low border-0 rounded-xl text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-secondary/20 focus:bg-surface-container transition-all duration-300 font-body" id="email" placeholder="student@purdue.edu" type="email"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-focus-within:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">alternate_email</span>
+</div>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-[10px] font-bold text-primary uppercase tracking-[0.2em] ml-1" for="password">Password</label>
+<div class="relative group">
+<input class="w-full h-14 px-5 bg-surface-container-low border-0 rounded-xl text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-secondary/20 focus:bg-surface-container transition-all duration-300 font-body" id="password" placeholder="••••••••" type="password"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</div>
+</div>
+</div>
+<div class="space-y-1.5">
+<label class="text-[10px] font-bold text-primary uppercase tracking-[0.2em] ml-1" for="confirm_password">Confirm Password</label>
+<div class="relative group">
+<input class="w-full h-14 px-5 bg-surface-container-low border-0 rounded-xl text-on-surface placeholder:text-outline-variant focus:ring-2 focus:ring-secondary/20 focus:bg-surface-container transition-all duration-300 font-body" id="confirm_password" placeholder="••••••••" type="password"/>
+<div class="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</div>
+</div>
+</div>
+<!-- Terms & Conditions -->
+<div class="flex items-start gap-3 py-2">
+<input class="mt-1 w-5 h-5 rounded border-0 bg-surface-container-low text-secondary focus:ring-secondary/20 transition-all" id="terms" type="checkbox"/>
+<label class="text-xs text-on-surface-variant font-medium leading-relaxed" for="terms">
+                            By creating an account, I agree to the <a class="text-secondary hover:underline" href="#">Purdue Housing Guidelines</a> and <a class="text-secondary hover:underline" href="#">Terms of Service</a>.
+                        </label>
+</div>
+<!-- CTA Action -->
+<div class="pt-4 space-y-6">
+<button class="w-full h-16 bg-secondary text-on-secondary font-headline font-bold text-lg rounded-xl shadow-[0px_12px_32px_rgba(0,82,208,0.2)] hover:shadow-[0px_16px_40px_rgba(0,82,208,0.3)] hover:-translate-y-1 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3" type="submit">
+                            Create Account
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<div class="flex items-center justify-center gap-2 pt-4">
+<p class="text-sm text-on-surface-variant font-medium">Already have an account?</p>
+<a class="text-sm font-bold text-secondary hover:text-secondary-dim transition-colors" href="#">Log in</a>
+</div>
+</div>
+</form>
+<!-- Footer (Optional Minimal) -->
+<footer class="mt-20 pt-8 border-t border-surface-container-high text-center md:text-left">
+<p class="text-[10px] uppercase tracking-widest text-outline font-bold">© 2024 BoilerSub. Built for Boilermakers.</p>
+</footer>
+</div>
+</section>
+</main>
+<!-- Support FAB -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-surface-container-lowest rounded-full shadow-[0px_12px_32px_rgba(0,0,0,0.06)] flex items-center justify-center text-primary hover:text-secondary hover:shadow-[0px_16px_40px_rgba(0,0,0,0.1)] transition-all z-50 md:hidden">
+<span class="material-symbols-outlined">help_center</span>
+</button>
+</body></html>
