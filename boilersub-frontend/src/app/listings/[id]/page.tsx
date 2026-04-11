@@ -74,12 +74,6 @@ function formatDistance(distance: number | null) {
   return `${distance.toFixed(distance % 1 === 0 ? 0 : 1)} miles from campus`;
 }
 
-function openBlank3DView(event: React.MouseEvent<HTMLButtonElement>) {
-  event.preventDefault();
-  event.stopPropagation();
-  window.open("about:blank", "_blank", "noopener,noreferrer");
-}
-
 function ownerSummary(owner: PublicUser | null) {
   if (!owner) {
     return "Verified Purdue student";
@@ -170,6 +164,7 @@ export default function ListingDetailPage() {
                     <span>🖼</span>
                     {images.length} Photo{images.length === 1 ? "" : "s"}
                   </button>
+
                 </div>
               </div>
 
@@ -324,15 +319,6 @@ export default function ListingDetailPage() {
         onConfirm={async () => {
           if (!listing) {
             return;
-          }
-          await apiClient.listings.delete(listing.id);
-          router.push("/listings");
-        }}
-      />
-    </>
-  );
-}
-      return;
           }
           await apiClient.listings.delete(listing.id);
           router.push("/listings");

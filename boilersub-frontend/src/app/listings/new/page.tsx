@@ -224,7 +224,7 @@ export default function NewListingPage() {
                   <input
                     className="w-full rounded-xl bg-[#e4e2e1] px-6 py-4 text-sm font-medium uppercase text-[#2f2f2e] focus:outline-none focus:ring-2 focus:ring-[#0052d0]/15"
                     type="date"
-                    value={form.start_date ?? ""}
+                    value={form.start_date}
                     onChange={(event) => setForm((current) => ({ ...current, start_date: event.target.value }))}
                   />
                 </div>
@@ -236,7 +236,7 @@ export default function NewListingPage() {
                   <input
                     className="w-full rounded-xl bg-[#e4e2e1] px-6 py-4 text-sm font-medium uppercase text-[#2f2f2e] focus:outline-none focus:ring-2 focus:ring-[#0052d0]/15"
                     type="date"
-                    value={form.end_date ?? ""}
+                    value={form.end_date}
                     onChange={(event) => setForm((current) => ({ ...current, end_date: event.target.value }))}
                   />
                 </div>

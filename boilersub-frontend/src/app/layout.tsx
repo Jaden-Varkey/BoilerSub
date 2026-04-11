@@ -23,6 +23,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-brand-sand text-brand-ink antialiased">
         <AuthProvider>
           <div className="relative min-h-screen">
+            <div className="fixed inset-0 -z-10 bg-kinetic-grid bg-[size:38px_38px] opacity-20" />
             <AuthPopupBridge />
             <AppChrome>{children}</AppChrome>
           </div>

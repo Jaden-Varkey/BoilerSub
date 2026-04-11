@@ -215,7 +215,15 @@ export default function ListingsPage() {
                         </span>
                       </div>
                     ) : null}
-
+                    <div className="absolute bottom-4 left-4">
+                      <button
+                        className="rounded-lg bg-white/70 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[#0052d0] backdrop-blur-md transition-colors hover:bg-white"
+                        type="button"
+                        onClick={openBlank3DView}
+                      >
+                        View 3D
+                      </button>
+                    </div>
                   </div>
                   <div className="p-5">
                     <div className="mb-3 flex items-start justify-between gap-4">
