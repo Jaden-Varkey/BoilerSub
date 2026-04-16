@@ -1,6 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 
-import { env } from "../config/env.js";
+import { env } from "../config/env";
 
 let stitchClient: GoogleGenAI | null = null;
 

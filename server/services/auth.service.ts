@@ -1,8 +1,8 @@
-import { createSupabaseClient } from "../config/supabase.js";
-import { env } from "../config/env.js";
-import { ApiError } from "../lib/apiError.js";
-import type { UserRepository } from "../repositories/user.repository.js";
-import type { AuthSessionPayload } from "../types/index.js";
+import { createSupabaseClient } from "../config/supabase";
+import { env } from "../config/env";
+import { ApiError } from "../lib/apiError";
+import type { UserRepository } from "../repositories/user.repository";
+import type { AuthSessionPayload } from "../types/index";
 
 export class AuthService {
   constructor(private readonly userRepository: UserRepository) {}

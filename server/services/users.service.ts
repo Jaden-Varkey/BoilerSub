@@ -1,6 +1,6 @@
-import { ApiError } from "../lib/apiError.js";
-import type { UserRepository } from "../repositories/user.repository.js";
-import type { PublicUser, UserRecord } from "../types/index.js";
+import { ApiError } from "../lib/apiError";
+import type { UserRepository } from "../repositories/user.repository";
+import type { PublicUser, UserRecord } from "../types/index";
 
 function toPublicUser(user: UserRecord): PublicUser {
   return {
@@ -27,7 +27,10 @@ export class UsersService {
     return toPublicUser(user);
   }
 
-  async updateMe(userId: string, input: { full_name?: string | null; bio?: string | null }): Promise<PublicUser> {
+  async updateMe(
+    userId: string,
+    input: { full_name?: string | null; bio?: string | null; phone?: string | null },
+  ): Promise<PublicUser> {
     const user = await this.userRepository.updateProfile(userId, input);
     return toPublicUser(user);
   }

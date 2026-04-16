@@ -1,4 +1,4 @@
-import type { ApiErrorBody } from "../types/index.js";
+import type { ApiErrorBody } from "../types/index";
 
 export class ApiError extends Error {
   readonly statusCode: number;

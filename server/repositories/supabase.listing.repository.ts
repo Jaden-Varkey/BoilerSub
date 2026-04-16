@@ -1,7 +1,7 @@
-import { supabaseServiceClient } from "../config/supabase.js";
-import { ApiError } from "../lib/apiError.js";
-import type { ListingRecord, ListingWithOwner, UserRecord } from "../types/index.js";
-import type { ListingFilters, ListingRepository } from "./listing.repository.js";
+import { supabaseServiceClient } from "../config/supabase";
+import { ApiError } from "../lib/apiError";
+import type { ListingRecord, ListingWithOwner, UserRecord } from "../types/index";
+import type { ListingFilters, ListingRepository } from "./listing.repository";
 
 function mapListing(row: Record<string, unknown>): ListingRecord {
   return {

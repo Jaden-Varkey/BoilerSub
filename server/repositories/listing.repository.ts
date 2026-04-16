@@ -1,4 +1,4 @@
-import type { ListingRecord, ListingWithOwner } from "../types/index.js";
+import type { ListingRecord, ListingWithOwner } from "../types/index";
 
 export type ListingFilters = {
   limit?: number;

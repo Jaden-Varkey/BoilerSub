@@ -1,4 +1,4 @@
-import type { Response } from 'express';
+import { NextResponse } from "next/server";
 
 export type SuccessEnvelope<T> = {
   success: true;
@@ -19,17 +19,22 @@ export function successEnvelope<T>(data: T): SuccessEnvelope<T> {
 }
 
 export function errorEnvelope(code: string, message: string, details?: unknown): ErrorEnvelope {
-  const error: ErrorEnvelope['error'] = { code, message };
+  const error: ErrorEnvelope["error"] = { code, message };
   if (details !== undefined) {
     error.details = details;
   }
   return { success: false, error };
 }
 
-export function sendSuccess<T>(res: Response, data: T, status = 200): Response {
-  return res.status(status).json(successEnvelope(data));
+export function jsonSuccess<T>(data: T, status = 200): NextResponse<SuccessEnvelope<T>> {
+  return NextResponse.json(successEnvelope(data), { status });
 }
 
-export function sendError(res: Response, code: string, message: string, status = 500, details?: unknown): Response {
-  return res.status(status).json(errorEnvelope(code, message, details));
+export function jsonError(
+  code: string,
+  message: string,
+  status = 500,
+  details?: unknown,
+): NextResponse<ErrorEnvelope> {
+  return NextResponse.json(errorEnvelope(code, message, details), { status });
 }

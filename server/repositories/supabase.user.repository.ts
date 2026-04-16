@@ -1,7 +1,7 @@
-import { supabaseAdmin } from "../config/supabase.js";
-import { ApiError } from "../lib/apiError.js";
-import type { UserRecord } from "../types/index.js";
-import type { UserRepository } from "./user.repository.js";
+import { supabaseAdmin } from "../config/supabase";
+import { ApiError } from "../lib/apiError";
+import type { UserRecord } from "../types/index";
+import type { UserRepository } from "./user.repository";
 
 const userSelect =
   "id, email, phone, full_name, bio, email_verified, phone_verified, fully_verified, role, created_at, updated_at";

@@ -65,11 +65,3 @@ export type AuthSessionPayload = {
   } | null;
   user: RequestUser;
 };
-
-export type AuthenticatedRequest = Express.Request & {
-  user: AppUser;
-  auth: {
-    accessToken: string;
-    userId: string;
-  };
-};

@@ -1,9 +1,0 @@
-import { randomUUID } from 'node:crypto';
-import type { RequestHandler } from 'express';
-
-export const requestId: RequestHandler = (req, res, next) => {
-  const requestIdValue = randomUUID();
-  req.requestId = requestIdValue;
-  res.setHeader('x-request-id', requestIdValue);
-  next();
-};
