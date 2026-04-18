@@ -15,6 +15,7 @@ export function Nav() {
   const menuRef = useRef<HTMLDivElement | null>(null);
   const isExplore = pathname === "/";
   const isListings = pathname === "/listings" || pathname.startsWith("/listings/");
+  const isAbout = pathname === "/about";
 
   useEffect(() => {
     if (!menuOpen) {
@@ -47,7 +48,7 @@ export function Nav() {
             }
             href="/"
           >
-            Explore
+            Explain
           </Link>
           <Link
             className={
@@ -60,14 +61,18 @@ export function Nav() {
             Listings
           </Link>
           <Link
-            className="font-display font-medium tracking-tight text-stone-600 transition-colors duration-300 hover:text-blue-500"
-            href="/#selection"
+            className={
+              isAbout
+                ? "border-b-2 border-blue-600 font-display font-bold tracking-tight text-blue-600"
+                : "font-display font-medium tracking-tight text-stone-600 transition-colors duration-300 hover:text-blue-500"
+            }
+            href="/about"
           >
-            Guide
+            About
           </Link>
         </nav>
 
-        <div className="flex items-center justify-self-end gap-3">
+        <div className="flex w-[180px] items-center justify-end gap-3 justify-self-end">
           {user ? (
             <div
               ref={menuRef}

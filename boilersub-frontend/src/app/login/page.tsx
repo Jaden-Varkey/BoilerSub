@@ -111,6 +111,9 @@ export default function LoginPage() {
                 <label className="block text-sm font-semibold uppercase tracking-widest text-[#2f2f2e]" htmlFor="password">
                   Password
                 </label>
+                <Link className="text-xs font-bold text-[#0052d0] transition-colors hover:text-[#0047b7]" href="/forgot-password">
+                  Forgot password?
+                </Link>
               </div>
               <div className="relative">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-[#5c5b5b]">•</div>
@@ -156,7 +159,9 @@ export default function LoginPage() {
           <footer className="mt-16 flex flex-wrap justify-center gap-6 text-xs uppercase tracking-widest text-stone-500">
             <span>Privacy Policy</span>
             <span>Terms of Service</span>
-            <span>Help Center</span>
+            <Link className="transition-colors hover:text-[#0052d0]" href="/forgot-password">
+              Forgot Password
+            </Link>
           </footer>
         </div>
       </section>

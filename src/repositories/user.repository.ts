@@ -1,4 +1,4 @@
-import type { UserRecord } from "../types/index.js";
+import type { UserRecord } from "../types/index";
 
 export interface UserRepository {
   findById(id: string): Promise<UserRecord | null>;

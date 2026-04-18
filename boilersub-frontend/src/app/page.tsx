@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const featureCards = [
   {
@@ -25,18 +28,34 @@ const avatarImages = [
 ];
 
 export default function HomePage() {
+  const [heroScale, setHeroScale] = useState(1.14);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const progress = Math.min(window.scrollY / 420, 1);
+      setHeroScale(1.14 - progress * 0.08);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
       <main className="bg-transparent font-sans text-[#2f2f2e]">
         <section className="relative flex min-h-[800px] h-screen items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 z-0">
+          <div
+            className="absolute inset-0 z-0 origin-center transition-transform duration-300 ease-out will-change-transform"
+            style={{ transform: `scale(${heroScale})` }}
+          >
             <Image
               alt="Purdue Campus"
               className="object-cover"
               fill
               priority
               sizes="100vw"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxGfhuniDmWPL7z9h3jaBT9Jsu7Y7L43B-ZXxCBooyD23NY1JH8SDLbUMCxkvfLESpponx6OJAUSZ6sTEWt7cnTE_PSUe0nyPSwIOPuaudxjv_RNo2WsjqOclUQhF3QrwUssUMUHBGrsXFeL0XViBZus5sFFKYKwPp_XZTvdL_3uxZuhDzjm2WV1N8Vlset-RWxeOvtFpqkeQYcB8446ljcgX58moyo2pGHSyNTkQGWU1krvIJvFcv1sQC4Ex875MBlGqzAzfIHhNz"
+              src="/hero-section.jpg"
             />
             <div className="absolute inset-0 bg-black/30 backdrop-brightness-75" />
           </div>
@@ -110,10 +129,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 animate-bounce flex-col items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-white/50">Scroll to curate</span>
-            <span className="text-white">↓</span>
-          </div>
         </section>
 
         <section className="mx-auto max-w-7xl bg-transparent px-8 py-24" id="selection">
@@ -204,32 +219,6 @@ export default function HomePage() {
 
 
       </main>
-
-      <footer className="mt-auto w-full bg-stone-100 py-12">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 px-12 md:flex-row">
-          <div className="flex flex-col items-center gap-4 md:items-start">
-            <div className="font-display text-lg font-bold text-stone-800">BoilerSub</div>
-            <p className="text-center text-sm tracking-wide text-stone-500 md:text-left">
-              © 2024 BoilerSub. The Kinetic Curator for Purdue Housing.
-            </p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-6">
-            {["Privacy", "Terms", "Safety", "Contact", "About Us"].map((item) => (
-              <a
-                key={item}
-                className="text-sm tracking-wide text-stone-500 underline decoration-blue-500/30 transition-all hover:text-stone-900"
-                href="#"
-              >
-                {item}
-              </a>
-            ))}
-          </div>
-          <div className="flex gap-4 text-stone-400">
-            <span className="cursor-pointer transition-colors hover:text-blue-600">⤴</span>
-            <span className="cursor-pointer transition-colors hover:text-blue-600">◌</span>
-          </div>
-        </div>
-      </footer>
     </>
   );
 }

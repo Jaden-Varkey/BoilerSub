@@ -1,7 +1,7 @@
-import { supabaseServiceClient } from "../config/supabase.js";
-import { ApiError } from "../lib/apiError.js";
-import type { ListingRecord, ListingWithOwner, UserRecord } from "../types/index.js";
-import type { ListingFilters, ListingRepository } from "./listing.repository.js";
+import { supabaseServiceClient } from "../config/supabase";
+import { ApiError } from "../lib/apiError";
+import type { ListingRecord, ListingWithOwner, UserRecord } from "../types/index";
+import type { ListingFilters, ListingRepository } from "./listing.repository";
 
 function mapListing(row: Record<string, unknown>): ListingRecord {
   return {
@@ -114,7 +114,7 @@ export class SupabaseListingRepository implements ListingRepository {
 
   async findWithOwners(filters: ListingFilters = {}): Promise<ListingWithOwner[]> {
     const listings = await this.findAll(filters);
-    const ownerIds = [...new Set(listings.map((listing) => listing.owner_id))];
+    const ownerIds = Array.from(new Set(listings.map((listing) => listing.owner_id)));
 
     if (ownerIds.length === 0) {
       return [];

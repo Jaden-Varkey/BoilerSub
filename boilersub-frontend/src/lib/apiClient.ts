@@ -1,6 +1,6 @@
 import type { Listing, ListingPayload, PublicUser, Session, User } from "@/lib/types";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:4000/api/v1";
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api/v1";
 
 export class ApiError extends Error {
   constructor(
@@ -83,6 +83,16 @@ export const auth = {
 
   logout: () => request<{ status: string }>("/auth/logout", { method: "POST" }),
 
+  changePassword: (currentPassword: string, newPassword: string, confirmPassword: string) =>
+    request<{ status: string }>("/auth/change-password", {
+      method: "POST",
+      body: JSON.stringify({
+        current_password: currentPassword,
+        new_password: newPassword,
+        confirm_password: confirmPassword,
+      }),
+    }),
+
   me: () => request<{ user: User }>("/auth/me"),
 
   resendEmailOtp: (email: string) =>
@@ -95,6 +105,25 @@ export const auth = {
     request<{ status: string }>("/auth/resend-phone-otp", {
       method: "POST",
       body: JSON.stringify({ phone }),
+    }),
+
+  requestPasswordReset: (email: string, redirectTo?: string) =>
+    request<{ status: string }>("/auth/forgot-password", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        redirect_to: redirectTo,
+      }),
+    }),
+
+  resetPassword: (tokenHash: string, newPassword: string, confirmPassword: string) =>
+    request<{ status: string }>("/auth/reset-password", {
+      method: "POST",
+      body: JSON.stringify({
+        token_hash: tokenHash,
+        new_password: newPassword,
+        confirm_password: confirmPassword,
+      }),
     }),
 };
 

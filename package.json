@@ -5,9 +5,10 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "rm -rf dist && tsc -p tsconfig.json",
-    "start": "node dist/index.js",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
     "seed": "tsx scripts/seed.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "graphify:build": "npm exec --yes --package graphify-ts -- graphify build ."
@@ -20,13 +21,22 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "helmet": "^8.0.0",
+    "next": "^14.2.35",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.4",
+    "@types/react": "^18.3.28",
+    "@types/react-dom": "^18.3.7",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.35",
+    "postcss": "^8.5.9",
     "supabase": "^2.89.1",
+    "tailwindcss": "^3.4.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
   }

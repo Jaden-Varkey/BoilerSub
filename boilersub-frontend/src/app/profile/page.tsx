@@ -12,7 +12,11 @@ export default function ProfilePage() {
   const { user, refresh, logout } = useAuth();
   const [fullName, setFullName] = useState(user?.full_name ?? "");
   const [bio, setBio] = useState(user?.bio ?? "");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState<{ kind: "success" | "error"; text: string } | null>(null);
+  const [passwordMessage, setPasswordMessage] = useState<{ kind: "success" | "error"; text: string } | null>(null);
 
   useEffect(() => {
     setFullName(user?.full_name ?? "");
@@ -145,6 +149,84 @@ export default function ProfilePage() {
                 </div>
               </form>
             </section>
+
+            <section className="space-y-8 rounded-[2rem] bg-[#f3f0ef] p-8">
+              <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <h3 className="font-display text-lg font-bold">Change Password</h3>
+                  <p className="text-sm text-[#5c5b5b]">Confirm your current password, then choose a new one with at least 8 characters.</p>
+                </div>
+              </div>
+              <form
+                className="space-y-6"
+                onSubmit={async (event) => {
+                  event.preventDefault();
+                  setPasswordMessage(null);
+
+                  if (newPassword.length < 8) {
+                    setPasswordMessage({ kind: "error", text: "New password must be at least 8 characters." });
+                    return;
+                  }
+
+                  if (newPassword !== confirmPassword) {
+                    setPasswordMessage({ kind: "error", text: "New passwords do not match." });
+                    return;
+                  }
+
+                  if (currentPassword === newPassword) {
+                    setPasswordMessage({ kind: "error", text: "New password must be different from your current password." });
+                    return;
+                  }
+
+                  try {
+                    await apiClient.auth.changePassword(currentPassword, newPassword, confirmPassword);
+                    setCurrentPassword("");
+                    setNewPassword("");
+                    setConfirmPassword("");
+                    setPasswordMessage({ kind: "success", text: "Password updated." });
+                  } catch (error) {
+                    setPasswordMessage({ kind: "error", text: error instanceof Error ? error.message : "Failed to update password" });
+                  }
+                }}
+              >
+                {passwordMessage && <Toast kind={passwordMessage.kind} message={passwordMessage.text} />}
+                <div className="group">
+                  <label className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-[#5c5b5b]">Current Password</label>
+                  <input
+                    className="w-full rounded-xl border-none bg-[#dfdcdc] px-6 py-4 font-medium focus:ring-2 focus:ring-[#0052d0]/20"
+                    type="password"
+                    value={currentPassword}
+                    onChange={(event) => setCurrentPassword(event.target.value)}
+                  />
+                </div>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                  <div className="group">
+                    <label className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-[#5c5b5b]">New Password</label>
+                    <input
+                      className="w-full rounded-xl border-none bg-[#dfdcdc] px-6 py-4 font-medium focus:ring-2 focus:ring-[#0052d0]/20"
+                      type="password"
+                      value={newPassword}
+                      onChange={(event) => setNewPassword(event.target.value)}
+                    />
+                  </div>
+                  <div className="group">
+                    <label className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-[#5c5b5b]">Confirm New Password</label>
+                    <input
+                      className="w-full rounded-xl border-none bg-[#dfdcdc] px-6 py-4 font-medium focus:ring-2 focus:ring-[#0052d0]/20"
+                      type="password"
+                      value={confirmPassword}
+                      onChange={(event) => setConfirmPassword(event.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="pt-4">
+                  <button className="flex items-center gap-3 rounded-xl bg-[#2f2f2e] px-8 py-4 font-bold text-[#f9f7f3] shadow-lg transition-all hover:bg-[#171717]">
+                    <span>Update Password</span>
+                    <span>🔐</span>
+                  </button>
+                </div>
+              </form>
+            </section>
           </div>
 
           <aside className="space-y-6 md:col-span-4">
@@ -156,23 +238,18 @@ export default function ProfilePage() {
               </p>
             </div>
 
-            <div className="space-y-1 rounded-[2rem] bg-[#f3f0ef] p-4">
+            <div className="space-y-2 rounded-[2rem] bg-[#f3f0ef] p-5">
               <Link className="group flex items-center gap-4 rounded-2xl p-4 text-[#2f2f2e] transition-all hover:bg-[#e4e2e1]" href="/profile/listings">
                 <span className="text-[#0052d0]">☰</span>
                 <span className="font-bold">My Listings</span>
                 <span className="ml-auto text-sm opacity-30">›</span>
               </Link>
               <button className="group flex w-full items-center gap-4 rounded-2xl p-4 text-left text-[#2f2f2e] transition-all hover:bg-[#e4e2e1]">
-                <span className="text-[#0052d0]">$</span>
-                <span className="font-bold">Payout Methods</span>
-                <span className="ml-auto text-sm opacity-30">›</span>
-              </button>
-              <button className="group flex w-full items-center gap-4 rounded-2xl p-4 text-left text-[#2f2f2e] transition-all hover:bg-[#e4e2e1]">
                 <span className="text-[#0052d0]">⚙</span>
                 <span className="font-bold">Account Settings</span>
                 <span className="ml-auto text-sm opacity-30">›</span>
               </button>
-              <div className="mx-4 my-2 h-px bg-[#dfdcdc]" />
+              <div className="mx-4 my-1 h-px bg-[#dfdcdc]" />
               <button
                 className="group flex w-full items-center gap-4 rounded-2xl p-4 text-left text-[#b02500] transition-all hover:bg-[#f95630]/10"
                 onClick={async () => {

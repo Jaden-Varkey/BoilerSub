@@ -1,8 +1,8 @@
-import { ApiError } from "../lib/apiError.js";
-import type { ListingRepository } from "../repositories/listing.repository.js";
-import type { UserRepository } from "../repositories/user.repository.js";
-import type { ListingCreateInput, ListingUpdateInput } from "../schemas/listings.schema.js";
-import type { ListingRecord, ListingWithOwner, RequestUser } from "../types/index.js";
+import { ApiError } from "../lib/apiError";
+import type { ListingRepository } from "../repositories/listing.repository";
+import type { UserRepository } from "../repositories/user.repository";
+import type { ListingCreateInput, ListingUpdateInput } from "../schemas/listings.schema";
+import type { ListingRecord, ListingWithOwner, RequestUser } from "../types/index";
 
 export class ListingsService {
   constructor(
@@ -29,7 +29,7 @@ export class ListingsService {
       description: payload.description ?? null,
       price: payload.price,
       start_date: payload.start_date,
-      end_date: payload.end_date,
+      end_date: payload.end_date ?? null,
       bedrooms: payload.bedrooms ?? null,
       bathrooms: payload.bathrooms ?? null,
       distance: payload.distance ?? null,

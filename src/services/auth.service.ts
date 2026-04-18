@@ -1,8 +1,8 @@
-import { createSupabaseClient } from "../config/supabase.js";
-import { env } from "../config/env.js";
-import { ApiError } from "../lib/apiError.js";
-import type { UserRepository } from "../repositories/user.repository.js";
-import type { AuthSessionPayload } from "../types/index.js";
+import { createSupabaseClient } from "../config/supabase";
+import { env } from "../config/env";
+import { ApiError } from "../lib/apiError";
+import type { UserRepository } from "../repositories/user.repository";
+import type { AuthSessionPayload } from "../types/index";
 
 export class AuthService {
   constructor(private readonly userRepository: UserRepository) {}
@@ -174,6 +174,24 @@ export class AuthService {
     };
   }
 
+  async changePassword(input: { email: string; accessToken: string; currentPassword: string; newPassword: string }): Promise<{ status: string }> {
+    await this.authRequest("/token?grant_type=password", {
+      method: "POST",
+      body: JSON.stringify({ email: input.email, password: input.currentPassword }),
+    });
+
+    await this.authRequest(
+      "/user",
+      {
+        method: "PUT",
+        body: JSON.stringify({ password: input.newPassword }),
+      },
+      input.accessToken,
+    );
+
+    return { status: "password_updated" };
+  }
+
   async logout(accessToken: string): Promise<{ status: string }> {
     await this.authRequest("/logout", { method: "POST" }, accessToken);
     return { status: "signed_out" };
@@ -193,5 +211,46 @@ export class AuthService {
       body: JSON.stringify({ type: "sms", phone }),
     });
     return { status: "phone_otp_resent" };
+  }
+
+  async requestPasswordReset(input: { email: string; redirectTo?: string }): Promise<{ status: string }> {
+    const client = createSupabaseClient();
+    const { error } = await client.auth.resetPasswordForEmail(input.email, {
+      redirectTo: input.redirectTo,
+    });
+
+    if (error) {
+      throw new ApiError(400, "password_reset_request_failed", error.message);
+    }
+
+    return { status: "password_reset_email_sent" };
+  }
+
+  async resetPasswordWithToken(input: { tokenHash: string; newPassword: string }): Promise<{ status: string }> {
+    const client = createSupabaseClient();
+    const { data, error } = await client.auth.verifyOtp({
+      type: "recovery",
+      token_hash: input.tokenHash,
+    });
+
+    if (error) {
+      throw new ApiError(400, "invalid_or_expired_reset_link", error.message);
+    }
+
+    const accessToken = data.session?.access_token;
+    if (!accessToken) {
+      throw new ApiError(400, "invalid_or_expired_reset_link", "Invalid or expired reset link");
+    }
+
+    const authedClient = createSupabaseClient(accessToken);
+    const { error: updateError } = await authedClient.auth.updateUser({
+      password: input.newPassword,
+    });
+
+    if (updateError) {
+      throw new ApiError(400, "password_reset_failed", updateError.message);
+    }
+
+    return { status: "password_updated" };
   }
 }

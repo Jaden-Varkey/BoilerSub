@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toast } from "@/components/Toast";
 import { apiClient } from "@/lib/apiClient";
@@ -30,7 +30,7 @@ export default function NewListingPage() {
 
             <form
               className="space-y-10"
-              onSubmit={async (event) => {
+              onSubmit={async (event: FormEvent<HTMLFormElement>) => {
                 event.preventDefault();
                 setMessage(null);
 
@@ -85,7 +85,7 @@ export default function NewListingPage() {
                     className="sr-only"
                     multiple
                     type="file"
-                    onChange={async (event) => {
+                    onChange={async (event: ChangeEvent<HTMLInputElement>) => {
                       const files = event.target.files;
                       if (!files) {
                         return;
@@ -236,7 +236,7 @@ export default function NewListingPage() {
                   <input
                     className="w-full rounded-xl bg-[#e4e2e1] px-6 py-4 text-sm font-medium uppercase text-[#2f2f2e] focus:outline-none focus:ring-2 focus:ring-[#0052d0]/15"
                     type="date"
-                    value={form.end_date}
+                    value={form.end_date ?? ""}
                     onChange={(event) => setForm((current) => ({ ...current, end_date: event.target.value }))}
                   />
                 </div>

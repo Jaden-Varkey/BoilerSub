@@ -207,15 +207,15 @@ export default function ListingsPage() {
                 >
                   <div className="relative overflow-hidden">
                     <ListingImageCarousel alt={listing.title} images={imageForListing(listing.images, index)} />
-                    {index === 0 ? (
+                    {/* {index === 0 ? (
                       <div className="absolute left-4 top-4 flex gap-2">
                         <span className="flex items-center gap-1 rounded-full bg-[#ff946e] px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#5c1a00]">
                           <span className="h-2 w-2 animate-pulse rounded-full bg-[#a03a0f]" />
                           Available Now
                         </span>
                       </div>
-                    ) : null}
-                    <div className="absolute bottom-4 left-4">
+                    ) : null} */}
+                    {/* <div className="absolute bottom-4 left-4">
                       <button
                         className="rounded-lg bg-white/70 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[#0052d0] backdrop-blur-md transition-colors hover:bg-white"
                         type="button"
@@ -223,7 +223,7 @@ export default function ListingsPage() {
                       >
                         View 3D
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="p-5">
                     <div className="mb-3 flex items-start justify-between gap-4">
