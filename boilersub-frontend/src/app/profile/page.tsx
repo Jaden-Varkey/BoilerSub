@@ -8,9 +8,27 @@ import { Toast } from "@/components/Toast";
 import { useAuth } from "@/context/AuthProvider";
 import { apiClient } from "@/lib/apiClient";
 
+function splitName(fullName: string | null | undefined): { firstName: string; lastName: string } {
+  const value = fullName?.trim() ?? "";
+  if (!value) {
+    return { firstName: "", lastName: "" };
+  }
+  const parts = value.split(/\s+/);
+  return {
+    firstName: parts[0] ?? "",
+    lastName: parts.slice(1).join(" "),
+  };
+}
+
+function joinName(firstName: string, lastName: string): string {
+  return `${firstName.trim()} ${lastName.trim()}`.trim();
+}
+
 export default function ProfilePage() {
   const { user, refresh, logout } = useAuth();
-  const [fullName, setFullName] = useState(user?.full_name ?? "");
+  const initialName = splitName(user?.full_name);
+  const [firstName, setFirstName] = useState(initialName.firstName);
+  const [lastName, setLastName] = useState(initialName.lastName);
   const [bio, setBio] = useState(user?.bio ?? "");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -19,7 +37,9 @@ export default function ProfilePage() {
   const [passwordMessage, setPasswordMessage] = useState<{ kind: "success" | "error"; text: string } | null>(null);
 
   useEffect(() => {
-    setFullName(user?.full_name ?? "");
+    const nextName = splitName(user?.full_name);
+    setFirstName(nextName.firstName);
+    setLastName(nextName.lastName);
     setBio(user?.bio ?? "");
   }, [user?.bio, user?.full_name]);
 
@@ -114,6 +134,7 @@ export default function ProfilePage() {
                 onSubmit={async (event) => {
                   event.preventDefault();
                   try {
+                    const fullName = joinName(firstName, lastName);
                     await apiClient.users.updateMe({ full_name: fullName || null, bio: bio || null });
                     await refresh();
                     setMessage({ kind: "success", text: "Profile updated." });
@@ -123,14 +144,25 @@ export default function ProfilePage() {
                 }}
               >
                 {message && <Toast kind={message.kind} message={message.text} />}
-                <div className="group">
-                  <label className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-[#5c5b5b]">Full Name</label>
-                  <input
-                    className="w-full rounded-xl border-none bg-[#dfdcdc] px-6 py-4 font-medium focus:ring-2 focus:ring-[#0052d0]/20"
-                    type="text"
-                    value={fullName}
-                    onChange={(event) => setFullName(event.target.value)}
-                  />
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  <div className="group">
+                    <label className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-[#5c5b5b]">First Name</label>
+                    <input
+                      className="w-full rounded-xl border-none bg-[#dfdcdc] px-6 py-4 font-medium focus:ring-2 focus:ring-[#0052d0]/20"
+                      type="text"
+                      value={firstName}
+                      onChange={(event) => setFirstName(event.target.value)}
+                    />
+                  </div>
+                  <div className="group">
+                    <label className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-[#5c5b5b]">Last Name</label>
+                    <input
+                      className="w-full rounded-xl border-none bg-[#dfdcdc] px-6 py-4 font-medium focus:ring-2 focus:ring-[#0052d0]/20"
+                      type="text"
+                      value={lastName}
+                      onChange={(event) => setLastName(event.target.value)}
+                    />
+                  </div>
                 </div>
                 <div className="group">
                   <label className="mb-2 block text-[10px] font-bold uppercase tracking-widest text-[#5c5b5b]">Bio</label>

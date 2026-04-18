@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { AddressAutocompleteInput } from "@/components/AddressAutocompleteInput";
 import { AmenityChip } from "@/components/AmenityChip";
 import { Button } from "@/components/Button";
 import { Input, Textarea } from "@/components/Input";
@@ -209,11 +210,11 @@ export function ListingEditor({
                   <label className="mb-2 block text-xs font-bold uppercase tracking-[0.18em] text-stone-500" htmlFor="address">
                     Full Address
                   </label>
-                  <Input
+                  <AddressAutocompleteInput
                     className="rounded-xl border-none bg-[#dfdcdc] px-6 py-4 font-medium text-stone-900 focus:ring-2 focus:ring-[#0052d0]"
                     id="address"
                     value={form.address}
-                    onChange={(event) => setForm((current) => ({ ...current, address: event.target.value }))}
+                    onValueChange={(value) => setForm((current) => ({ ...current, address: value }))}
                   />
                 </div>
                 <div>
@@ -516,10 +517,10 @@ export function ListingEditor({
               <label className="label" htmlFor="address">
                 Address
               </label>
-              <Input
+              <AddressAutocompleteInput
                 id="address"
                 value={form.address}
-                onChange={(event) => setForm((current) => ({ ...current, address: event.target.value }))}
+                onValueChange={(value) => setForm((current) => ({ ...current, address: value }))}
               />
             </div>
           </div>

@@ -55,7 +55,7 @@ export default function HomePage() {
               fill
               priority
               sizes="100vw"
-              src="/hero-section.jpg"
+              src="/landing-hero-stitch-screen.png"
             />
             <div className="absolute inset-0 bg-black/30 backdrop-brightness-75" />
           </div>

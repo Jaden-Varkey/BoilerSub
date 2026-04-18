@@ -152,4 +152,25 @@ export const listings = {
   delete: (id: string) => request<{ ok: true }>(`/listings/${id}`, { method: "DELETE" }),
 };
 
-export const apiClient = { auth, users, listings };
+export const media = {
+  createCaptureSession: () =>
+    request<{ session_id: string; token: string; max_images: number; expires_in_seconds: number }>("/media/capture-sessions", {
+      method: "POST",
+    }),
+
+  getCaptureSession: (sessionId: string, token: string) =>
+    request<{ session_id: string; images: string[]; image_count: number; max_images: number }>(
+      `/media/capture-sessions/${sessionId}?token=${encodeURIComponent(token)}`,
+    ),
+
+  appendCaptureImages: (sessionId: string, token: string, images: string[]) =>
+    request<{ session_id: string; images: string[]; image_count: number; max_images: number }>(
+      `/media/capture-sessions/${sessionId}/images?token=${encodeURIComponent(token)}`,
+      {
+        method: "POST",
+        body: JSON.stringify({ images }),
+      },
+    ),
+};
+
+export const apiClient = { auth, users, listings, media };

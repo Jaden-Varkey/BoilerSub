@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { Nav } from "@/components/Nav";
 import { SiteFooter } from "@/components/SiteFooter";
 
-const AUTH_ROUTES = ["/login", "/signup", "/verify-email", "/verify-phone", "/forgot-password", "/reset-password"];
+const AUTH_ROUTES = ["/login", "/signup", "/verify-email", "/verify-phone", "/forgot-password", "/reset-password", "/capture-images"];
 
 function shouldHideChrome(pathname: string) {
   return (

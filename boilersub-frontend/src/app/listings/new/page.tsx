@@ -1,18 +1,110 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import Link from "next/link";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { AddressAutocompleteInput } from "@/components/AddressAutocompleteInput";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { Toast } from "@/components/Toast";
 import { apiClient } from "@/lib/apiClient";
-import { MAX_LISTING_IMAGES, readListingImages } from "@/lib/listingImages";
 import { amenityOptions, emptyListingPayload } from "@/lib/validators";
+
+const MAX_CAPTURE_IMAGES = 10;
+const DEFAULT_PUBLIC_ORIGIN = "https://inseparably-cordis-milton.ngrok-free.dev";
 
 export default function NewListingPage() {
   const router = useRouter();
   const [form, setForm] = useState(emptyListingPayload());
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [captureSessionId, setCaptureSessionId] = useState<string>("");
+  const [captureToken, setCaptureToken] = useState<string>("");
+  const [sessionReady, setSessionReady] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const incomingSession = params.get("captureSession");
+    const incomingToken = params.get("captureToken");
+    if (incomingSession && incomingToken) {
+      setCaptureSessionId(incomingSession);
+      setCaptureToken(incomingToken);
+      setSessionReady(true);
+      return;
+    }
+
+    let active = true;
+    void apiClient.media
+      .createCaptureSession()
+      .then((session) => {
+        if (!active) {
+          return;
+        }
+        setCaptureSessionId(session.session_id);
+        setCaptureToken(session.token);
+        setSessionReady(true);
+      })
+      .catch((error) => {
+        if (!active) {
+          return;
+        }
+        setMessage(error instanceof Error ? error.message : "Failed to initialize camera session");
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!captureSessionId || !captureToken) {
+      return;
+    }
+
+    let active = true;
+    const sync = async () => {
+      try {
+        const session = await apiClient.media.getCaptureSession(captureSessionId, captureToken);
+        if (!active) {
+          return;
+        }
+        setForm((current) => ({
+          ...current,
+          images: session.images,
+        }));
+      } catch {
+        // Keep polling silent to avoid disrupting form flow.
+      }
+    };
+
+    void sync();
+    const interval = window.setInterval(() => {
+      void sync();
+    }, 2500);
+
+    return () => {
+      active = false;
+      window.clearInterval(interval);
+    };
+  }, [captureSessionId, captureToken]);
+
+  const phoneCaptureUrl = useMemo(() => {
+    if (!captureSessionId || !captureToken || typeof window === "undefined") {
+      return "";
+    }
+    const configuredOrigin = process.env.NEXT_PUBLIC_PUBLIC_APP_URL?.trim();
+    const baseOrigin = configuredOrigin || DEFAULT_PUBLIC_ORIGIN;
+    const url = new URL("/capture-images", baseOrigin);
+    url.searchParams.set("session", captureSessionId);
+    url.searchParams.set("token", captureToken);
+    return url.toString();
+  }, [captureSessionId, captureToken]);
+
+  const qrImageUrl = useMemo(() => {
+    if (!phoneCaptureUrl) {
+      return "";
+    }
+    return `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(phoneCaptureUrl)}`;
+  }, [phoneCaptureUrl]);
 
   return (
     <ProtectedRoute requireVerified>
@@ -55,7 +147,7 @@ export default function NewListingPage() {
                 }
 
                 if (!form.images.length) {
-                  setMessage("Upload at least one JPEG image.");
+                  setMessage("Capture at least one live camera image.");
                   return;
                 }
 
@@ -78,36 +170,40 @@ export default function NewListingPage() {
               {message ? <Toast kind="error" message={message} /> : null}
 
               <section className="space-y-4">
-                <label className="block text-sm font-bold uppercase tracking-widest text-[#5c5b5b]/70">Gallery</label>
-                <label className="group relative flex aspect-video cursor-pointer flex-col items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-[#afadac]/30 bg-[#e4e2e1] md:aspect-[21/9]">
-                  <input
-                    accept=".jpg,.jpeg,image/jpeg"
-                    className="sr-only"
-                    multiple
-                    type="file"
-                    onChange={async (event: ChangeEvent<HTMLInputElement>) => {
-                      const files = event.target.files;
-                      if (!files) {
-                        return;
-                      }
-
-                      try {
-                        const images = await readListingImages(files);
-                        setForm((current) => ({ ...current, images }));
-                        setMessage(null);
-                      } catch (error) {
-                        setMessage(error instanceof Error ? error.message : "Failed to process images");
-                      } finally {
-                        event.target.value = "";
-                      }
-                    }}
-                  />
-                  <span className="font-bold text-[#5c5b5b]">
-                    {form.images.length ? `${form.images.length} JPEG photo${form.images.length === 1 ? "" : "s"} ready` : "Upload JPEG Photos"}
-                  </span>
-                  <span className="text-sm text-[#5c5b5b]/60">Select up to {MAX_LISTING_IMAGES} high-resolution JPEG images</span>
-                  <div className="pointer-events-none absolute inset-0 bg-[#0052d0]/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                </label>
+                <label className="block text-sm font-bold uppercase tracking-widest text-[#5c5b5b]/70">Gallery (Camera Only)</label>
+                <div className="rounded-2xl border border-[#afadac]/25 bg-[#f3f0ef] p-5 md:p-7">
+                  <div className="grid items-center gap-6 md:grid-cols-[280px_1fr]">
+                    <div className="mx-auto w-full max-w-[260px]">
+                      {sessionReady && qrImageUrl ? (
+                        <img alt="Scan to open phone camera capture" className="w-full rounded-xl bg-white p-2 shadow-sm" src={qrImageUrl} />
+                      ) : (
+                        <div className="aspect-square w-full animate-pulse rounded-xl bg-[#dfdcdc]" />
+                      )}
+                    </div>
+                    <div className="space-y-3">
+                      <h3 className="font-display text-2xl font-extrabold tracking-tight text-[#2f2f2e]">Take photos live from your phone camera</h3>
+                      <p className="text-[#5c5b5b]">
+                        Folder uploads are disabled for listing verification. Scan this QR code and capture photos directly from your phone camera.
+                      </p>
+                      <div className="flex flex-wrap gap-3">
+                        {phoneCaptureUrl ? (
+                          <Link
+                            className="rounded-xl bg-[#0052d0] px-4 py-2.5 text-sm font-bold text-[#f1f2ff] transition hover:bg-[#0047b7]"
+                            href={phoneCaptureUrl}
+                            target="_blank"
+                          >
+                            Open Camera Link
+                          </Link>
+                        ) : (
+                          <span className="rounded-xl bg-[#d6d4d3] px-4 py-2.5 text-sm font-bold text-[#5c5b5b]">Initializing camera link…</span>
+                        )}
+                        <span className="rounded-xl bg-[#e4e2e1] px-4 py-2.5 text-sm font-semibold text-[#2f2f2e]">
+                          {form.images.length}/{MAX_CAPTURE_IMAGES} photos synced
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 {form.images.length ? (
                   <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
                     {form.images.map((image, index) => (
@@ -138,12 +234,12 @@ export default function NewListingPage() {
                     Address
                   </label>
                   <div className="relative">
-                    <input
+                    <AddressAutocompleteInput
                       className="w-full rounded-xl bg-[#e4e2e1] px-6 py-4 font-medium text-[#2f2f2e] placeholder:text-[#5c5b5b]/40 focus:outline-none focus:ring-2 focus:ring-[#0052d0]/15"
+                      id="new-listing-address"
                       placeholder="Street Address, West Lafayette, IN"
-                      type="text"
                       value={form.address ?? ""}
-                      onChange={(event) => setForm((current) => ({ ...current, address: event.target.value }))}
+                      onValueChange={(value) => setForm((current) => ({ ...current, address: value }))}
                     />
                     <span className="absolute right-4 top-1/2 -translate-y-1/2 text-[#5c5b5b]">📍</span>
                   </div>

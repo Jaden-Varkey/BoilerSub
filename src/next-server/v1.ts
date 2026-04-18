@@ -25,6 +25,24 @@ import {
 } from "./http";
 
 type RouteResult = Response;
+type CaptureSessionRecord = {
+  token: string;
+  images: string[];
+  createdAt: number;
+  updatedAt: number;
+};
+
+const captureSessions = new Map<string, CaptureSessionRecord>();
+const CAPTURE_SESSION_TTL_MS = 1000 * 60 * 30;
+const JPEG_DATA_URL_REGEX = /^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/;
+
+function pruneCaptureSessions(now = Date.now()) {
+  captureSessions.forEach((session, id) => {
+    if (now - session.updatedAt > CAPTURE_SESSION_TTL_MS) {
+      captureSessions.delete(id);
+    }
+  });
+}
 
 function notFound(requestId: string): RouteResult {
   return errorResponse(requestId, 404, "not_found", "Route not found");
@@ -347,6 +365,115 @@ async function handleListings(
   return notFound(requestId);
 }
 
+function getCaptureToken(request: Request): string | null {
+  const fromHeader = request.headers.get("x-capture-token");
+  if (fromHeader) {
+    return fromHeader;
+  }
+
+  const url = new URL(request.url);
+  return url.searchParams.get("token");
+}
+
+async function handleMedia(
+  request: Request,
+  requestId: string,
+  _context: { userId?: string },
+  segments: string[],
+): Promise<RouteResult> {
+  pruneCaptureSessions();
+
+  if (segments[1] !== "capture-sessions") {
+    return notFound(requestId);
+  }
+
+  const sessionId = segments[2];
+  const action = segments[3];
+
+  if (!sessionId) {
+    if (request.method !== "POST") {
+      return notFound(requestId);
+    }
+
+    const id = crypto.randomUUID();
+    const token = crypto.randomUUID();
+    const now = Date.now();
+    captureSessions.set(id, {
+      token,
+      images: [],
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    return successResponse(requestId, 201, {
+      session_id: id,
+      token,
+      max_images: 10,
+      expires_in_seconds: Math.floor(CAPTURE_SESSION_TTL_MS / 1000),
+    });
+  }
+
+  const record = captureSessions.get(sessionId);
+  if (!record) {
+    return errorResponse(requestId, 404, "capture_session_not_found", "Capture session not found");
+  }
+
+  const token = getCaptureToken(request);
+  if (!token || token !== record.token) {
+    return errorResponse(requestId, 403, "invalid_capture_token", "Invalid capture token");
+  }
+
+  if (!action && request.method === "GET") {
+    record.updatedAt = Date.now();
+    return successResponse(requestId, 200, {
+      session_id: sessionId,
+      images: record.images,
+      image_count: record.images.length,
+      max_images: 10,
+    });
+  }
+
+  if (action === "images" && request.method === "POST") {
+    const body = (await readJsonBody(request)) as { images?: unknown };
+    const incoming = Array.isArray(body.images) ? body.images : [];
+    if (!incoming.length) {
+      return errorResponse(requestId, 400, "images_required", "At least one image is required");
+    }
+
+    for (const image of incoming) {
+      if (typeof image !== "string" || !JPEG_DATA_URL_REGEX.test(image)) {
+        return errorResponse(requestId, 400, "invalid_image", "Images must be JPEG data URLs");
+      }
+    }
+
+    const merged = [...record.images];
+    for (const image of incoming as string[]) {
+      if (merged.length >= 10) {
+        break;
+      }
+      merged.push(image);
+    }
+
+    record.images = merged;
+    record.updatedAt = Date.now();
+    captureSessions.set(sessionId, record);
+
+    return successResponse(requestId, 200, {
+      session_id: sessionId,
+      images: record.images,
+      image_count: record.images.length,
+      max_images: 10,
+    });
+  }
+
+  if (request.method === "DELETE" && !action) {
+    captureSessions.delete(sessionId);
+    return successResponse(requestId, 200, { status: "capture_session_closed" });
+  }
+
+  return notFound(requestId);
+}
+
 export async function dispatchApiV1(request: Request, segments: string[]): Promise<Response> {
   const [resource] = segments;
 
@@ -360,6 +487,8 @@ export async function dispatchApiV1(request: Request, segments: string[]): Promi
         return handleUsers(request, context.requestId, context, segments);
       case "listings":
         return handleListings(request, context.requestId, context, segments);
+      case "media":
+        return handleMedia(request, context.requestId, context, segments);
       default:
         return notFound(context.requestId);
     }

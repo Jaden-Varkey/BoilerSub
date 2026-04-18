@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
+import PasswordStrengthBar from "react-password-strength-bar";
 import { Toast } from "@/components/Toast";
 import { apiClient } from "@/lib/apiClient";
 
@@ -98,6 +99,12 @@ export default function ResetPasswordPage() {
                 {showPassword ? "Hide" : "Show"}
               </button>
             </div>
+            <PasswordStrengthBar
+              password={password}
+              minLength={8}
+              shortScoreWord="Too short"
+              scoreWords={["Weak", "Fair", "Good", "Strong", "Very strong"]}
+            />
           </div>
 
           <div className="space-y-2">

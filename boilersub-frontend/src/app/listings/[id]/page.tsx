@@ -87,6 +87,12 @@ function ownerSummary(owner: PublicUser | null) {
   return `${owner.email} is part of the Purdue-only marketplace.`;
 }
 
+function createOutlookComposeUrl(recipientEmail: string): string {
+  const url = new URL("https://outlook.office.com/mail/deeplink/compose");
+  url.searchParams.set("to", recipientEmail);
+  return url.toString();
+}
+
 export default function ListingDetailPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
@@ -112,6 +118,8 @@ export default function ListingDetailPage() {
 
   const isOwner = Boolean(user && listing && user.id === listing.owner_id);
   const images = listing ? galleryImages(listing.images) : listingDetailImages;
+  const canContactLister = Boolean(owner?.email);
+  const galleryHref = listing ? `/listings/${listing.id}/gallery?start=0` : undefined;
 
   return (
     <>
@@ -150,6 +158,11 @@ export default function ListingDetailPage() {
 
             <div className="mb-16 grid grid-cols-1 gap-6 md:grid-cols-12">
               <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl shadow-[0_12px_32px_rgba(0,0,0,0.06)] md:col-span-8">
+                {galleryHref ? (
+                  <Link className="absolute inset-0 z-10 block" href={galleryHref} rel="noopener noreferrer" target="_blank">
+                    <span className="sr-only">Open full-screen gallery</span>
+                  </Link>
+                ) : null}
                 <Image
                   alt={listing.title}
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -160,10 +173,17 @@ export default function ListingDetailPage() {
                   unoptimized={Boolean(listing.images[0])}
                 />
                 <div className="absolute bottom-6 left-6 flex gap-2">
-                  <button className="flex items-center gap-2 rounded-lg bg-[#f9f6f5]/90 px-4 py-2 text-sm font-bold backdrop-blur-md transition-all hover:bg-[#f9f6f5]">
-                    <span>🖼</span>
-                    {images.length} Photo{images.length === 1 ? "" : "s"}
-                  </button>
+                  {galleryHref ? (
+                    <Link
+                      className="relative z-20 flex items-center gap-2 rounded-lg bg-[#f9f6f5]/90 px-4 py-2 text-sm font-bold backdrop-blur-md transition-all hover:bg-[#f9f6f5]"
+                      href={galleryHref}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <span>🖼</span>
+                      {images.length} Photo{images.length === 1 ? "" : "s"}
+                    </Link>
+                  ) : null}
 
                 </div>
               </div>
@@ -265,7 +285,17 @@ export default function ListingDetailPage() {
                 <div className="sticky top-32 space-y-8">
                   <div className="rounded-2xl border border-white/20 bg-[#dfdcdc] p-8 shadow-xl">
                     <h3 className="mb-6 text-xl font-extrabold">Ready to move in?</h3>
-                    <button className="w-full rounded-xl bg-gradient-to-br from-[#0052d0] to-[#0047b7] py-4 text-lg font-bold text-white shadow-lg shadow-[#0052d0]/20 transition-all hover:scale-[1.02] active:scale-95">
+                    <button
+                      className="w-full rounded-xl bg-gradient-to-br from-[#0052d0] to-[#0047b7] py-4 text-lg font-bold text-white shadow-lg shadow-[#0052d0]/20 transition-all hover:scale-[1.02] active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
+                      disabled={!canContactLister}
+                      onClick={() => {
+                        if (!owner?.email) {
+                          return;
+                        }
+                        window.open(createOutlookComposeUrl(owner.email), "_blank", "noopener,noreferrer");
+                      }}
+                      type="button"
+                    >
                       Contact Lister
                     </button>
                     <p className="mt-4 text-center text-xs font-medium text-[#5c5b5b]">Average response time: &lt; 2 hours</p>

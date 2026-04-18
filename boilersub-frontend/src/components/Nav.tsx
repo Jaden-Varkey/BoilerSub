@@ -7,6 +7,18 @@ import { useEffect, useRef, useState } from "react";
 import { AuthLaunchLink } from "@/components/AuthLaunchLink";
 import { useAuth } from "@/context/AuthProvider";
 
+function profileDisplayName(fullName: string | null | undefined, email: string): string {
+  const trimmed = fullName?.trim();
+  if (!trimmed) {
+    return email;
+  }
+  const parts = trimmed.split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) {
+    return `${parts[0]} ${parts.slice(1).join(" ")}`;
+  }
+  return trimmed;
+}
+
 export function Nav() {
   const router = useRouter();
   const pathname = usePathname();
@@ -16,6 +28,7 @@ export function Nav() {
   const isExplore = pathname === "/";
   const isListings = pathname === "/listings" || pathname.startsWith("/listings/");
   const isAbout = pathname === "/about";
+  const userDisplayName = user ? profileDisplayName(user.full_name, user.email) : "";
 
   useEffect(() => {
     if (!menuOpen) {
@@ -89,7 +102,7 @@ export function Nav() {
               >
                 <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-[#c3d0ff] bg-[#e4e2e1] shadow-[0_12px_32px_rgba(0,0,0,0.06)]">
                   <Image
-                    alt={user.full_name ?? user.email}
+                    alt={userDisplayName}
                     className="object-cover"
                     fill
                     sizes="40px"
@@ -108,7 +121,7 @@ export function Nav() {
               >
                 <div className="border-b border-[#8d7440]/40 px-5 py-4">
                   <p className="font-display text-sm font-bold tracking-[0.16em] text-[#d9c08a]">BoilerSub</p>
-                  <p className="mt-1 truncate text-sm text-[#f6efe1]/80">{user.full_name ?? user.email}</p>
+                  <p className="mt-1 truncate text-sm text-[#f6efe1]/80">{userDisplayName}</p>
                 </div>
                 <div className="flex flex-col py-2">
                   <Link

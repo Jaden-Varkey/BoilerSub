@@ -26,7 +26,8 @@ function ListingImageCarousel({
   alt: string;
 }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [hoverPaused, setHoverPaused] = useState(false);
+  const [manualPauseUntil, setManualPauseUntil] = useState(0);
   const [direction, setDirection] = useState<"next" | "prev">("next");
   const [transitioning, setTransitioning] = useState(false);
   const timeoutRef = useRef<number | null>(null);
@@ -34,6 +35,7 @@ function ListingImageCarousel({
   useEffect(() => {
     setActiveIndex(0);
     setTransitioning(false);
+    setManualPauseUntil(0);
   }, [images]);
 
   useEffect(() => {
@@ -61,8 +63,16 @@ function ListingImageCarousel({
   }
 
   useEffect(() => {
-    if (paused || images.length <= 1 || transitioning) {
+    if (images.length <= 1 || transitioning || hoverPaused) {
       return;
+    }
+
+    const now = Date.now();
+    if (manualPauseUntil > now) {
+      const resumeTimer = window.setTimeout(() => {
+        setManualPauseUntil(0);
+      }, manualPauseUntil - now);
+      return () => window.clearTimeout(resumeTimer);
     }
 
     const timer = window.setInterval(() => {
@@ -70,7 +80,7 @@ function ListingImageCarousel({
     }, 3000);
 
     return () => window.clearInterval(timer);
-  }, [images.length, paused, transitioning]);
+  }, [images.length, hoverPaused, manualPauseUntil, transitioning]);
 
   const previousIndex = (activeIndex - 1 + images.length) % images.length;
   const nextIndex = (activeIndex + 1) % images.length;
@@ -80,11 +90,11 @@ function ListingImageCarousel({
   return (
     <div
       className="relative h-56 overflow-hidden"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      onMouseEnter={() => setHoverPaused(true)}
+      onMouseLeave={() => setHoverPaused(false)}
     >
       <div
-        className="flex h-full w-full transition-transform duration-700 ease-out"
+        className={`flex h-full w-full ${transitioning ? "transition-transform duration-700 ease-out" : ""}`}
         style={{ transform: `translateX(${translate})` }}
       >
         {trackImages.map((imageIndex, frameIndex) => (
@@ -110,7 +120,7 @@ function ListingImageCarousel({
             onClick={(event) => {
               event.preventDefault();
               event.stopPropagation();
-              setPaused(true);
+              setManualPauseUntil(Date.now() + 5000);
               startTransition("prev");
             }}
           >
@@ -123,7 +133,7 @@ function ListingImageCarousel({
             onClick={(event) => {
               event.preventDefault();
               event.stopPropagation();
-              setPaused(true);
+              setManualPauseUntil(Date.now() + 5000);
               startTransition("next");
             }}
           >

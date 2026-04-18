@@ -30,6 +30,18 @@ function baseHeaders(requestId: string): Headers {
   });
 }
 
+function applyCorsHeaders(headers: Headers, request: Request): void {
+  const configuredCorsOrigin = process.env.CORS_ORIGIN?.trim() || "http://localhost:3000";
+  const requestOrigin = request.headers.get("origin");
+  const allowedOrigin = requestOrigin && requestOrigin === configuredCorsOrigin ? requestOrigin : configuredCorsOrigin;
+
+  headers.set("access-control-allow-origin", allowedOrigin);
+  headers.set("access-control-allow-credentials", "true");
+  headers.set("access-control-allow-methods", "GET,POST,PATCH,DELETE,OPTIONS");
+  headers.set("access-control-allow-headers", "content-type,authorization,x-request-id");
+  headers.set("vary", "origin");
+}
+
 export function jsonResponse<T>(requestId: string, status: number, payload: T): Response {
   return new Response(JSON.stringify(payload), {
     status,
@@ -56,6 +68,13 @@ export function errorResponse(
       ...(details === undefined ? {} : { details }),
     },
   });
+}
+
+export function preflightResponse(request: Request, requestId: string): Response {
+  const headers = new Headers();
+  headers.set("x-request-id", requestId);
+  applyCorsHeaders(headers, request);
+  return new Response(null, { status: 204, headers });
 }
 
 export async function readJsonBody<T = unknown>(request: Request): Promise<T> {
@@ -188,14 +207,14 @@ export async function handleRequest(
     userId: context.userId,
   });
 
-  if (!response.headers.has("x-request-id")) {
-    const headers = new Headers(response.headers);
+  const headers = new Headers(response.headers);
+  if (!headers.has("x-request-id")) {
     headers.set("x-request-id", context.requestId);
-    return new Response(response.body, {
-      status: response.status,
-      headers,
-    });
   }
+  applyCorsHeaders(headers, request);
 
-  return response;
+  return new Response(response.body, {
+    status: response.status,
+    headers,
+  });
 }

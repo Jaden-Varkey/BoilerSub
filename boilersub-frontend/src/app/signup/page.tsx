@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import PasswordStrengthBar from "react-password-strength-bar";
 import { Toast } from "@/components/Toast";
 import { apiClient } from "@/lib/apiClient";
 import { PURDUE_EMAIL_REGEX } from "@/lib/validators";
@@ -176,6 +177,12 @@ export default function SignupPage() {
                   {showPassword ? "Hide" : "Show"}
                 </button>
               </div>
+              <PasswordStrengthBar
+                password={password}
+                minLength={8}
+                shortScoreWord="Too short"
+                scoreWords={["Weak", "Fair", "Good", "Strong", "Very strong"]}
+              />
             </div>
 
             <div className="space-y-1.5">
