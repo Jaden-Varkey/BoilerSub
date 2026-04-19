@@ -87,12 +87,6 @@ function ownerSummary(owner: PublicUser | null) {
   return `${owner.email} is part of the Purdue-only marketplace.`;
 }
 
-function createOutlookComposeUrl(recipientEmail: string): string {
-  const url = new URL("https://outlook.office.com/mail/deeplink/compose");
-  url.searchParams.set("to", recipientEmail);
-  return url.toString();
-}
-
 export default function ListingDetailPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
@@ -289,10 +283,11 @@ export default function ListingDetailPage() {
                       className="w-full rounded-xl bg-gradient-to-br from-[#0052d0] to-[#0047b7] py-4 text-lg font-bold text-white shadow-lg shadow-[#0052d0]/20 transition-all hover:scale-[1.02] active:scale-95 disabled:cursor-not-allowed disabled:opacity-60"
                       disabled={!canContactLister}
                       onClick={() => {
-                        if (!owner?.email) {
+                        if (!owner?.id) {
                           return;
                         }
-                        window.open(createOutlookComposeUrl(owner.email), "_blank", "noopener,noreferrer");
+                        const chatUrl = `/listings/${listing.id}/chat?with=${encodeURIComponent(owner.id)}`;
+                        window.open(chatUrl, "_blank", "noopener,noreferrer");
                       }}
                       type="button"
                     >

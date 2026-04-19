@@ -10,7 +10,7 @@ import { apiClient } from "@/lib/apiClient";
 import { amenityOptions, emptyListingPayload } from "@/lib/validators";
 
 const MAX_CAPTURE_IMAGES = 10;
-const DEFAULT_PUBLIC_ORIGIN = "https://inseparably-cordis-milton.ngrok-free.dev";
+const DEFAULT_PUBLIC_ORIGIN = "https://boilersub.vercel.app";
 
 export default function NewListingPage() {
   const router = useRouter();
@@ -92,7 +92,8 @@ export default function NewListingPage() {
       return "";
     }
     const configuredOrigin = process.env.NEXT_PUBLIC_PUBLIC_APP_URL?.trim();
-    const baseOrigin = configuredOrigin || DEFAULT_PUBLIC_ORIGIN;
+    const runtimeOrigin = window.location.origin;
+    const baseOrigin = configuredOrigin || runtimeOrigin || DEFAULT_PUBLIC_ORIGIN;
     const url = new URL("/capture-images", baseOrigin);
     url.searchParams.set("session", captureSessionId);
     url.searchParams.set("token", captureToken);

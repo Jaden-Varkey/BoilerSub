@@ -140,6 +140,14 @@ export function Nav() {
                   >
                     My Listings
                   </Link>
+                  <Link
+                    className="px-5 py-3 font-display text-sm font-semibold tracking-tight text-[#f6efe1] transition-colors hover:bg-[#2a221c] hover:text-[#d9c08a]"
+                    href="/chats"
+                    role="menuitem"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Chat
+                  </Link>
                   <button
                     className="px-5 py-3 text-left font-display text-sm font-semibold tracking-tight text-[#f6efe1] transition-colors hover:bg-[#2a221c] hover:text-[#d9c08a]"
                     role="menuitem"
