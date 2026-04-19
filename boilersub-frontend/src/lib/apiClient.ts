@@ -1,4 +1,4 @@
-import type { Listing, ListingPayload, PublicUser, Session, User } from "@/lib/types";
+import type { ChatAttachment, ChatInboxEntry, ChatMessage, Listing, ListingPayload, PublicUser, Session, User } from "@/lib/types";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api/v1";
 
@@ -9,6 +9,7 @@ export class ApiError extends Error {
     message: string,
   ) {
     super(message);
+    this.name = "ApiError";
   }
 }
 
@@ -173,4 +174,33 @@ export const media = {
     ),
 };
 
-export const apiClient = { auth, users, listings, media };
+export const chats = {
+  listInbox: () => request<ChatInboxEntry[]>("/chats"),
+
+  getMessages: (conversationKey: string, limit = 200) =>
+    request<ChatMessage[]>(`/chats/${encodeURIComponent(conversationKey)}/messages?limit=${limit}`),
+
+  sendMessage: (payload: {
+    listing_id: string;
+    recipient_user_id: string;
+    text?: string;
+    attachments?: ChatAttachment[];
+  }) =>
+    request<ChatMessage>("/chats/messages", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+
+  editMessage: (conversationKey: string, messageId: string, text: string) =>
+    request<ChatMessage>(`/chats/${encodeURIComponent(conversationKey)}/messages/${messageId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ text }),
+    }),
+
+  deleteMessage: (conversationKey: string, messageId: string) =>
+    request<{ deleted: true }>(`/chats/${encodeURIComponent(conversationKey)}/messages/${messageId}`, {
+      method: "DELETE",
+    }),
+};
+
+export const apiClient = { auth, users, listings, media, chats };

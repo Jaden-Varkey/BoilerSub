@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { randomUUID } from "node:crypto";
 import {
   forgotPasswordSchema,
   changePasswordSchema,
@@ -13,6 +15,7 @@ import {
 import { listingCreateSchema, listingIdSchema, listingListQuerySchema, listingUpdateSchema } from "../schemas/listings.schema";
 import { updateMeSchema, userIdParamSchema } from "../schemas/users.schema";
 import { authService, listingsService, usersService } from "./container";
+import { supabaseServiceClient } from "../config/supabase";
 import {
   assertVerified,
   authenticate,
@@ -35,6 +38,190 @@ type CaptureSessionRecord = {
 const captureSessions = new Map<string, CaptureSessionRecord>();
 const CAPTURE_SESSION_TTL_MS = 1000 * 60 * 30;
 const JPEG_DATA_URL_REGEX = /^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/;
+
+const attachmentSchema = z.object({
+  id: z.string(),
+  kind: z.enum(["image", "video", "audio", "file"]),
+  name: z.string(),
+  size: z.number(),
+  mimeType: z.string(),
+  url: z.string(),
+});
+
+const sendMessageSchema = z.object({
+  listing_id: z.string().uuid(),
+  recipient_user_id: z.string().uuid(),
+  text: z.string().max(5000).optional(),
+  attachments: z.array(attachmentSchema).default([]),
+});
+
+const getMessagesQuerySchema = z.object({
+  limit: z.coerce.number().int().min(1).max(300).optional().default(200),
+});
+
+function buildConversationKey(listingId: string, userAId: string, userBId: string): string {
+  const [a, b] = [userAId, userBId].sort();
+  return `${listingId}__${a}__${b}`;
+}
+
+type ChatInboxEntry = {
+  conversation_key: string;
+  listing_id: string;
+  listing_title: string;
+  peer: {
+    id: string;
+    full_name: string | null;
+    email: string;
+  };
+  updated_at: string;
+  last_message_text: string;
+};
+
+async function handleChats(
+  request: Request,
+  requestId: string,
+  context: { userId?: string },
+  segments: string[],
+): Promise<RouteResult> {
+  const auth = await authenticate(request);
+  context.userId = auth.user.id;
+  const action = segments[1];
+
+  if (!action && request.method === "GET") {
+    const { data, error } = await supabaseServiceClient
+      .from("chat_messages")
+      .select(`
+        conversation_key,
+        listing_id,
+        created_at,
+        text,
+        attachments,
+        sender_user_id,
+        recipient_user_id,
+        listings:listing_id (title),
+        sender:sender_user_id (id, full_name, email),
+        recipient:recipient_user_id (id, full_name, email)
+      `)
+      .or(`sender_user_id.eq.${auth.user.id},recipient_user_id.eq.${auth.user.id}`)
+      .order("conversation_key")
+      .order("created_at", { ascending: false });
+
+    if (error) throw new Error(error.message);
+
+    const seen = new Set<string>();
+    const inbox: ChatInboxEntry[] = [];
+
+    for (const row of (data as any[])) {
+      if (seen.has(row.conversation_key)) continue;
+      seen.add(row.conversation_key);
+
+      const peer = row.sender_user_id === auth.user.id ? row.recipient : row.sender;
+      inbox.push({
+        conversation_key: row.conversation_key,
+        listing_id: row.listing_id,
+        listing_title: row.listings?.title ?? "Unknown Listing",
+        peer: {
+          id: peer.id,
+          full_name: peer.full_name,
+          email: peer.email,
+        },
+        updated_at: row.created_at,
+        last_message_text: row.text || (row.attachments?.length ? "Sent attachments" : "New message"),
+      });
+    }
+
+    return successResponse(requestId, 200, inbox.sort((a, b) => b.updated_at.localeCompare(a.updated_at)));
+  }
+
+  if (action === "messages" && request.method === "POST") {
+    const payload = sendMessageSchema.parse(await readJsonBody(request));
+
+    if (payload.recipient_user_id === auth.user.id) {
+      return errorResponse(requestId, 400, "invalid_recipient", "Cannot send a message to yourself");
+    }
+    if (!payload.text && payload.attachments.length === 0) {
+      return errorResponse(requestId, 400, "empty_message", "Message requires text or attachments");
+    }
+
+    const conversationKey = buildConversationKey(payload.listing_id, auth.user.id, payload.recipient_user_id);
+
+    const { data: newMessage, error: insertError } = await supabaseServiceClient
+      .from("chat_messages")
+      .insert({
+        conversation_key: conversationKey,
+        listing_id: payload.listing_id,
+        sender_user_id: auth.user.id,
+        recipient_user_id: payload.recipient_user_id,
+        text: payload.text || "",
+        attachments: payload.attachments,
+      })
+      .select()
+      .single();
+
+    if (insertError) {
+      if (insertError.code === "23503") {
+        return errorResponse(requestId, 404, "invalid_reference", "Listing or recipient not found");
+      }
+      throw new Error(insertError.message);
+    }
+
+    return successResponse(requestId, 201, newMessage);
+  }
+
+  const conversationKey = action;
+
+  if (conversationKey && segments[2] === "messages" && segments[3]) {
+    const messageId = segments[3];
+
+    if (request.method === "PATCH") {
+      const payload = z.object({ text: z.string().min(1) }).parse(await readJsonBody(request));
+      const { data, error } = await supabaseServiceClient
+        .from("chat_messages")
+        .update({ text: payload.text })
+        .eq("id", messageId)
+        .eq("conversation_key", conversationKey)
+        .eq("sender_user_id", auth.user.id)
+        .select()
+        .single();
+
+      if (error) throw new Error(error.message);
+      return successResponse(requestId, 200, data);
+    }
+
+    if (request.method === "DELETE") {
+      const { error } = await supabaseServiceClient
+        .from("chat_messages")
+        .delete()
+        .eq("id", messageId)
+        .eq("conversation_key", conversationKey)
+        .eq("sender_user_id", auth.user.id);
+
+      if (error) throw new Error(error.message);
+      return successResponse(requestId, 200, { deleted: true });
+    }
+  }
+
+  if (!conversationKey || segments[2] !== "messages" || request.method !== "GET") {
+    return notFound(requestId);
+  }
+
+  const url = new URL(request.url);
+  const query = getMessagesQuerySchema.parse({
+    limit: url.searchParams.get("limit") ?? undefined,
+  });
+
+  const { data: messages, error } = await supabaseServiceClient
+    .from("chat_messages")
+    .select("*")
+    .eq("conversation_key", conversationKey)
+    .or(`sender_user_id.eq.${auth.user.id},recipient_user_id.eq.${auth.user.id}`)
+    .order("created_at", { ascending: false })
+    .limit(query.limit);
+
+  if (error) throw new Error(error.message);
+
+  return successResponse(requestId, 200, (messages as any[]).reverse());
+}
 
 function pruneCaptureSessions(now = Date.now()) {
   captureSessions.forEach((session, id) => {
@@ -489,6 +676,8 @@ export async function dispatchApiV1(request: Request, segments: string[]): Promi
         return handleListings(request, context.requestId, context, segments);
       case "media":
         return handleMedia(request, context.requestId, context, segments);
+      case "chats":
+        return handleChats(request, context.requestId, context, segments);
       default:
         return notFound(context.requestId);
     }

@@ -73,3 +73,36 @@ export type ListingPayload = {
   images: string[];
   panorama_image: string | null;
 };
+
+export type ChatAttachment = {
+  id: string;
+  kind: "image" | "video" | "audio" | "file";
+  name: string;
+  size: number;
+  mimeType: string;
+  url: string;
+};
+
+export type ChatMessage = {
+  id: string;
+  conversation_key: string;
+  listing_id: string;
+  sender_user_id: string;
+  recipient_user_id: string;
+  text: string;
+  attachments: ChatAttachment[];
+  created_at: string;
+};
+
+export type ChatInboxEntry = {
+  conversation_key: string;
+  listing_id: string;
+  listing_title: string;
+  peer: {
+    id: string;
+    full_name: string | null;
+    email: string;
+  };
+  updated_at: string;
+  last_message_text: string;
+};

@@ -1,0 +1,11 @@
+{
+  "/listings/[id]/page": "app/listings/[id]/page.js",
+  "/api/v1/listings/[id]/route": "app/api/v1/listings/[id]/route.js",
+  "/api/v1/users/[id]/route": "app/api/v1/users/[id]/route.js",
+  "/page": "app/page.js",
+  "/api/v1/auth/me/route": "app/api/v1/auth/me/route.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/chats/page": "app/chats/page.js",
+  "/listings/[id]/chat/page": "app/listings/[id]/chat/page.js",
+  "/api/v1/[...path]/route": "app/api/v1/[...path]/route.js"
+}

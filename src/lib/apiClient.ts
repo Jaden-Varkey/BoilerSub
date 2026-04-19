@@ -1,4 +1,4 @@
-import type { Listing, ListingPayload, PublicUser, Session, User } from "@/lib/types";
+import type { ChatAttachment, ChatInboxEntry, ChatMessage, Listing, ListingPayload, PublicUser, Session, User } from "@/lib/types";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? "/api/v1";
 
@@ -9,42 +9,40 @@ export class ApiError extends Error {
     message: string,
   ) {
     super(message);
+    this.name = "ApiError";
   }
 }
 
 type Envelope<T> = { success: true; data: T } | { success: false; error: { code: string; message: string } };
 
 function getToken(): string | null {
-  if (typeof window === "undefined") {
-    return null;
-  }
+  if (typeof window === "undefined") return null;
   return window.localStorage.getItem("bs_access_token");
 }
 
 async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   const token = getToken();
-  const response = await fetch(`${BASE_URL}${path}`, {
+  const res = await fetch(`${BASE_URL}${path}`, {
     ...init,
     headers: {
       "Content-Type": "application/json",
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(init.headers ?? {}),
     },
-    cache: "no-store",
   });
 
-  const body = (await response.json().catch(() => null)) as Envelope<T> | null;
-  if (!response.ok || !body || body.success === false) {
-    const code = body && "error" in body ? body.error.code : "network_error";
-    const message = body && "error" in body ? body.error.message : response.statusText;
+  const body = (await res.json().catch(() => null)) as Envelope<T> | null;
 
-    if (response.status === 401 && typeof window !== "undefined") {
+  if (!res.ok || !body || body.success === false) {
+    const code = body && "error" in body ? body.error.code : "network_error";
+    const message = body && "error" in body ? body.error.message : res.statusText;
+
+    if (res.status === 401 && typeof window !== "undefined") {
       window.localStorage.removeItem("bs_access_token");
       window.localStorage.removeItem("bs_user");
       window.location.href = "/login";
     }
-
-    throw new ApiError(response.status, code, message);
+    throw new ApiError(res.status, code, message);
   }
 
   return body.data;
@@ -58,32 +56,47 @@ export const auth = {
     }),
 
   verifyEmail: (email: string, token: string) =>
-    request<{ status: string } | { session: Session; user: User }>("/auth/verify-email", {
+    request<{ session: { access_token: string } | null; user: User } | { status: string }>("/auth/verify-email", {
       method: "POST",
       body: JSON.stringify({ email, token }),
     }),
 
-  sendPhoneOtp: (phone: string) =>
+  sendPhoneOtp: (payload: { accessToken: string; phone: string }) =>
     request<{ status: string }>("/auth/phone/send-otp", {
       method: "POST",
-      body: JSON.stringify({ phone }),
+      headers: { Authorization: `Bearer ${payload.accessToken}` },
+      body: JSON.stringify({ phone: payload.phone }),
     }),
 
   verifyPhone: (phone: string, token: string) =>
-    request<{ session: Session; user: User }>("/auth/verify-phone", {
+    request<{ session: { access_token: string }; user: User }>("/auth/verify-phone", {
       method: "POST",
       body: JSON.stringify({ phone, token }),
     }),
 
   login: (email: string, password: string) =>
-    request<{ session: Session; user: User }>("/auth/login", {
+    request<{ session: { access_token: string }; user: User }>("/auth/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
     }),
 
-  logout: () => request<{ status: string }>("/auth/logout", { method: "POST" }),
+  logout: (accessToken: string) =>
+    request<{ status: string }>("/auth/logout", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${accessToken}` },
+    }),
 
   me: () => request<{ user: User }>("/auth/me"),
+
+  changePassword: (payload: { email: string; accessToken: string; currentPassword: string; newPassword: string }) =>
+    request<{ status: string }>("/auth/change-password", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${payload.accessToken}` },
+      body: JSON.stringify({
+        current_password: payload.currentPassword,
+        new_password: payload.newPassword,
+      }),
+    }),
 
   resendEmailOtp: (email: string) =>
     request<{ status: string }>("/auth/resend-email-otp", {
@@ -96,31 +109,79 @@ export const auth = {
       method: "POST",
       body: JSON.stringify({ phone }),
     }),
+
+  requestPasswordReset: (payload: { email: string; redirectTo?: string }) =>
+    request<{ status: string }>("/auth/forgot-password", {
+      method: "POST",
+      body: JSON.stringify({ email: payload.email, redirect_to: payload.redirectTo }),
+    }),
+
+  resetPassword: (tokenHash: string, newPassword: string, confirmPassword: string) =>
+    request<{ status: string }>("/auth/reset-password", {
+      method: "POST",
+      body: JSON.stringify({ token_hash: tokenHash, new_password: newPassword, confirm_password: confirmPassword }),
+    }),
 };
 
 export const users = {
   getById: (id: string) => request<PublicUser>(`/users/${id}`),
-  updateMe: (patch: { full_name?: string | null; bio?: string | null }) =>
-    request<PublicUser>("/users/me", {
-      method: "PATCH",
-      body: JSON.stringify(patch),
-    }),
+  updateMe: (id: string, patch: { full_name?: string; bio?: string }) =>
+    request<User>("/users/me", { method: "PATCH", body: JSON.stringify(patch) }),
 };
 
 export const listings = {
-  list: (limit = 20, offset = 0) => request<Listing[]>(`/listings?limit=${limit}&offset=${offset}`),
+  list: (query: { limit?: number; offset?: number }) =>
+    request<Listing[]>(`/listings?limit=${query.limit ?? 20}&offset=${query.offset ?? 0}`),
   getById: (id: string) => request<Listing>(`/listings/${id}`),
-  create: (payload: ListingPayload) =>
-    request<Listing>("/listings", {
-      method: "POST",
-      body: JSON.stringify(payload),
-    }),
-  update: (id: string, patch: Partial<ListingPayload>) =>
-    request<Listing>(`/listings/${id}`, {
-      method: "PATCH",
-      body: JSON.stringify(patch),
-    }),
+  create: (user: User, payload: ListingPayload) =>
+    request<Listing>("/listings", { method: "POST", body: JSON.stringify(payload) }),
+  update: (user: User, id: string, patch: Partial<ListingPayload>) =>
+    request<Listing>(`/listings/${id}`, { method: "PATCH", body: JSON.stringify(patch) }),
   delete: (id: string) => request<{ ok: true }>(`/listings/${id}`, { method: "DELETE" }),
 };
 
-export const apiClient = { auth, users, listings };
+export const media = {
+  getCaptureSession: (sessionId: string, token: string) =>
+    request<{ session_id: string; images: string[]; image_count: number; max_images: number }>(
+      `/media/capture-sessions/${sessionId}?token=${encodeURIComponent(token)}`,
+    ),
+  appendCaptureImages: (sessionId: string, token: string, images: string[]) =>
+    request<{ session_id: string; images: string[]; image_count: number; max_images: number }>(
+      `/media/capture-sessions/${sessionId}/images?token=${encodeURIComponent(token)}`,
+      {
+        method: "POST",
+        body: JSON.stringify({ images }),
+      },
+    ),
+};
+
+export const chats = {
+  listInbox: () => request<ChatInboxEntry[]>("/chats"),
+
+  getMessages: (conversationKey: string, limit = 200) =>
+    request<ChatMessage[]>(`/chats/${encodeURIComponent(conversationKey)}/messages?limit=${limit}`),
+
+  sendMessage: (payload: {
+    listing_id: string;
+    recipient_user_id: string;
+    text?: string;
+    attachments?: ChatAttachment[];
+  }) =>
+    request<ChatMessage>("/chats/messages", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+
+  editMessage: (conversationKey: string, messageId: string, text: string) =>
+    request<ChatMessage>(`/chats/${encodeURIComponent(conversationKey)}/messages/${messageId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ text }),
+    }),
+
+  deleteMessage: (conversationKey: string, messageId: string) =>
+    request<{ deleted: true }>(`/chats/${encodeURIComponent(conversationKey)}/messages/${messageId}`, {
+      method: "DELETE",
+    }),
+};
+
+export const apiClient = { auth, users, listings, media, chats };
