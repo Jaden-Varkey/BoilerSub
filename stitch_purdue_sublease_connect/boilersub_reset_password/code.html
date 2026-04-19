@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reset Password | BoilerSub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary": "#0052d0",
+                        "error-dim": "#b92902",
+                        "on-tertiary-container": "#5c1a00",
+                        "on-error-container": "#520c00",
+                        "inverse-primary": "#fee6b2",
+                        "on-secondary-fixed-variant": "#0048b9",
+                        "tertiary-fixed-dim": "#fe7e4f",
+                        "on-tertiary": "#ffefeb",
+                        "on-primary-fixed-variant": "#6e5d35",
+                        "on-primary-container": "#64532c",
+                        "on-primary": "#fff1d9",
+                        "on-error": "#ffefec",
+                        "on-secondary": "#f1f2ff",
+                        "background": "#f9f6f5",
+                        "surface-dim": "#d6d4d3",
+                        "surface-container-high": "#e4e2e1",
+                        "primary": "#6a5a32",
+                        "inverse-surface": "#0e0e0e",
+                        "primary-fixed": "#fee6b2",
+                        "on-surface": "#2f2f2e",
+                        "error-container": "#f95630",
+                        "secondary-fixed": "#c3d0ff",
+                        "secondary-container": "#c3d0ff",
+                        "tertiary-fixed": "#ff946e",
+                        "surface-container-low": "#f3f0ef",
+                        "surface-tint": "#6a5a32",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#320a00",
+                        "secondary-fixed-dim": "#afc2ff",
+                        "inverse-on-surface": "#9e9c9c",
+                        "primary-fixed-dim": "#efd8a5",
+                        "outline-variant": "#afadac",
+                        "tertiary-dim": "#902e02",
+                        "surface-variant": "#dfdcdc",
+                        "tertiary-container": "#ff946e",
+                        "on-background": "#2f2f2e",
+                        "on-secondary-container": "#0040a5",
+                        "surface-container-highest": "#dfdcdc",
+                        "on-tertiary-fixed-variant": "#6b1f00",
+                        "error": "#b02500",
+                        "on-surface-variant": "#5c5b5b",
+                        "primary-dim": "#5e4e27",
+                        "on-primary-fixed": "#50411b",
+                        "surface": "#f9f6f5",
+                        "tertiary": "#a03a0f",
+                        "on-secondary-fixed": "#002e7d",
+                        "surface-bright": "#f9f6f5",
+                        "outline": "#787676",
+                        "secondary-dim": "#0047b7",
+                        "primary-container": "#fee6b2",
+                        "surface-container": "#eae7e7"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-gradient {
+            background: linear-gradient(135deg, rgba(106, 90, 50, 0.9) 0%, rgba(47, 47, 46, 0.7) 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased overflow-hidden">
+<main class="min-h-screen flex flex-col md:flex-row">
+<!-- Left Panel: Editorial & Branded -->
+<section class="relative w-full md:w-[45%] lg:w-[40%] min-h-[409px] md:min-h-screen overflow-hidden hidden md:block">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0">
+<img alt="Purdue Campus Architecture" class="w-full h-full object-cover" data-alt="Stunning architectural shot of Purdue University campus brick buildings with golden sunset light hitting the clock tower spire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_jVZz4UHfYPGNPpYKWeLIajdA6W-GIjhfZSVkUMSn6cFLF-8WU4p_W6J3IQEGdbhYxvXUWUF9fFKzZNCX287G0rtlptR07sJFrExlI0e05ecqTW3ZfK3kzWQzz8uTqehp8WCB5Gaf9amV7THtW29FBt-Hb6e3dRjkjU50XP_Rtr78Pdzb3ImMUBXtoPd_9fOz_5Otqe4SwOhHoHiZLCDaIuggps42wLkkAaSRi5oNvGioQGCr5Ygc2XwiqSj4NzCKInnplaIvPIRh"/>
+<div class="absolute inset-0 editorial-gradient"></div>
+</div>
+<!-- Branded Content -->
+<div class="relative z-10 h-full flex flex-col justify-between p-12 lg:p-16">
+<!-- Brand Anchor -->
+<div class="flex items-center gap-2">
+<span class="font-headline text-3xl font-extrabold tracking-tighter text-primary-fixed">BoilerSub</span>
+</div>
+<!-- Editorial Copy -->
+<div class="space-y-8">
+<div class="glass-card inline-flex items-center gap-2 px-4 py-2 rounded-full shadow-lg">
+<span class="material-symbols-outlined text-primary-fixed text-sm" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="font-label text-xs uppercase tracking-widest text-on-primary font-bold">Verified Purdue Student</span>
+</div>
+<div class="space-y-4">
+<h1 class="font-headline text-5xl lg:text-7xl font-bold text-surface tracking-tight leading-[1.1]">
+                            The <span class="text-primary-fixed">Boiler</span> Network.
+                        </h1>
+<p class="text-surface/80 text-lg lg:text-xl font-medium max-w-md leading-relaxed">
+                            Our secure infrastructure ensures that every listing and every student in the BoilerSub community is protected. Security is the foundation of our student marketplace.
+                        </p>
+</div>
+</div>
+<!-- Footer-like attribution -->
+<div class="pt-8">
+<p class="font-label text-[10px] uppercase tracking-[0.2em] text-surface-variant/60 font-bold">
+                        Built for Boilermakers © 2024
+                    </p>
+</div>
+</div>
+</section>
+<!-- Right Panel: Password Reset Form -->
+<section class="w-full md:w-[55%] lg:w-[60%] flex items-center justify-center bg-background px-6 py-12 md:p-20 overflow-y-auto">
+<div class="w-full max-w-md space-y-10">
+<!-- Mobile Branding (Hidden on Desktop) -->
+<div class="md:hidden flex justify-center mb-12">
+<span class="font-headline text-2xl font-black tracking-tighter text-primary">BoilerSub</span>
+</div>
+<!-- Form Header -->
+<div class="space-y-3">
+<h2 class="font-headline text-3xl md:text-4xl font-bold tracking-tight text-on-surface">
+                        Set your new BoilerSub password
+                    </h2>
+<p class="text-on-surface-variant font-medium">
+                        Confirming reset for your Purdue account
+                    </p>
+</div>
+<!-- Reset Form -->
+<form action="#" class="space-y-6" id="reset-password-form" method="POST">
+<div class="space-y-4">
+<!-- New Password Field -->
+<div class="space-y-2">
+<label class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant" for="new_password">New Password</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-highest border-none rounded-xl px-4 py-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-secondary transition-all duration-300" id="new_password" minlength="8" name="new_password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-secondary transition-colors" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<!-- Confirm Password Field -->
+<div class="space-y-2">
+<label class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant" for="confirm_password">Confirm New Password</label>
+<div class="relative group">
+<input class="w-full bg-surface-container-highest border-none rounded-xl px-4 py-4 text-on-surface placeholder:text-outline focus:ring-2 focus:ring-secondary transition-all duration-300" id="confirm_password" minlength="8" name="confirm_password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-secondary transition-colors" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Password Requirements -->
+<div class="bg-surface-container-low p-5 rounded-xl space-y-3">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-1">Security Checklist</p>
+<div class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-[18px]">check_circle</span>
+<span>At least 8 characters long</span>
+</div>
+<div class="flex items-center gap-3 text-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-outline text-[18px]">radio_button_unchecked</span>
+<span>Includes a special character or number</span>
+</div>
+</div>
+<!-- Form Actions -->
+<div class="space-y-6 pt-4">
+<button class="w-full bg-secondary hover:bg-secondary-dim text-on-secondary font-headline font-bold py-4 rounded-xl shadow-[0px_12px_32px_rgba(0,82,208,0.2)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300" type="submit">
+                            Update Password
+                        </button>
+<div class="text-center">
+<a class="inline-flex items-center gap-2 font-label text-sm font-bold text-primary hover:text-secondary transition-colors group" href="../boilersub_login/code.html">
+<span class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                                Back to Log In
+                            </a>
+</div>
+</div>
+</form>
+<!-- Help Link -->
+<div class="pt-10 border-t border-outline-variant/20">
+<p class="text-sm text-on-surface-variant">
+                        Having trouble? <a class="text-primary underline underline-offset-4 decoration-2 decoration-primary/30 hover:decoration-primary transition-all font-semibold" href="#">Contact Support</a>
+</p>
+</div>
+</div>
+</section>
+</main>
+<script>
+        const resetPasswordForm = document.getElementById("reset-password-form");
+        const newPasswordInput = document.getElementById("new_password");
+        const confirmPasswordInput = document.getElementById("confirm_password");
+
+        resetPasswordForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (newPasswordInput.value !== confirmPasswordInput.value) {
+                confirmPasswordInput.setCustomValidity("Passwords do not match.");
+                confirmPasswordInput.reportValidity();
+                return;
+            }
+
+            confirmPasswordInput.setCustomValidity("");
+            window.location.href = "../boilersub_login/code.html";
+        });
+    </script>
+</body></html>

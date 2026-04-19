@@ -1,5 +1,2 @@
-import { StitchErrorPage } from "@/components/StitchErrorPage";
-
-export default function NotFound() {
-  return <StitchErrorPage />;
-}
+export * from "@/app/not-found";
+export { default } from "@/app/not-found";

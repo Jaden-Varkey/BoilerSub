@@ -1,4 +1,4 @@
-import { handleRequest, preflightResponse } from "#server/http";
+import { handleRequest } from "#server/http";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -12,8 +12,4 @@ export async function GET(request: Request) {
         headers: { "content-type": "application/json" },
       }),
   );
-}
-
-export async function OPTIONS(request: Request) {
-  return handleRequest(request, async (context) => preflightResponse(request, context.requestId));
 }
