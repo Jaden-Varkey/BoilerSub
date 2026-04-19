@@ -1,6 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { randomUUID } from "node:crypto";
-import { env } from "../server/config/env";
+import { env } from "../src/config/env.js";
 
 type SeedUser = {
   id: string;
