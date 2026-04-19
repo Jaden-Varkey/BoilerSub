@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AddressAutocompleteInput } from "@/components/AddressAutocompleteInput";
 import { AmenityChip } from "@/components/AmenityChip";
 import { Button } from "@/components/Button";
 import { Input, Textarea } from "@/components/Input";
 import { Toast } from "@/components/Toast";
-import { MAX_LISTING_IMAGES, readListingImages } from "@/lib/listingImages";
+import { apiClient } from "@/lib/apiClient";
+import { MAX_LISTING_IMAGES } from "@/lib/listingImages";
 import { amenityOptions, emptyListingPayload } from "@/lib/validators";
 import type { Listing, ListingPayload } from "@/lib/types";
 
@@ -24,6 +25,7 @@ type FormState = {
   address: string;
   amenities: string[];
   images: string[];
+  panorama_image: string | null;
 };
 
 function toFormState(initial?: Partial<Listing | ListingPayload>): FormState {
@@ -40,6 +42,7 @@ function toFormState(initial?: Partial<Listing | ListingPayload>): FormState {
     address: payload.address ?? "",
     amenities: payload.amenities ?? [],
     images: payload.images ?? [],
+    panorama_image: payload.panorama_image ?? null,
   };
 }
 
@@ -56,6 +59,7 @@ function toPayload(state: FormState): ListingPayload {
     address: state.address || null,
     amenities: state.amenities,
     images: state.images,
+    panorama_image: state.panorama_image,
   };
 }
 
@@ -88,10 +92,83 @@ export function ListingEditor({
   const [busy, setBusy] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [captureSessionId, setCaptureSessionId] = useState("");
+  const [captureToken, setCaptureToken] = useState("");
+  const [captureReady, setCaptureReady] = useState(false);
 
   const payload = useMemo(() => toPayload(form), [form]);
   const owner = initial && "owner" in initial ? initial.owner : undefined;
   const previewImage = form.images[0];
+  const panoramaPreviewImage = form.panorama_image;
+  const phoneCaptureUrl = useMemo(() => {
+    if (!captureSessionId || !captureToken || typeof window === "undefined") {
+      return "";
+    }
+    const baseOrigin = window.location.origin;
+    const url = new URL("/capture-images", baseOrigin);
+    url.searchParams.set("session", captureSessionId);
+    url.searchParams.set("token", captureToken);
+    return url.toString();
+  }, [captureSessionId, captureToken]);
+  const qrImageUrl = useMemo(
+    () =>
+      phoneCaptureUrl
+        ? `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(phoneCaptureUrl)}`
+        : "",
+    [phoneCaptureUrl],
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    apiClient.media
+      .createCaptureSession()
+      .then((session) => {
+        if (cancelled) {
+          return;
+        }
+        setCaptureSessionId(session.session_id);
+        setCaptureToken(session.token);
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setMessage("Unable to start phone camera capture.");
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!captureSessionId || !captureToken) {
+      return;
+    }
+    let active = true;
+    const poll = async () => {
+      try {
+        const session = await apiClient.media.getCaptureSession(captureSessionId, captureToken);
+        if (!active) {
+          return;
+        }
+        const syncedImages = session.images.slice(0, MAX_LISTING_IMAGES);
+        setForm((current) => {
+          if (JSON.stringify(current.images) === JSON.stringify(syncedImages)) {
+            return current;
+          }
+          return { ...current, images: syncedImages };
+        });
+        setCaptureReady(true);
+      } catch {
+        // Best effort polling.
+      }
+    };
+    poll();
+    const timer = window.setInterval(poll, 3500);
+    return () => {
+      active = false;
+      window.clearInterval(timer);
+    };
+  }, [captureSessionId, captureToken]);
 
   if (variant === "stitchEdit") {
     return (
@@ -292,29 +369,26 @@ export function ListingEditor({
                 <h2 className="text-xs font-black uppercase tracking-[0.22em] text-[#6a5a32]">Photos</h2>
                 <span className="text-xs font-bold uppercase tracking-[0.18em] text-stone-500">JPEG only, up to {MAX_LISTING_IMAGES}</span>
               </div>
-              <Input
-                accept=".jpg,.jpeg,image/jpeg"
-                className="rounded-xl border-none bg-[#dfdcdc] px-6 py-4 text-sm font-medium text-stone-900 file:mr-4 file:rounded-full file:border-0 file:bg-[#0052d0] file:px-4 file:py-2 file:font-semibold file:text-white"
-                id="images"
-                multiple
-                type="file"
-                onChange={async (event) => {
-                  const files = event.target.files;
-                  if (!files) {
-                    return;
-                  }
-
-                  try {
-                    const images = await readListingImages(files);
-                    setForm((current) => ({ ...current, images }));
-                    setMessage(null);
-                  } catch (error) {
-                    setMessage(error instanceof Error ? error.message : "Failed to process images");
-                  } finally {
-                    event.target.value = "";
-                  }
-                }}
-              />
+              <div className="grid gap-4 md:grid-cols-[220px_1fr]">
+                <div className="rounded-2xl border border-[#c3d0ff] bg-white p-3">
+                  {qrImageUrl ? (
+                    <img alt="Scan to open phone camera capture" className="w-full rounded-xl" src={qrImageUrl} />
+                  ) : (
+                    <div className="flex aspect-square items-center justify-center rounded-xl bg-slate-100 text-xs text-slate-500">Preparing QR…</div>
+                  )}
+                </div>
+                <div className="rounded-2xl border border-[#d4d7dd] bg-[#f7f8fb] p-4 text-sm text-slate-600">
+                  <p className="font-semibold text-slate-800">Phone camera upload only</p>
+                  <p className="mt-1">Scan the QR code to capture images live from your phone. Laptop file upload is disabled.</p>
+                  {phoneCaptureUrl ? (
+                    <a className="mt-3 inline-block text-xs font-semibold text-[#0052d0] underline" href={phoneCaptureUrl} rel="noreferrer" target="_blank">
+                      Open capture on phone
+                    </a>
+                  ) : null}
+                  <p className="mt-3 text-xs">{form.images.length}/{MAX_LISTING_IMAGES} photos synced</p>
+                  {!captureReady ? <p className="mt-1 text-xs text-slate-500">Waiting for first sync…</p> : null}
+                </div>
+              </div>
               {form.images.length ? (
                 <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
                   {form.images.map((image, index) => (
@@ -331,6 +405,48 @@ export function ListingEditor({
                   ))}
                 </div>
               ) : null}
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-end justify-between gap-4">
+                <h2 className="text-xs font-black uppercase tracking-[0.22em] text-[#6a5a32]">Panorama</h2>
+                <span className="text-xs font-bold uppercase tracking-[0.18em] text-stone-500">Pick from synced phone captures</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {form.images.map((image, index) => (
+                  <button
+                    key={`${index}-${image.slice(0, 24)}`}
+                    className="rounded-full border border-[#b7c6f5] bg-[#eef2ff] px-3 py-1 text-xs font-semibold text-[#214196]"
+                    type="button"
+                    onClick={() => setForm((current) => ({ ...current, panorama_image: image }))}
+                  >
+                    Use photo {index + 1} as panorama
+                  </button>
+                ))}
+                {form.panorama_image ? (
+                  <button
+                    className="rounded-full border border-[#e6c7b8] bg-[#fff1ea] px-3 py-1 text-xs font-semibold text-[#9a4a26]"
+                    type="button"
+                    onClick={() => setForm((current) => ({ ...current, panorama_image: null }))}
+                  >
+                    Clear panorama
+                  </button>
+                ) : null}
+              </div>
+              {panoramaPreviewImage ? (
+                <div className="relative aspect-[2/1] overflow-hidden rounded-2xl bg-stone-200">
+                  <Image
+                    alt="Panorama upload preview"
+                    className="object-cover"
+                    fill
+                    sizes="(min-width: 1024px) 380px, 100vw"
+                    src={panoramaPreviewImage}
+                    unoptimized={panoramaPreviewImage.startsWith("data:image/")}
+                  />
+                </div>
+              ) : (
+                <p className="text-sm text-stone-500">Choose one of the synced phone captures to use for View 3D.</p>
+              )}
             </div>
 
             <div className="flex flex-col gap-6 border-t border-stone-200 pt-8 sm:flex-row sm:items-center">
@@ -395,6 +511,21 @@ export function ListingEditor({
                   Preview
                 </div>
               </div>
+              {panoramaPreviewImage ? (
+                <div className="mb-6 overflow-hidden rounded-2xl border border-[#c3d0ff] bg-[#eff3ff] p-3">
+                  <p className="mb-2 text-[0.65rem] font-black uppercase tracking-[0.22em] text-[#0052d0]">360 Preview Ready</p>
+                  <div className="relative aspect-[2/1] overflow-hidden rounded-xl">
+                    <Image
+                      alt="Panorama preview"
+                      className="object-cover"
+                      fill
+                      sizes="380px"
+                      src={panoramaPreviewImage}
+                      unoptimized={panoramaPreviewImage.startsWith("data:image/")}
+                    />
+                  </div>
+                </div>
+              ) : null}
               <div className="space-y-2">
                 <div className="flex items-start justify-between gap-4">
                   <h3 className="font-display text-xl font-black tracking-[-0.04em] text-stone-900">
@@ -598,29 +729,25 @@ export function ListingEditor({
             <label className="label" htmlFor="images">
               Listing images
             </label>
-            <Input
-              id="images"
-              accept=".jpg,.jpeg,image/jpeg"
-              multiple
-              type="file"
-              onChange={async (event) => {
-                const files = event.target.files;
-                if (!files) {
-                  return;
-                }
-
-                try {
-                  const images = await readListingImages(files);
-                  setForm((current) => ({ ...current, images }));
-                  setMessage(null);
-                } catch (error) {
-                  setMessage(error instanceof Error ? error.message : "Failed to process images");
-                } finally {
-                  event.target.value = "";
-                }
-              }}
-            />
-            <p className="mt-2 text-xs text-slate-500">JPEG only, up to {MAX_LISTING_IMAGES} files.</p>
+            <div className="mt-1 grid gap-4 md:grid-cols-[220px_1fr]">
+              <div className="rounded-2xl border border-slate-200 bg-white p-3">
+                {qrImageUrl ? (
+                  <img alt="Scan to open phone camera capture" className="w-full rounded-xl" src={qrImageUrl} />
+                ) : (
+                  <div className="flex aspect-square items-center justify-center rounded-xl bg-slate-100 text-xs text-slate-500">Preparing QR…</div>
+                )}
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+                <p className="font-semibold text-slate-800">Phone camera upload only</p>
+                <p className="mt-1">Scan the QR code and capture photos live. Laptop file upload is disabled.</p>
+                {phoneCaptureUrl ? (
+                  <a className="mt-3 inline-block text-xs font-semibold text-[#0052d0] underline" href={phoneCaptureUrl} rel="noreferrer" target="_blank">
+                    Open capture on phone
+                  </a>
+                ) : null}
+                <p className="mt-3 text-xs">{form.images.length}/{MAX_LISTING_IMAGES} photos synced</p>
+              </div>
+            </div>
             {form.images.length ? (
               <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-3">
                 {form.images.map((image, index) => (
@@ -635,6 +762,46 @@ export function ListingEditor({
                     />
                   </div>
                 ))}
+              </div>
+            ) : null}
+          </div>
+
+          <div>
+            <label className="label" htmlFor="panorama_image">
+              Panorama image
+            </label>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {form.images.map((image, index) => (
+                <button
+                  key={`${index}-${image.slice(0, 24)}`}
+                  className="rounded-full border border-[#b7c6f5] bg-[#eef2ff] px-3 py-1 text-xs font-semibold text-[#214196]"
+                  type="button"
+                  onClick={() => setForm((current) => ({ ...current, panorama_image: image }))}
+                >
+                  Use photo {index + 1} as panorama
+                </button>
+              ))}
+              {form.panorama_image ? (
+                <button
+                  className="rounded-full border border-[#e6c7b8] bg-[#fff1ea] px-3 py-1 text-xs font-semibold text-[#9a4a26]"
+                  type="button"
+                  onClick={() => setForm((current) => ({ ...current, panorama_image: null }))}
+                >
+                  Clear panorama
+                </button>
+              ) : null}
+            </div>
+            <p className="mt-2 text-xs text-slate-500">Select one synced phone capture as the panorama source for View 3D.</p>
+            {form.panorama_image ? (
+              <div className="mt-4 relative aspect-[2/1] overflow-hidden rounded-2xl bg-slate-100">
+                <Image
+                  alt="Panorama upload preview"
+                  className="object-cover"
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  src={form.panorama_image}
+                  unoptimized={form.panorama_image.startsWith("data:image/")}
+                />
               </div>
             ) : null}
           </div>

@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f6efe8;
+  --foreground: #0f172a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(circle at top left, rgba(0, 82, 208, 0.12), transparent 28rem),
+    radial-gradient(circle at bottom right, rgba(160, 58, 15, 0.1), transparent 24rem);
+}
+
+main {
+  position: relative;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display), system-ui, sans-serif;
+    letter-spacing: -0.04em;
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-[2rem] border border-white/60 bg-white/85 shadow-panel backdrop-blur;
+  }
+
+  .field {
+    @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20;
+  }
+
+  .label {
+    @apply mb-2 block text-xs font-semibold uppercase tracking-[0.24em] text-slate-500;
+  }
+
+  .page-wrap {
+    @apply mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8;
+  }
+
+  .section-title {
+    @apply font-display text-3xl text-brand-ink sm:text-4xl;
+  }
+
+  .eyebrow {
+    @apply text-[0.7rem] font-semibold uppercase tracking-[0.35em] text-brand-blue;
+  }
+
+  .glass-card {
+    @apply rounded-[1.75rem] border border-white/60 bg-white/70 shadow-panel backdrop-blur;
+  }
+
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+}

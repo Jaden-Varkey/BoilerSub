@@ -26,6 +26,9 @@
       "@/*": [
         "./boilersub-frontend/src/*"
       ],
+      "@/server/*": [
+        "./server/*"
+      ],
       "#server/*": [
         "./src/next-server/*"
       ],
