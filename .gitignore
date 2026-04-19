@@ -1,9 +1,7 @@
 node_modules
 dist
 .env
-.env.local
-.next
-boilersub-frontend/.env.local
-boilersub-frontend/.next
 .DS_Store
 coverage
+.vercel
+.env*.local

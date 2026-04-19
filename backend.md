@@ -1,1095 +1,807 @@
-# BoilerSub Backend Reference
+# BoilerSub Backend Integration Plan
 
-This document describes the current BoilerSub backend in implementation-level detail.
+This document describes the backend-specific changes required to integrate the current split BoilerSub setup into one complete Next.js project that can be deployed to Vercel without changing user-facing functionality.
 
-It is intended to be the primary reference when:
+It is based on:
 
-- implementing new backend features
-- modifying existing auth, users, or listings flows
-- debugging request behavior
-- changing validation, persistence, or authorization rules
-- migrating the backend to another runtime or data layer later
+- the current Documents workspace at `/Users/archeet/Documents/BoilerSub-reference`
+- the actual backend source under `src/`
+- the actual frontend source under `boilersub-frontend/src/`
+- the current Supabase-backed auth and data model
+- `graphify-out/graph.json`, which confirms the backend is already decomposed into config, middleware, controllers, services, and repositories
 
-The document reflects the current integrated repository layout where the web app and API live in the same Next.js project, while backend logic lives under `server/` and is exposed through `app/api/v1/...`.
+## 1. Current State
 
-## 1. Current Backend Shape
+The codebase is currently split into two runnable apps:
 
-BoilerSub no longer runs as a standalone Express server in the active repo layout.
+- backend: Express + TypeScript at the repo root
+- frontend: Next.js 14 app in `boilersub-frontend/`
 
-Instead:
+Current runtime:
 
-- the HTTP API is implemented as Next.js App Router route handlers under `app/api/v1`
-- backend domain logic lives under `server/`
-- the frontend talks to the backend on the same origin via `/api/v1/...`
+- frontend serves on `localhost:3000`
+- backend serves on `localhost:4000`
+- frontend calls backend over HTTP via `NEXT_PUBLIC_API_BASE_URL=http://localhost:4000/api/v1`
 
-Current backend execution path:
+Current backend architecture:
 
-`HTTP request -> app/api/v1 route handler -> server/lib/withRoute.ts -> service -> repository -> Supabase`
+`Express route -> middleware -> controller -> service -> repository -> Supabase`
 
-This preserves the original layered architecture while removing the separate Express runtime.
+Current frontend integration boundary:
 
-## 2. Repository Layout
+- all frontend API access goes through `boilersub-frontend/src/lib/apiClient.ts`
+- the frontend does not talk to Supabase directly
+- auth state is browser-managed through localStorage and Bearer tokens
 
-Backend-relevant files currently live in these directories:
+This is a good migration starting point because the split is mostly a transport/process split, not a domain-logic split.
 
-### API entrypoints
+## 2. What Must Not Change
+
+The integration should preserve these invariants:
+
+- the UI must not change at all
+- no visual styling, layout, spacing, typography, motion, assets, or interaction design may be modified
+- no frontend page behavior may be changed except what is strictly required to keep the exact existing behavior working in the integrated runtime
+- no feature may be added, removed, simplified, reinterpreted, or behaviorally modified
+- keep the API contract under `/api/v1/...`
+- keep the response envelope shape: `{ success: true, data }` and `{ success: false, error }`
+- keep Supabase as the source of truth for auth, users, listings, and RLS
+- keep service-role usage server-only
+- keep current auth semantics:
+  - Purdue-only signup
+  - email OTP verification
+  - optional demo skip for phone verification
+  - Bearer-token auth for protected endpoints
+- keep current listing CRUD semantics and ownership checks
+- keep the frontend consuming one centralized API client
+
+If these remain stable, the frontend behavior should remain effectively unchanged.
+
+### Non-Negotiable Integration Constraint
+
+This integration is an infrastructure and transport migration only.
+
+It is not a redesign.
+It is not a refactor of user-facing behavior.
+It is not a feature pass.
+
+The entire existing UI must stay exactly as it is.
+
+That means:
+
+- no page redesigns
+- no component redesigns
+- no copy rewrites unless required by a broken runtime dependency
+- no changed flows
+- no changed route behavior
+- no changed auth UX
+- no changed listings UX
+- no changed profile UX
+
+If a frontend file must be touched during integration, the change must be limited to what is strictly necessary to preserve the exact existing UI and feature behavior inside the new single-project deployment model.
+
+## 3. Graphify-Out Findings
+
+`graphify-out` is useful but partially stale:
+
+- `GRAPH_REPORT.md` is about the Stitch design corpus, not the runtime app architecture
+- `graph.json` is the useful file for migration planning
+- `graph.json` points to older Desktop paths, but the code structure it describes still matches the Documents backend
+
+What `graph.json` confirms:
+
+- `src/index.ts` is the transport composition root
+- middleware is isolated:
+  - `createRequireAuth`
+  - `createRateLimit`
+  - `createValidator`
+  - `errorHandler`
+- repositories are isolated:
+  - `SupabaseUserRepository`
+  - `SupabaseListingRepository`
+- services are isolated:
+  - `AuthService`
+  - `UsersService`
+  - `ListingsService`
+- routes are thin transport wiring:
+  - `auth.routes.ts`
+  - `users.routes.ts`
+  - `listings.routes.ts`
+
+That means the migration target is clear: move the transport layer into Next route handlers and reuse nearly everything below it.
+
+## 4. Target End State
+
+The final integrated project should look like this:
+
+```text
+BoilerSub/
+├── app/
+│   ├── api/
+│   │   └── v1/
+│   │       ├── health/route.ts
+│   │       ├── auth/
+│   │       │   ├── signup/route.ts
+│   │       │   ├── verify-email/route.ts
+│   │       │   ├── phone/send-otp/route.ts
+│   │       │   ├── verify-phone/route.ts
+│   │       │   ├── login/route.ts
+│   │       │   ├── logout/route.ts
+│   │       │   ├── resend-email-otp/route.ts
+│   │       │   ├── resend-phone-otp/route.ts
+│   │       │   └── me/route.ts
+│   │       ├── users/
+│   │       │   ├── [id]/route.ts
+│   │       │   └── me/route.ts
+│   │       └── listings/
+│   │           ├── route.ts
+│   │           └── [id]/route.ts
+│   └── ...frontend routes...
+├── server/
+│   ├── config/
+│   ├── controllers/
+│   ├── lib/
+│   ├── repositories/
+│   ├── schemas/
+│   ├── services/
+│   └── transport/
+└── package.json
+```
+
+Transport goal:
+
+`Next Route Handler -> shared route wrapper -> service -> repository -> Supabase`
+
+Express should disappear from the runtime path.
+
+## 5. Required Backend Changes
+
+### 5.1 Replace `src/index.ts` with Next route handlers
+
+Current `src/index.ts` does all of this:
+
+- instantiates repositories and services
+- configures helmet/cors/json parsing
+- mounts `/health`
+- mounts `/api/v1/auth`
+- mounts `/api/v1/users`
+- mounts `/api/v1/listings`
+- installs terminal error middleware
+
+In the integrated app:
+
+- delete the Express server bootstrap from runtime use
+- re-express each endpoint as a file in `app/api/v1/.../route.ts`
+- move dependency instantiation into shared server-only modules
+
+Concrete change:
+
+- stop using `app.listen(env.PORT)`
+- stop using Express router mounting
+- replace each route file with a direct handler exporting `GET`, `POST`, `PATCH`, or `DELETE`
+
+### 5.2 Preserve services and repositories with minimal changes
+
+These files are already reusable:
+
+- `src/services/auth.service.ts`
+- `src/services/users.service.ts`
+- `src/services/listings.service.ts`
+- `src/repositories/supabase.user.repository.ts`
+- `src/repositories/supabase.listing.repository.ts`
+- `src/config/supabase.ts`
+- `src/config/env.ts`
+
+Recommended move:
+
+- relocate these under `server/`
+- keep filenames and class boundaries largely unchanged
+
+Example:
+
+- `src/services/auth.service.ts` -> `server/services/auth.service.ts`
+- `src/repositories/supabase.user.repository.ts` -> `server/repositories/supabase.user.repository.ts`
+
+Reason:
+
+- these files contain the real business logic and Supabase integration
+- they are not tightly coupled to Express except through input/output types
+
+### 5.3 Replace Express middleware with framework-neutral server helpers
+
+Current middleware:
+
+- `requestId.ts`
+- `logger.ts`
+- `rateLimit.ts`
+- `validate.ts`
+- `requireAuth.ts`
+- `requireVerified.ts`
+- `errorHandler.ts`
+- `asyncHandler.ts`
+
+These should not be ported 1:1 as Express middleware. They should be converted into plain functions usable inside Next route handlers.
+
+Required transformations:
+
+#### `requireAuth`
+
+Current form:
+
+- Express `RequestHandler`
+- reads `Authorization` header from `req.headers.authorization`
+- calls Supabase `auth.getUser(accessToken)`
+- upserts the user
+- mutates `req.auth` and `req.user`
+
+Target form:
+
+- `authenticate(request: NextRequest | Request): Promise<{ accessToken: string; user: UserRecord }>`
+- returns data instead of mutating request objects
+
+#### `requireVerified`
+
+Current form:
+
+- depends on `req.user`
+
+Target form:
+
+- plain assertion helper:
+  - `assertVerified(user: UserRecord): void`
+  - or enforce via route wrapper option
+
+#### `validate`
+
+Current form:
+
+- parses `req.body`, `req.query`, or `req.params`
+
+Target form:
+
+- route-local helper functions:
+  - `parseJsonBody(request, schema)`
+  - `parseQuery(searchParams, schema)`
+  - `parseRouteParams(params, schema)`
+
+#### `rateLimit`
+
+Current form:
+
+- in-memory limiter keyed by IP, email, or phone
+
+Target form:
+
+- can remain temporarily as a plain function for development
+- for production on Vercel, in-memory storage is not reliable across instances
+
+This is one of the few backend pieces that needs a real production change, not just a transport rewrite.
+
+Required production action:
+
+- replace in-memory rate limiting with a shared store:
+  - Upstash Redis
+  - Vercel KV equivalent
+  - Supabase-backed rate-limit table if necessary
+
+#### `errorHandler`
+
+Current form:
+
+- Express terminal middleware
+
+Target form:
+
+- a shared `withRoute()` wrapper that:
+  - catches `ApiError`
+  - catches `ZodError`
+  - logs unknown errors
+  - returns `NextResponse.json(...)`
+
+### 5.4 Add a shared route wrapper for Next handlers
+
+This is the most important backend integration primitive.
+
+Create a server helper, for example:
+
+- `server/lib/withRoute.ts`
+
+Responsibilities:
+
+- assign request ID
+- optionally parse auth
+- optionally require verified user
+- normalize error responses
+- normalize success envelope
+- centralize logging
+
+It should replace the role currently played by:
+
+- `asyncHandler`
+- `errorHandler`
+- parts of `requestId`
+- parts of `logger`
+- parts of `requireAuth`
+- parts of `requireVerified`
+
+Recommended signature:
+
+```ts
+withRoute(
+  {
+    requireAuth?: boolean,
+    requireVerified?: boolean,
+  },
+  async ({ request, user, accessToken, params }) => { ... }
+)
+```
+
+### 5.5 Move `/health` to a Next route
+
+Current route:
+
+- `GET /health`
+
+Recommended integrated state:
+
+- keep `GET /health` only if a rewrite is required externally
+- add canonical Vercel-ready route:
+  - `GET /api/v1/health`
+
+Prefer:
 
 - `app/api/v1/health/route.ts`
-- `app/api/v1/auth/...`
-- `app/api/v1/users/...`
-- `app/api/v1/listings/...`
 
-These files are thin transport adapters. They should stay small.
+This aligns health with the main API namespace and avoids needing a second server entrypoint.
 
-### Backend implementation
+### 5.6 Convert each Express route group to route files
 
-- `server/config/`
-- `server/lib/`
-- `server/repositories/`
-- `server/schemas/`
-- `server/services/`
-- `server/types/`
+Current route groups:
 
-### Supporting data/migrations/scripts
+- `src/routes/auth.routes.ts`
+- `src/routes/users.routes.ts`
+- `src/routes/listings.routes.ts`
 
-- `supabase/migrations/`
-- `scripts/seed.ts`
-- `scripts/reassign-listings-to-student2.ts`
+Target route files:
 
-## 3. Backend Responsibilities
+- `app/api/v1/auth/signup/route.ts`
+- `app/api/v1/auth/verify-email/route.ts`
+- `app/api/v1/auth/phone/send-otp/route.ts`
+- `app/api/v1/auth/verify-phone/route.ts`
+- `app/api/v1/auth/login/route.ts`
+- `app/api/v1/auth/logout/route.ts`
+- `app/api/v1/auth/resend-email-otp/route.ts`
+- `app/api/v1/auth/resend-phone-otp/route.ts`
+- `app/api/v1/auth/me/route.ts`
+- `app/api/v1/users/[id]/route.ts`
+- `app/api/v1/users/me/route.ts`
+- `app/api/v1/listings/route.ts`
+- `app/api/v1/listings/[id]/route.ts`
 
-The current backend is responsible for:
+Per-file behavior:
 
-- Purdue-only signup enforcement
-- email OTP verification
-- optional phone verification flow
-- login/logout/session handling through Supabase Auth
-- JWT-authenticated user resolution
-- user profile reads and updates
-- listings read/create/update/delete
-- verification gating for protected write actions
-- request validation
-- centralized error mapping
-- rate limiting on auth-sensitive routes
-- structured request logging
+- route file does transport work only
+- schema parsing stays explicit
+- service call stays unchanged where possible
 
-The backend is explicitly not yet responsible for:
+### 5.7 Keep `AuthService` on the server, unchanged in principle
 
-- search/filter ranking
-- chat/messaging
-- appointments
-- reviews
-- payments
-- escrow
-- recommendation systems
-- image upload/storage pipeline beyond the current listing payload format
+`AuthService` is already server-friendly:
 
-## 4. Environment and Configuration
+- it uses direct HTTP calls to Supabase Auth
+- it depends on env vars and a repository
+- it does not depend on Express
 
-Current environment parsing lives in:
+Changes needed:
 
-- `server/config/env.ts`
+- update imports after moving files
+- ensure it only runs in Node runtime route handlers
 
-Environment variables used by the backend:
+Recommended route setting:
 
-- `SUPABASE_URL`
-- `SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `GOOGLE_API_KEY` (optional, only for Stitch tooling)
-- `GOOGLE_STITCH_MODEL`
-- `NODE_ENV`
-- `LOG_LEVEL`
-- `SKIP_PHONE_VERIFICATION`
-- `NEXT_PUBLIC_API_BASE_URL` is frontend-facing, but relevant because the frontend points to this backend
+```ts
+export const runtime = "nodejs";
+```
 
-Important behavior:
+Apply this to all API routes that rely on:
 
-- `dotenv.config({ override: true })` is used
-- `SKIP_PHONE_VERIFICATION` is parsed as a boolean transform from `"true" | "false"`
+- service-role secret access
+- Node-oriented libraries
+- current server-only modules
 
-Operational note:
+### 5.8 Keep repository code server-only
 
-- `SKIP_PHONE_VERIFICATION=true` changes the auth flow materially
-- when enabled, successful email verification promotes the user directly to fully verified and may return a session immediately
-
-Do not change this behavior casually, because it directly affects onboarding and test/dev flows.
-
-## 5. Supabase Clients
-
-Supabase client construction lives in:
-
-- `server/config/supabase.ts`
-
-There are three exported pieces:
+Current repositories use:
 
 - `supabaseServiceClient`
-- `supabaseAnonClient`
-- `createSupabaseClient(accessToken?)`
+- service-role key
 
-### `supabaseServiceClient`
+These must remain inaccessible to the browser bundle.
 
-Purpose:
+Required safeguards:
 
-- trusted server-side data operations
-- repository reads/writes to `users` and `listings`
+- move them under a clearly server-only folder such as `server/`
+- never import them from client components
+- never reference service-role env vars from any file imported by the frontend
 
-Uses:
+### 5.9 Consolidate environment handling
 
-- `SUPABASE_SERVICE_ROLE_KEY`
+Current split env model:
 
-Implication:
+- backend `.env`
+- frontend `.env.local`
 
-- bypasses user-scoped client restrictions
-- must only be used in controlled backend code
+Target integrated env model:
 
-### `supabaseAnonClient`
+- one project env source in development
+- one Vercel project env config in deployment
 
-Purpose:
+Required changes:
 
-- validate and introspect user JWTs through Supabase Auth
+- keep server secrets:
+  - `SUPABASE_URL`
+  - `SUPABASE_ANON_KEY`
+  - `SUPABASE_SERVICE_ROLE_KEY`
+  - `SKIP_PHONE_VERIFICATION`
+  - `LOG_LEVEL`
+- change frontend API base behavior:
+  - `NEXT_PUBLIC_API_BASE_URL` should default to `/api/v1`
+  - not `http://localhost:4000/api/v1`
 
-Uses:
+This is the key frontend-facing backend integration change.
 
-- `SUPABASE_ANON_KEY`
+### 5.10 Remove CORS as a first-class runtime concern
 
-### `createSupabaseClient(accessToken?)`
+Current backend depends on:
 
-Purpose:
+- `cors({ origin: env.CORS_ORIGIN, credentials: true })`
 
-- create a request-scoped client with an `Authorization` header if needed
-- useful if future routes need RLS-enforced reads under the user token
+In the integrated app:
 
-Current implementation note:
+- frontend and backend share origin
+- CORS is no longer needed for the web app itself
 
-- most repository operations currently use the service-role client, not the request-scoped client
+Action:
 
-## 6. Domain Types
+- remove runtime CORS dependency from the main app path
+- only add cross-origin handling later if a mobile app or external client truly needs it
 
-Shared backend types live in:
+### 5.11 Remove Express-only dependencies after migration
 
-- `server/types/index.ts`
+Current backend runtime packages include:
 
-Important types:
+- `express`
+- `cors`
+- `helmet`
+- `@types/express`
 
-- `Role`
-- `ApiErrorBody`
-- `ApiResponse<T>`
-- `RequestUser`
-- `UserRecord`
-- `PublicUser`
-- `ListingRecord`
-- `ListingWithOwner`
-- `AuthSessionPayload`
-- `AppUser`
+After migration, these should be removable from the integrated project unless retained temporarily during transition.
 
-### `RequestUser`
+What replaces them:
 
-Represents the authenticated application-level user attached after auth resolution.
+- Express routing -> Next App Router route handlers
+- CORS -> same-origin deployment
+- helmet -> Next/Vercel headers config where needed
 
-Fields:
+### 5.12 Logging should be preserved, not dropped
 
-- `id`
-- `email`
-- `phone`
-- `full_name`
-- `bio`
-- `email_verified`
-- `phone_verified`
-- `fully_verified`
-- `role`
+Current logger:
 
-### `UserRecord`
+- structured JSON logging
+- request start / finish
+- request ID
 
-`RequestUser` plus timestamps:
+Keep:
 
-- `created_at`
-- `updated_at`
+- `src/lib/logger.ts` logic
 
-### `ListingRecord`
+Change:
 
-Core persisted listing shape:
+- move request log emission into `withRoute()`
+- emit one structured completion event per route invocation
 
-- `id`
-- `owner_id`
-- `title`
-- `description`
-- `price`
-- `start_date`
-- `end_date`
-- `bedrooms`
-- `bathrooms`
-- `distance`
-- `address`
-- `amenities`
-- `images`
-- `created_at`
-- `updated_at`
-
-### `ListingWithOwner`
-
-Used for listing feeds where owner data is included.
-
-Adds:
-
-- `owner.id`
-- `owner.full_name`
-- `owner.email`
-- `owner.phone`
-- `owner.fully_verified`
-
-## 7. Error Model
-
-Custom backend errors live in:
-
-- `server/lib/apiError.ts`
-
-`ApiError` contains:
-
-- `statusCode`
-- `code`
-- `message`
-- `details`
-- `isOperational`
-
-This is the canonical way to signal intentional application failures.
-
-Examples:
-
-- `new ApiError(401, "unauthorized", "Missing authorization token")`
-- `new ApiError(403, "verification_required", "Fully verified account required")`
-- `new ApiError(404, "listing_not_found", "Listing not found")`
-
-Rules:
-
-- throw `ApiError` for expected business and auth failures
-- let `withRoute` translate it into the API envelope
-- do not return ad hoc error JSON from services or repositories
-
-## 8. Response Envelope
-
-Response helpers live in:
-
-- `server/lib/envelope.ts`
-
-All API responses follow this structure:
-
-### Success
-
-```json
-{
-  "success": true,
-  "data": { ... }
-}
-```
-
-### Error
-
-```json
-{
-  "success": false,
-  "error": {
-    "code": "some_code",
-    "message": "Human-readable error",
-    "details": {}
-  }
-}
-```
-
-Primary helpers:
-
-- `successEnvelope`
-- `errorEnvelope`
-- `jsonSuccess`
-- `jsonError`
-
-When adding routes, maintain this envelope exactly.
-
-## 9. Logging
-
-Structured logging lives in:
-
-- `server/lib/logger.ts`
-
-The logger emits JSON lines with:
-
-- `timestamp`
-- `level`
-- `message`
-- contextual fields added by the caller
-
-`withRoute` currently logs:
-
-- `request_completed`
-- `request_failed`
-- `validation_failed`
-- `unhandled_error`
-
-Expected contextual fields include:
+Recommended logged fields:
 
 - `requestId`
 - `method`
 - `path`
 - `status`
-- `userId`
 - `durationMs`
+- `userId`
 
-This logger is intentionally minimal and can be replaced later without changing service/repository logic.
+### 5.13 Revisit body-size handling
 
-## 10. Rate Limiting
+Current backend:
 
-Rate limiting lives in:
+- `express.json({ limit: "25mb" })`
 
-- `server/lib/rateLimiter.ts`
+In Next route handlers:
 
-Current implementation:
+- request parsing is different
+- large base64 image payloads sent through listing create/edit routes need explicit attention
 
-- in-memory map of request timestamps per identifier
-- no Redis or shared-store backing
-- valid for local/dev and small single-instance usage
+This matters because the frontend currently supports image handling and may submit base64 image strings in listing payloads.
 
-Methods:
+Required decision:
 
-- `checkLimit(identifier, maxRequests, windowMs)`
-- `consume(identifier, maxRequests, windowMs)`
+- either keep the current payload model and verify it fits Next/Vercel limits
+- or move image upload to Supabase Storage direct upload / signed URLs
 
-Important limitation:
+For Vercel, the second option is the safer long-term backend direction.
 
-- limits are per-process only
-- if the app scales horizontally, rate limits will no longer be globally correct
+### 5.14 Keep database migrations unchanged
 
-Current route-level rate limiting is implemented through `withRoute` options, not standalone middleware.
-
-## 11. Route Wrapper: `withRoute`
-
-The most important backend transport utility is:
-
-- `server/lib/withRoute.ts`
-
-This file replaces most of what Express middleware used to do.
-
-### Responsibilities
-
-`withRoute` handles:
-
-- request ID generation
-- JSON body parsing
-- query parsing
-- params parsing
-- optional auth resolution
-- optional verification gating
-- optional rate limiting
-- Zod validation
-- centralized error-to-response mapping
-- structured request logging
-
-### Request lifecycle
-
-For each request:
-
-1. generate `requestId`
-2. read `pathname` and `method`
-3. parse body if JSON
-4. build raw query from `request.nextUrl.searchParams`
-5. read route params
-6. authenticate if `requireAuth` or `requireVerified`
-7. enforce `fully_verified` if requested
-8. apply rate limit if configured
-9. validate body/query/params through Zod if schemas are supplied
-10. call the route handler
-11. log success or failure
-12. return a response in the standard envelope
-
-### Auth resolution in `withRoute`
-
-`authenticate(request)` does:
-
-- read `Authorization: Bearer <token>`
-- call `supabaseAnonClient.auth.getUser(accessToken)`
-- upsert the application user through `userRepository.upsertAuthUser(...)`
-- return both:
-  - `user`
-  - `auth { accessToken, userId }`
-
-This means every authenticated request refreshes application user presence in the `users` table.
-
-### Validation behavior
-
-Schemas are supplied with:
-
-- `bodySchema`
-- `querySchema`
-- `paramsSchema`
-
-Zod failures return:
-
-- `400`
-- `code = "validation_failed"`
-
-### Dynamic route behavior
-
-All API route files currently export:
-
-```ts
-export const dynamic = "force-dynamic";
-```
-
-This is important in Next.js because the route wrapper reads request-bound data and must not be statically optimized.
-
-Do not remove this unless you intentionally redesign the route behavior.
-
-## 12. Dependency Container
-
-Backend dependency wiring lives in:
-
-- `server/lib/container.ts`
-
-This constructs singleton instances of:
-
-- `userRepository`
-- `listingRepository`
-- `authService`
-- `usersService`
-- `listingsService`
-
-This keeps route files thin and avoids repeated manual instantiation.
-
-If you add new repositories or services, wire them here.
-
-## 13. Validation Schemas
-
-Schemas are under:
-
-- `server/schemas/auth.schema.ts`
-- `server/schemas/users.schema.ts`
-- `server/schemas/listings.schema.ts`
-
-These are the source of truth for API input validation.
-
-### Auth schemas
-
-#### `purdueEmailSchema`
-
-- valid email
-- must match `@purdue.edu`
-
-#### `phoneSchema`
-
-- must match `^\+1\d{10}$`
-
-#### Request bodies
-
-- `signupSchema`
-- `verifyEmailSchema`
-- `sendPhoneOtpSchema`
-- `verifyPhoneSchema`
-- `loginSchema`
-- `resendEmailOtpSchema`
-- `resendPhoneOtpSchema`
-
-### Users schemas
-
-- `userIdParamSchema`
-- `updateMeSchema`
-
-`updateMeSchema` currently allows:
-
-- `full_name`
-- `bio`
-- `phone`
-
-However, current service/repository usage is mostly focused on `full_name` and `bio`.
-
-### Listings schemas
-
-#### `listingCreateSchema`
-
-Required/validated:
-
-- `title`
-- `price`
-- `start_date`
-- `images`
-
-Optional/nullable:
-
-- `description`
-- `end_date`
-- `bedrooms`
-- `bathrooms`
-- `distance`
-- `address`
-- `amenities`
-
-Special note on images:
-
-- images must be JPEG data URLs
-- regex currently expects `data:image/jpeg;base64,...`
-- create requires `1..10` images
-
-This is strict and can become a source of validation failures if frontend behavior changes.
-
-#### `listingUpdateSchema`
-
-- partial version of create schema
-
-#### `listingListQuerySchema`
-
-- `limit`: integer, `1..100`, default `20`
-- `offset`: integer, `>= 0`, default `0`
-
-## 14. Repository Layer
-
-Repositories define all persistence logic.
-
-### User repository interface
-
-File:
-
-- `server/repositories/user.repository.ts`
-
-Methods:
-
-- `findById`
-- `findByEmail`
-- `findByIds`
-- `upsertAuthUser`
-- `updateProfile`
-- `markEmailVerified`
-- `markPhoneVerified`
-- `markFullyVerified`
-
-### Supabase user repository
-
-File:
-
-- `server/repositories/supabase.user.repository.ts`
-
-Behavior:
-
-- uses service-role client
-- maps database rows into `UserRecord`
-- throws `ApiError` on Supabase failures
-
-Important details:
-
-- `upsertAuthUser` inserts or updates by `id`
-- `markFullyVerified` sets:
-  - `email_verified: true`
-  - `phone_verified: true`
-  - `fully_verified: true`
-
-This method is critical in both dev shortcut flows and normal verification completion.
-
-### Listing repository interface
-
-File:
-
-- `server/repositories/listing.repository.ts`
-
-Methods:
-
-- `findAll`
-- `findById`
-- `findByIds`
-- `create`
-- `update`
-- `delete`
-- `findWithOwners`
-
-### Supabase listing repository
-
-File:
-
-- `server/repositories/supabase.listing.repository.ts`
-
-Behavior:
-
-- uses service-role client
-- maps listing rows into `ListingRecord`
-- fetches owners separately for list hydration
-
-Important implementation detail:
-
-- `findWithOwners` avoids per-row owner queries
-- it loads all unique `owner_id`s in one user query
-- it builds an in-memory `ownerMap`
-- it returns a hydrated array of `ListingWithOwner`
-
-This is the current N+1 prevention mechanism.
-
-## 15. Service Layer
-
-Services contain business logic and should remain the main place for behavioral rules.
-
-### Auth service
-
-File:
-
-- `server/services/auth.service.ts`
-
-This service talks directly to Supabase Auth over HTTP via:
-
-- `authRequest<T>(path, init, accessToken?)`
-
-It does not rely exclusively on high-level helper methods from the Supabase JS SDK.
-
-#### Methods
-
-##### `signup(email, password)`
-
-Behavior:
-
-- POST `/auth/v1/signup` to Supabase
-- upsert auth user into `users` if an ID is returned
-- return:
-  - `status: "pending_email_verification"`
-  - `userId`
-
-##### `verifyEmail(email, token)`
-
-Behavior:
-
-- POST `/auth/v1/verify`
-- verify email OTP
-
-Branches:
-
-- if `SKIP_PHONE_VERIFICATION=true`
-  - mark user fully verified
-  - return `{ session, user }`
-- otherwise
-  - mark email verified
-  - return `{ status: "pending_phone_verification" }`
-
-##### `sendPhoneOtp({ accessToken, phone })`
-
-Behavior:
-
-- authenticated request
-- PUT `/auth/v1/user`
-- updates phone on the auth user
-- triggers SMS OTP through Supabase/Twilio-configured auth backend
-
-Returns:
-
-- `status: "pending_phone_verification"`
-
-##### `verifyPhone(phone, token)`
-
-Behavior:
-
-- POST `/auth/v1/verify`
-- verifies SMS OTP
-- marks user fully verified
-- returns `{ session, user }`
-
-##### `login(email, password)`
-
-Behavior:
-
-- POST `/auth/v1/token?grant_type=password`
-- requires the application user to exist
-- rejects login if `fully_verified` is false
-
-This is important:
-
-- successful auth at Supabase level is not enough
-- the app layer also requires a fully verified user record
-
-##### `logout(accessToken)`
-
-Behavior:
-
-- POST `/auth/v1/logout`
-- signs out through Supabase
-
-Operational nuance:
-
-- refresh token is revoked
-- an already-issued access token may remain usable until expiry depending on Supabase semantics
-
-Do not assume logout immediately invalidates the current bearer JWT for all subsequent calls.
-
-##### `resendEmailOtp(email)`
-
-Behavior:
-
-- POST `/auth/v1/resend`
-- `{ type: "signup", email }`
-
-##### `resendPhoneOtp(phone)`
-
-Behavior:
-
-- POST `/auth/v1/resend`
-- `{ type: "sms", phone }`
-
-### Users service
-
-File:
-
-- `server/services/users.service.ts`
-
-Methods:
-
-- `getUserById(id)`
-- `updateMe(userId, input)`
-
-Behavior:
-
-- converts internal `UserRecord` into `PublicUser`
-- throws `user_not_found` if the user does not exist
-
-### Listings service
-
-File:
-
-- `server/services/listings.service.ts`
-
-Methods:
-
-- `list(filters)`
-- `getById(id)`
-- `create(user, payload)`
-- `update(user, id, payload)`
-- `delete(user, id)`
-
-Important rules:
-
-- listing writes require `fully_verified`
-- update/delete require owner match unless `role === "admin"`
-- `getById` throws `listing_not_found` on missing records
-- `create` normalizes several optional fields to `null`
-
-Private helper:
-
-- `assertFullyVerified(userId)`
-
-This method re-reads the user from the repository and enforces current verification state before writes.
-
-## 16. API Endpoints
-
-All API routes are under:
-
-- `app/api/v1`
-
-### Health
-
-- `GET /api/v1/health`
-
-Purpose:
-
-- basic liveness check
-
-Response:
-
-```json
-{ "success": true, "data": { "status": "ok" } }
-```
-
-### Auth routes
-
-- `POST /api/v1/auth/signup`
-- `POST /api/v1/auth/verify-email`
-- `POST /api/v1/auth/phone/send-otp`
-- `POST /api/v1/auth/verify-phone`
-- `POST /api/v1/auth/login`
-- `POST /api/v1/auth/logout`
-- `POST /api/v1/auth/resend-email-otp`
-- `POST /api/v1/auth/resend-phone-otp`
-- `GET /api/v1/auth/me`
-
-Current protections:
-
-- signup/login/resend/verify routes have route-level rate limits as configured in each handler
-- `send-otp`, `logout`, and `me` require auth
-
-### Users routes
-
-- `GET /api/v1/users/[id]`
-- `PATCH /api/v1/users/me`
-
-Current protections:
-
-- `GET /users/[id]` requires auth
-- `PATCH /users/me` requires auth and fully verified user
-
-### Listings routes
-
-- `GET /api/v1/listings`
-- `POST /api/v1/listings`
-- `GET /api/v1/listings/[id]`
-- `PATCH /api/v1/listings/[id]`
-- `DELETE /api/v1/listings/[id]`
-
-Current protections:
-
-- listing reads require auth
-- listing writes require auth and fully verified user
-
-## 17. Route-Level Rate Limits
-
-Current rate limits are defined directly inside route files.
-
-### Signup
-
-- `10` per identifier per hour
-- key source: forwarded IP when available
-
-### Verify email
-
-- `5` per email per 10 minutes
-
-### Send phone OTP
-
-- `3` per phone per 10 minutes
-
-### Verify phone
-
-- `5` per phone per 10 minutes
-
-### Login
-
-- `10` per identifier per 5 minutes
-
-### Resend email OTP
-
-- `3` per email per 10 minutes
-
-### Resend phone OTP
-
-- `3` per phone per 10 minutes
-
-## 18. Authorization Rules
-
-Current authorization model is simple.
-
-### Authenticated-only access
-
-Requires valid bearer token:
-
-- all listings read routes
-- `/auth/me`
-- `/users/[id]`
-
-### Fully verified access
-
-Requires:
-
-- valid bearer token
-- `user.fully_verified === true`
-
-Applies to:
-
-- `POST /listings`
-- `PATCH /listings/[id]`
-- `DELETE /listings/[id]`
-- `PATCH /users/me`
-
-### Owner-only mutations
-
-For listings update/delete:
-
-- `existing.owner_id` must equal `user.id`
-- or `user.role` must be `admin`
-
-## 19. Database Model and Migrations
-
-Database migrations live in:
-
-- `supabase/migrations/`
-
-Known migration files:
+The Supabase schema is already independent of Express:
 
 - `001_users.sql`
 - `002_listings.sql`
-- `003_indexes.sql`
 - `004_rls_policies.sql`
 - `005_listing_images.sql`
 - `006_listing_distance.sql`
 - `007_listing_end_date_nullable.sql`
 
-This tells you the backend has already evolved past the earlier PRD:
+No migration-layer change is required just because the server transport changes.
 
-- `images` exists on listings
-- `distance` exists on listings
-- `end_date` is nullable
+Backend integration impact on Supabase:
 
-When modifying repositories or validation, use the actual current schema, not only the original plan docs.
+- none at the schema level
+- none at the auth-provider level
+- only at the server runtime and env wiring level
 
-## 20. Seeding and Test Data
+## 6. Required Frontend-Adjacent Backend Changes
 
-Seed script:
+These are backend-driven but visible at the integration boundary.
 
-- `scripts/seed.ts`
+### 6.1 Change default API base URL
 
-Current behavior:
+Current:
 
-- creates auth users through Supabase admin API
-- marks them email/phone confirmed
-- upserts matching rows into `users`
-- inserts listings owned by seeded users
+- `http://localhost:4000/api/v1`
 
-Current seeded login used in local verification:
+Target:
 
-- `student2@purdue.edu`
-- password: `BoilerSub123!`
+- `/api/v1`
 
-Important:
+Reason:
 
-- this is dev/test seed behavior
-- do not rely on these values in production code
+- same-origin deployment on Vercel
+- no split frontend/backend domains needed
 
-## 21. Backend Modification Guidelines
+### 6.2 Preserve all route paths exactly
 
-Use these rules when changing the backend.
+Current frontend pages and hooks assume:
 
-### Add new endpoint
+- `/auth/signup`
+- `/auth/verify-email`
+- `/auth/phone/send-otp`
+- `/auth/verify-phone`
+- `/auth/login`
+- `/auth/logout`
+- `/auth/resend-email-otp`
+- `/auth/resend-phone-otp`
+- `/auth/me`
+- `/users/:id`
+- `/users/me`
+- `/listings`
+- `/listings/:id`
 
-1. add or reuse schema in `server/schemas`
-2. add service method in `server/services`
-3. add repository method if persistence changes are needed
-4. create route file under `app/api/v1/...`
-5. wrap with `withRoute`
-6. configure auth/verification/rate limit in the route
-7. keep response envelope standard
+Under integration:
 
-### Change business behavior
+- these must remain the same under `/api/v1`
 
-Prefer changing:
+If the paths change, the frontend will need broader edits than necessary.
 
-- service layer first
+### 6.3 Preserve response shapes exactly
 
-Avoid putting business rules in:
+Examples that must remain stable:
 
-- route files
-- repository methods
+- signup -> `{ status, userId }`
+- verifyEmail -> `{ status }` or `{ session, user }`
+- login -> `{ session, user }`
+- auth me -> `{ user }`
+- delete listing -> `{ ok: true }`
 
-### Change persistence behavior
+Do not “improve” the payload shapes during migration unless the frontend is updated in lockstep.
 
-Prefer changing:
+## 7. Production Risks Specific to Vercel
 
-- repository methods
+### 7.1 In-memory rate limiting is not production-safe
 
-Avoid embedding Supabase queries directly in:
+Current limiter:
 
-- route files
-- frontend code
+- in-process memory map
 
-### Add new validation
+Problem on Vercel:
 
-Add it in:
+- stateless/serverless execution
+- multiple concurrent instances
+- no shared memory
 
-- `server/schemas/...`
+Required fix:
 
-Then wire it through `withRoute`.
+- replace with shared persistent or distributed storage
 
-### Add role-based admin behavior
+### 7.2 Long-lived server assumptions must be removed
 
-Current role support already exists in types and listing mutation checks.
+Current Express app assumes:
 
-If adding admin routes:
+- one long-running process
+- boot-time dependency construction
 
-- keep role checks in services or route authorization configuration
-- do not hardcode role logic in the frontend
+Next/Vercel route handlers are request-driven.
 
-## 22. Known Constraints and Caveats
+Implication:
 
-These are important for anyone modifying the backend.
+- services and repositories should be created through shared module-level singletons or lightweight factories
+- avoid relying on process lifecycle hooks
 
-### 1. Same-origin API assumption
+### 7.3 Large request bodies may be a problem
 
-The active frontend now defaults to:
+If listing image payloads are transmitted as base64 in JSON:
 
-- `NEXT_PUBLIC_API_BASE_URL=/api/v1`
+- this is a deployment risk on Vercel
 
-If backend paths change, the frontend client must also change.
+Preferred production backend change:
 
-### 2. Logout semantics
+- direct upload to Supabase Storage
+- backend issues signed upload URLs or stores only metadata
 
-Logging out through Supabase does not necessarily make the current access token instantly unusable.
+### 7.4 Secret leakage must be actively prevented
 
-### 3. In-memory rate limiting
+The biggest non-functional risk in the integration is accidental import leakage.
 
-Rate limiting is not distributed.
+Rules:
 
-### 4. Service-role repositories
+- no service-role access in any client component
+- no `NEXT_PUBLIC_` prefix on sensitive values
+- audit imports after migration to ensure `server/` code is not reachable from client bundles
 
-Most data queries currently use the service-role client.
+## 8. Recommended Migration Sequence
 
-That is simpler operationally, but it means app-layer authorization is essential.
+### Phase 1: Create the integrated project shell
 
-### 5. Images are validation-only data URLs today
+- use the repo root as the single Next app
+- move `boilersub-frontend/src/app` into root `app` or root `src/app`
+- move shared frontend code into root `src/`
+- add Next config at the root
 
-The backend currently accepts JPEG data URLs in listing payloads.
+### Phase 2: Move backend internals to `server/`
 
-There is no dedicated image storage pipeline documented here.
+- move `src/config`, `src/lib`, `src/repositories`, `src/services`, `src/schemas`
+- keep code behavior unchanged
+- fix imports only
 
-### 6. Query params are read by `withRoute`
+### Phase 3: Add `withRoute()` and transport helpers
 
-That means API routes are intentionally dynamic in Next.
+- create shared helpers for:
+  - auth
+  - validation
+  - request IDs
+  - error mapping
+  - logging
 
-### 7. Reference docs may lag implementation
+### Phase 4: Port endpoints one group at a time
 
-`PLAN2.md` is useful, but current code has additional fields and slightly different runtime architecture.
+Suggested order:
 
-Always reconcile changes with the code under `server/`.
+1. `GET /api/v1/health`
+2. auth routes
+3. users routes
+4. listings routes
 
-## 23. Current Safe Backend Invariants
+This minimizes frontend breakage risk.
 
-As of now, these behaviors should be treated as invariants unless intentionally redesigned:
+### Phase 5: Switch frontend API base to relative
 
-- all API responses use the standard success/error envelope
-- all protected routes use bearer token auth
-- listings writes require fully verified users
-- listing update/delete are owner-only except admin
-- auth flow is Purdue-email constrained
-- validation is schema-driven through Zod
-- repositories are the only place Supabase table queries should live
-- services are the main home for business logic
-- route files should stay thin
-- API routes are dynamic, not statically generated
+- default `BASE_URL` to `/api/v1`
+- remove split-origin assumptions
 
-## 24. Quick Reference
+### Phase 6: Remove Express runtime
 
-### Core backend files
+- remove `src/index.ts` from active use
+- remove router mounting model
+- remove obsolete dependencies
 
-- `server/lib/withRoute.ts`
-- `server/services/auth.service.ts`
-- `server/services/users.service.ts`
-- `server/services/listings.service.ts`
-- `server/repositories/supabase.user.repository.ts`
-- `server/repositories/supabase.listing.repository.ts`
-- `server/config/env.ts`
-- `server/config/supabase.ts`
+### Phase 7: Production hardening for Vercel
 
-### Core API files
+- replace in-memory rate limiter
+- validate request body size strategy
+- verify all API routes use `runtime = "nodejs"`
+- verify secrets are server-only
 
-- `app/api/v1/auth/...`
-- `app/api/v1/users/...`
-- `app/api/v1/listings/...`
+## 9. Concrete File-Level Change List
+
+### Files to retire from runtime use
+
+- `src/index.ts`
+- `src/routes/auth.routes.ts`
+- `src/routes/users.routes.ts`
+- `src/routes/listings.routes.ts`
+
+### Files to convert from Express middleware to plain helpers
+
+- `src/middleware/requireAuth.ts`
+- `src/middleware/requireVerified.ts`
+- `src/middleware/validate.ts`
+- `src/middleware/rateLimit.ts`
+- `src/middleware/errorHandler.ts`
+- `src/middleware/logger.ts`
+- `src/middleware/requestId.ts`
+- `src/middleware/asyncHandler.ts`
+
+### Files to preserve largely as-is
+
+- `src/services/auth.service.ts`
+- `src/services/users.service.ts`
+- `src/services/listings.service.ts`
+- `src/repositories/supabase.user.repository.ts`
+- `src/repositories/supabase.listing.repository.ts`
+- `src/repositories/user.repository.ts`
+- `src/repositories/listing.repository.ts`
+- `src/config/env.ts`
+- `src/config/supabase.ts`
+- `src/lib/apiError.ts`
+- `src/lib/envelope.ts`
+- `src/lib/logger.ts`
+- `src/schemas/auth.schema.ts`
+- `src/schemas/users.schema.ts`
+- `src/schemas/listings.schema.ts`
+
+### Files to add
+
 - `app/api/v1/health/route.ts`
+- `app/api/v1/auth/signup/route.ts`
+- `app/api/v1/auth/verify-email/route.ts`
+- `app/api/v1/auth/phone/send-otp/route.ts`
+- `app/api/v1/auth/verify-phone/route.ts`
+- `app/api/v1/auth/login/route.ts`
+- `app/api/v1/auth/logout/route.ts`
+- `app/api/v1/auth/resend-email-otp/route.ts`
+- `app/api/v1/auth/resend-phone-otp/route.ts`
+- `app/api/v1/auth/me/route.ts`
+- `app/api/v1/users/[id]/route.ts`
+- `app/api/v1/users/me/route.ts`
+- `app/api/v1/listings/route.ts`
+- `app/api/v1/listings/[id]/route.ts`
+- `server/lib/withRoute.ts`
+- `server/lib/authenticate.ts`
+- `server/lib/parseRequest.ts`
 
-### Supporting files
+## 10. Bottom Line
 
-- `scripts/seed.ts`
-- `supabase/migrations/...`
+The backend integration is straightforward in architecture but not trivial in execution.
 
-## 25. Summary
+What is easy:
 
-The BoilerSub backend is a layered TypeScript API built around:
+- preserving Supabase
+- preserving services and repositories
+- preserving the API contract
+- preserving frontend functionality
 
-- Next.js route handlers for transport
-- `withRoute` for request orchestration
-- service classes for business logic
-- repository classes for persistence
-- Supabase for auth and data
+What actually changes:
 
-If you need to modify the backend safely, the main rule is:
+- the transport layer
+- request/auth/error middleware shape
+- env defaults
+- production rate limiting strategy
+- deployment/runtime assumptions
 
-- change behavior in services
-- change persistence in repositories
-- change validation in schemas
-- keep route files thin
+What should remain stable:
 
-That separation is the main reason the backend remains understandable and replaceable.
+- business logic
+- data model
+- auth flow behavior
+- listing CRUD behavior
+- frontend page behavior
+
+## 11. Recommended Non-Negotiables During Implementation
+
+- do not modify the UI in any way
+- do not modify feature behavior in any way
+- do not rewrite service logic unless forced
+- do not change API payload shapes casually
+- do not expose service-role secrets to client code
+- do not keep in-memory rate limiting for production Vercel deployment
+- do not merge frontend and backend by proxying to the old Express server long-term; port the routes properly
+
+If those constraints are respected, BoilerSub can be integrated into one complete project and deployed cleanly to Vercel with the same functional behavior it has today.
