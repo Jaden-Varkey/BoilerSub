@@ -1,6 +1,7 @@
 export const MAX_LISTING_IMAGES = 10;
 export const MAX_LISTING_IMAGE_BYTES = 2 * 1024 * 1024;
 export const MAX_LISTING_IMAGES_TOTAL_BYTES = 12 * 1024 * 1024;
+export const MAX_PANORAMA_IMAGE_BYTES = 10 * 1024 * 1024;
 
 function isJpegFile(file: File): boolean {
   const type = file.type.toLowerCase();
@@ -23,8 +24,13 @@ function fileToDataUrl(file: File): Promise<string> {
   });
 }
 
-export async function readListingImages(files: FileList | File[]): Promise<string[]> {
+export async function readListingImages(
+  files: FileList | File[],
+  options?: { maxImageBytes?: number; maxImageBytesErrorMessage?: string },
+): Promise<string[]> {
   const nextFiles = Array.from(files);
+  const maxImageBytes = options?.maxImageBytes ?? MAX_LISTING_IMAGE_BYTES;
+  const maxImageBytesErrorMessage = options?.maxImageBytesErrorMessage ?? "Each image must be 2MB or smaller.";
 
   if (nextFiles.length === 0) {
     return [];
@@ -39,8 +45,8 @@ export async function readListingImages(files: FileList | File[]): Promise<strin
     if (!isJpegFile(file)) {
       throw new Error("Only JPEG images are supported.");
     }
-    if (file.size > MAX_LISTING_IMAGE_BYTES) {
-      throw new Error("Each image must be 2MB or smaller.");
+    if (file.size > maxImageBytes) {
+      throw new Error(maxImageBytesErrorMessage);
     }
     totalBytes += file.size;
   }

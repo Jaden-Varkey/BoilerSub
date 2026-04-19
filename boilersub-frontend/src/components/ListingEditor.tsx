@@ -8,7 +8,7 @@ import { AmenityChip } from "@/components/AmenityChip";
 import { Button } from "@/components/Button";
 import { Input, Textarea } from "@/components/Input";
 import { Toast } from "@/components/Toast";
-import { MAX_LISTING_IMAGES, readListingImages } from "@/lib/listingImages";
+import { MAX_LISTING_IMAGES, MAX_PANORAMA_IMAGE_BYTES, readListingImages } from "@/lib/listingImages";
 import { amenityOptions, emptyListingPayload } from "@/lib/validators";
 import type { Listing, ListingPayload } from "@/lib/types";
 
@@ -340,7 +340,7 @@ export function ListingEditor({
             <div className="space-y-4">
               <div className="flex items-end justify-between gap-4">
                 <h2 className="text-xs font-black uppercase tracking-[0.22em] text-[#6a5a32]">Panorama</h2>
-                <span className="text-xs font-bold uppercase tracking-[0.18em] text-stone-500">Single JPEG for 360 view</span>
+                <span className="text-xs font-bold uppercase tracking-[0.18em] text-stone-500">Single JPEG up to 10MB for 360 view</span>
               </div>
               <Input
                 accept=".jpg,.jpeg,image/jpeg"
@@ -354,7 +354,10 @@ export function ListingEditor({
                   }
 
                   try {
-                    const [panoramaImage] = await readListingImages([files[0]]);
+                    const [panoramaImage] = await readListingImages([files[0]], {
+                      maxImageBytes: MAX_PANORAMA_IMAGE_BYTES,
+                      maxImageBytesErrorMessage: "Panorama image must be 10MB or smaller.",
+                    });
                     setForm((current) => ({ ...current, panorama_image: panoramaImage ?? null }));
                     setMessage(null);
                   } catch (error) {
@@ -716,7 +719,10 @@ export function ListingEditor({
                 }
 
                 try {
-                  const [panoramaImage] = await readListingImages([files[0]]);
+                  const [panoramaImage] = await readListingImages([files[0]], {
+                    maxImageBytes: MAX_PANORAMA_IMAGE_BYTES,
+                    maxImageBytesErrorMessage: "Panorama image must be 10MB or smaller.",
+                  });
                   setForm((current) => ({ ...current, panorama_image: panoramaImage ?? null }));
                   setMessage(null);
                 } catch (error) {
@@ -726,7 +732,7 @@ export function ListingEditor({
                 }
               }}
             />
-            <p className="mt-2 text-xs text-slate-500">Optional single JPEG panorama used for the View 3D experience.</p>
+            <p className="mt-2 text-xs text-slate-500">Optional single JPEG panorama (up to 10MB) used for the View 3D experience.</p>
             {form.panorama_image ? (
               <div className="mt-4 relative aspect-[2/1] overflow-hidden rounded-2xl bg-slate-100">
                 <Image
