@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { Nav } from "@/components/Nav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { FloatingChatWidget } from "@/components/FloatingChatWidget";
 
 const AUTH_ROUTES = ["/login", "/signup", "/verify-email", "/verify-phone", "/forgot-password", "/reset-password", "/capture-images"];
 
@@ -17,7 +18,12 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
   const hideChrome = shouldHideChrome(pathname);
 
   if (hideChrome) {
-    return <>{children}</>;
+    return (
+      <>
+        {children}
+        <FloatingChatWidget />
+      </>
+    );
   }
 
   return (
@@ -25,6 +31,7 @@ export function AppChrome({ children }: { children: React.ReactNode }) {
       <Nav />
       {children}
       <SiteFooter />
+      <FloatingChatWidget />
     </>
   );
 }
