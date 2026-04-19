@@ -1,13 +1,15 @@
 "use client";
 
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { Toast } from "@/components/Toast";
 import { apiClient } from "@/lib/apiClient";
 
-export default function ResetPasswordPage() {
+function ResetPasswordContent() {
   const router = useRouter();
   const params = useSearchParams();
   const email = useMemo(() => params.get("email") ?? "", [params]);
@@ -146,5 +148,13 @@ export default function ResetPasswordPage() {
         </form>
       </section>
     </main>
+  );
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={<main className="mx-auto flex min-h-screen w-full max-w-3xl items-center justify-center px-6 py-14 text-[#5c5b5b]">Loading reset flow…</main>}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }
