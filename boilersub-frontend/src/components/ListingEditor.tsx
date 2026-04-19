@@ -24,6 +24,7 @@ type FormState = {
   address: string;
   amenities: string[];
   images: string[];
+  panorama_image: string | null;
 };
 
 function toFormState(initial?: Partial<Listing | ListingPayload>): FormState {
@@ -40,6 +41,7 @@ function toFormState(initial?: Partial<Listing | ListingPayload>): FormState {
     address: payload.address ?? "",
     amenities: payload.amenities ?? [],
     images: payload.images ?? [],
+    panorama_image: payload.panorama_image ?? null,
   };
 }
 
@@ -56,6 +58,7 @@ function toPayload(state: FormState): ListingPayload {
     address: state.address || null,
     amenities: state.amenities,
     images: state.images,
+    panorama_image: state.panorama_image,
   };
 }
 
@@ -92,6 +95,7 @@ export function ListingEditor({
   const payload = useMemo(() => toPayload(form), [form]);
   const owner = initial && "owner" in initial ? initial.owner : undefined;
   const previewImage = form.images[0];
+  const panoramaPreviewImage = form.panorama_image;
 
   if (variant === "stitchEdit") {
     return (
@@ -333,6 +337,49 @@ export function ListingEditor({
               ) : null}
             </div>
 
+            <div className="space-y-4">
+              <div className="flex items-end justify-between gap-4">
+                <h2 className="text-xs font-black uppercase tracking-[0.22em] text-[#6a5a32]">Panorama</h2>
+                <span className="text-xs font-bold uppercase tracking-[0.18em] text-stone-500">Single JPEG for 360 view</span>
+              </div>
+              <Input
+                accept=".jpg,.jpeg,image/jpeg"
+                className="rounded-xl border-none bg-[#dfdcdc] px-6 py-4 text-sm font-medium text-stone-900 file:mr-4 file:rounded-full file:border-0 file:bg-[#0052d0] file:px-4 file:py-2 file:font-semibold file:text-white"
+                id="panorama_image"
+                type="file"
+                onChange={async (event) => {
+                  const files = event.target.files;
+                  if (!files?.length) {
+                    return;
+                  }
+
+                  try {
+                    const [panoramaImage] = await readListingImages([files[0]]);
+                    setForm((current) => ({ ...current, panorama_image: panoramaImage ?? null }));
+                    setMessage(null);
+                  } catch (error) {
+                    setMessage(error instanceof Error ? error.message : "Failed to process panorama image");
+                  } finally {
+                    event.target.value = "";
+                  }
+                }}
+              />
+              {panoramaPreviewImage ? (
+                <div className="relative aspect-[2/1] overflow-hidden rounded-2xl bg-stone-200">
+                  <Image
+                    alt="Panorama upload preview"
+                    className="object-cover"
+                    fill
+                    sizes="(min-width: 1024px) 380px, 100vw"
+                    src={panoramaPreviewImage}
+                    unoptimized={panoramaPreviewImage.startsWith("data:image/")}
+                  />
+                </div>
+              ) : (
+                <p className="text-sm text-stone-500">Upload the panoramic room image that should open when renters click View 3D.</p>
+              )}
+            </div>
+
             <div className="flex flex-col gap-6 border-t border-stone-200 pt-8 sm:flex-row sm:items-center">
               <Button
                 className="w-full rounded-xl px-10 py-5 text-lg shadow-[0_20px_40px_rgba(0,82,208,0.2)] sm:w-auto"
@@ -395,6 +442,21 @@ export function ListingEditor({
                   Preview
                 </div>
               </div>
+              {panoramaPreviewImage ? (
+                <div className="mb-6 overflow-hidden rounded-2xl border border-[#c3d0ff] bg-[#eff3ff] p-3">
+                  <p className="mb-2 text-[0.65rem] font-black uppercase tracking-[0.22em] text-[#0052d0]">360 Preview Ready</p>
+                  <div className="relative aspect-[2/1] overflow-hidden rounded-xl">
+                    <Image
+                      alt="Panorama preview"
+                      className="object-cover"
+                      fill
+                      sizes="380px"
+                      src={panoramaPreviewImage}
+                      unoptimized={panoramaPreviewImage.startsWith("data:image/")}
+                    />
+                  </div>
+                </div>
+              ) : null}
               <div className="space-y-2">
                 <div className="flex items-start justify-between gap-4">
                   <h3 className="font-display text-xl font-black tracking-[-0.04em] text-stone-900">
@@ -635,6 +697,46 @@ export function ListingEditor({
                     />
                   </div>
                 ))}
+              </div>
+            ) : null}
+          </div>
+
+          <div>
+            <label className="label" htmlFor="panorama_image">
+              Panorama image
+            </label>
+            <Input
+              id="panorama_image"
+              accept=".jpg,.jpeg,image/jpeg"
+              type="file"
+              onChange={async (event) => {
+                const files = event.target.files;
+                if (!files?.length) {
+                  return;
+                }
+
+                try {
+                  const [panoramaImage] = await readListingImages([files[0]]);
+                  setForm((current) => ({ ...current, panorama_image: panoramaImage ?? null }));
+                  setMessage(null);
+                } catch (error) {
+                  setMessage(error instanceof Error ? error.message : "Failed to process panorama image");
+                } finally {
+                  event.target.value = "";
+                }
+              }}
+            />
+            <p className="mt-2 text-xs text-slate-500">Optional single JPEG panorama used for the View 3D experience.</p>
+            {form.panorama_image ? (
+              <div className="mt-4 relative aspect-[2/1] overflow-hidden rounded-2xl bg-slate-100">
+                <Image
+                  alt="Panorama upload preview"
+                  className="object-cover"
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  src={form.panorama_image}
+                  unoptimized={form.panorama_image.startsWith("data:image/")}
+                />
               </div>
             ) : null}
           </div>

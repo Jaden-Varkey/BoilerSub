@@ -23,6 +23,7 @@ type FormState = {
   address: string;
   amenities: string[];
   images: string[];
+  panorama_image: string | null;
 };
 
 function toFormState(initial?: Partial<Listing | ListingPayload>): FormState {
@@ -39,6 +40,7 @@ function toFormState(initial?: Partial<Listing | ListingPayload>): FormState {
     address: payload.address ?? "",
     amenities: payload.amenities ?? [],
     images: payload.images ?? [],
+    panorama_image: payload.panorama_image ?? null,
   };
 }
 
@@ -55,6 +57,7 @@ function toPayload(state: FormState): ListingPayload {
     address: state.address || null,
     amenities: state.amenities,
     images: state.images,
+    panorama_image: state.panorama_image,
   };
 }
 

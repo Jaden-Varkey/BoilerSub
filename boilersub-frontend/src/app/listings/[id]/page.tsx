@@ -120,6 +120,7 @@ export default function ListingDetailPage() {
   const images = listing ? galleryImages(listing.images) : listingDetailImages;
   const canContactLister = Boolean(owner?.email);
   const galleryHref = listing ? `/listings/${listing.id}/gallery?start=0` : undefined;
+  const panoramaHref = listing?.panorama_image ? `/listings/${listing.id}/panorama` : undefined;
 
   return (
     <>
@@ -184,7 +185,17 @@ export default function ListingDetailPage() {
                       {images.length} Photo{images.length === 1 ? "" : "s"}
                     </Link>
                   ) : null}
-
+                  {panoramaHref ? (
+                    <Link
+                      className="relative z-20 flex items-center gap-2 rounded-lg border border-white/30 bg-[#0052d0]/85 px-4 py-2 text-sm font-bold text-white backdrop-blur-md transition-all hover:bg-[#0052d0]"
+                      href={panoramaHref}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <span>360</span>
+                      View 3D
+                    </Link>
+                  ) : null}
                 </div>
               </div>
 

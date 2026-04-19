@@ -171,12 +171,6 @@ function formatTerm(startDate: string, endDate: string | null) {
   return `${startLabel} - ${endLabel}`;
 }
 
-function openBlank3DView(event: React.MouseEvent<HTMLButtonElement>) {
-  event.preventDefault();
-  event.stopPropagation();
-  window.open("about:blank", "_blank", "noopener,noreferrer");
-}
-
 export default function ListingsPage() {
   const limit = 20;
   const [offset, setOffset] = useState(0);
@@ -225,15 +219,21 @@ export default function ListingsPage() {
                         </span>
                       </div>
                     ) : null} */}
-                    {/* <div className="absolute bottom-4 left-4">
-                      <button
-                        className="rounded-lg bg-white/70 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[#0052d0] backdrop-blur-md transition-colors hover:bg-white"
-                        type="button"
-                        onClick={openBlank3DView}
-                      >
-                        View 3D
-                      </button>
-                    </div> */}
+                    {listing.panorama_image ? (
+                      <div className="absolute bottom-4 left-4 z-20">
+                        <button
+                          className="rounded-lg border border-white/40 bg-white/75 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-[#0052d0] shadow-lg backdrop-blur-md transition-colors hover:bg-white"
+                          type="button"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            window.open(`/listings/${listing.id}/panorama`, "_blank", "noopener,noreferrer");
+                          }}
+                        >
+                          View 3D
+                        </button>
+                      </div>
+                    ) : null}
                   </div>
                   <div className="p-5">
                     <div className="mb-3 flex items-start justify-between gap-4">

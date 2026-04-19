@@ -40,6 +40,7 @@ export type Listing = {
   address: string | null;
   amenities: string[];
   images: string[];
+  panorama_image: string | null;
   created_at?: string;
   updated_at?: string;
   owner?: {
@@ -70,4 +71,5 @@ export type ListingPayload = {
   address: string | null;
   amenities: string[];
   images: string[];
+  panorama_image: string | null;
 };

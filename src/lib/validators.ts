@@ -33,5 +33,6 @@ export function emptyListingPayload(): ListingPayload {
     address: "",
     amenities: [],
     images: [],
+    panorama_image: null,
   };
 }
