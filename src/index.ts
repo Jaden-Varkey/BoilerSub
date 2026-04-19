@@ -13,6 +13,7 @@ import { SupabaseListingRepository } from "./repositories/supabase.listing.repos
 import { SupabaseUserRepository } from "./repositories/supabase.user.repository.js";
 import { createAuthRouter } from "./routes/auth.routes.js";
 import { createListingsRouter } from "./routes/listings.routes.js";
+import { createMediaRouter } from "./routes/media.routes.js";
 import { createUsersRouter } from "./routes/users.routes.js";
 import { AuthService } from "./services/auth.service.js";
 import { ListingsService } from "./services/listings.service.js";
@@ -56,6 +57,7 @@ app.use(
     requireVerifiedMiddleware: requireVerified,
   }),
 );
+app.use("/api/v1/media", createMediaRouter());
 
 app.use(errorHandler);
 
