@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#afc2ff",
+                    "on-primary-fixed": "#50411b",
+                    "tertiary-container": "#ff946e",
+                    "inverse-on-surface": "#9e9c9c",
+                    "on-primary-container": "#64532c",
+                    "on-secondary-fixed-variant": "#0048b9",
+                    "tertiary-fixed-dim": "#fe7e4f",
+                    "surface-container": "#eae7e7",
+                    "surface-container-low": "#f3f0ef",
+                    "on-secondary-container": "#0040a5",
+                    "on-tertiary": "#ffefeb",
+                    "on-surface-variant": "#5c5b5b",
+                    "on-surface": "#2f2f2e",
+                    "on-tertiary-fixed": "#320a00",
+                    "inverse-surface": "#0e0e0e",
+                    "secondary-dim": "#0047b7",
+                    "on-tertiary-fixed-variant": "#6b1f00",
+                    "on-error": "#ffefec",
+                    "secondary": "#0052d0",
+                    "primary": "#6a5a32",
+                    "secondary-fixed": "#c3d0ff",
+                    "primary-dim": "#5e4e27",
+                    "surface-variant": "#dfdcdc",
+                    "on-tertiary-container": "#5c1a00",
+                    "on-secondary": "#f1f2ff",
+                    "on-secondary-fixed": "#002e7d",
+                    "tertiary": "#a03a0f",
+                    "surface-container-high": "#e4e2e1",
+                    "surface-tint": "#6a5a32",
+                    "on-background": "#2f2f2e",
+                    "background": "#f9f6f5",
+                    "surface-container-highest": "#dfdcdc",
+                    "error": "#b02500",
+                    "surface-dim": "#d6d4d3",
+                    "secondary-container": "#c3d0ff",
+                    "surface": "#f9f6f5",
+                    "outline": "#787676",
+                    "tertiary-dim": "#902e02",
+                    "outline-variant": "#afadac",
+                    "error-container": "#f95630",
+                    "tertiary-fixed": "#ff946e",
+                    "on-primary": "#fff1d9",
+                    "surface-bright": "#f9f6f5",
+                    "inverse-primary": "#fee6b2",
+                    "primary-container": "#fee6b2",
+                    "on-error-container": "#520c00",
+                    "error-dim": "#b92902",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#fee6b2",
+                    "on-primary-fixed-variant": "#6e5d35",
+                    "primary-fixed-dim": "#efd8a5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "2xl": "1rem",
+                    "3xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface antialiased">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-[#f9f6f5]/70 backdrop-blur-xl shadow-[0px_12px_32px_rgba(0,0,0,0.06)]">
+<div class="flex justify-between items-center px-8 py-4 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-12">
+<span class="text-2xl font-bold tracking-tighter text-[#6a5a32]">BoilerSub</span>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-stone-600 hover:text-[#6a5a32] font-['Plus_Jakarta_Sans'] tracking-tight transition-colors" href="#">Browse</a>
+<a class="text-[#0052d0] font-bold border-b-2 border-[#0052d0] pb-1 font-['Plus_Jakarta_Sans'] tracking-tight" href="#">My Listings</a>
+<a class="text-stone-600 hover:text-[#6a5a32] font-['Plus_Jakarta_Sans'] tracking-tight transition-colors" href="#">Messages</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-4">
+<button class="bg-gradient-to-r from-secondary to-secondary-dim text-on-secondary px-6 py-2.5 rounded-full font-bold transition-transform scale-95 active:scale-90">Post Listing</button>
+<button class="p-2 rounded-full hover:bg-stone-100 transition-colors">
+<span class="material-symbols-outlined text-[#6a5a32]">notifications</span>
+</button>
+</div>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-primary/20">
+<img alt="User avatar" data-alt="close-up portrait of a friendly young man with short dark hair smiling warmly against a soft blurred campus background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiPuh-KOyD-Ndu_BJQg_JjBbb74Am4xA9QGw0OFSqycZiqLaLtVV3m9r_WENk9OIfdK-zWd0VL3PJzG7m3suQnDJrqOZ2_S1GIAC-Cmlc3RWsTEHTlNqS9jpGC8dWvWH7BUM6pB-2YD7MPjkLVlIC-PhCb3DGXBc6PSnSkYMgCeEhSi_LVMFFQbcokdCoBpWMQzraMuSZfJnz9lcHo3tgdMiY3z4RLGW4h1c5IiODxPD8i7zSyPKlhIV3I2oRwGleCMxgHTN4z4LrK"/>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-6 md:px-12 max-w-screen-2xl mx-auto">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-8">
+<div>
+<h1 class="font-headline text-5xl md:text-6xl font-extrabold tracking-tighter text-on-surface leading-tight mb-2">My Listings</h1>
+<p class="text-on-surface-variant text-lg max-w-lg">Manage your active subleases on BoilerSub. High-visibility student housing marketplace.</p>
+</div>
+<button class="flex items-center gap-2 bg-gradient-to-br from-secondary to-secondary-dim text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-secondary/20 hover:scale-[1.02] transition-transform active:scale-95 self-start md:self-auto">
+<span class="material-symbols-outlined">add</span>
+                Create New Listing
+            </button>
+</header>
+<!-- Stats Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+<div class="bg-surface-container-lowest p-8 rounded-3xl shadow-[0px_12px_32px_rgba(0,0,0,0.04)] flex flex-col items-center text-center border border-outline-variant/10">
+<span class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-2">Total Listings</span>
+<span class="font-headline text-5xl font-extrabold text-primary">04</span>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-3xl shadow-[0px_12px_32px_rgba(0,0,0,0.04)] flex flex-col items-center text-center border border-outline-variant/10">
+<span class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-2">Active Now</span>
+<span class="font-headline text-5xl font-extrabold text-secondary">03</span>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-3xl shadow-[0px_12px_32px_rgba(0,0,0,0.04)] flex flex-col items-center text-center border border-outline-variant/10">
+<span class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-2">Total Views</span>
+<span class="font-headline text-5xl font-extrabold text-on-surface">1.2k</span>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-3xl shadow-[0px_12px_32px_rgba(0,0,0,0.04)] flex flex-col items-center text-center border border-outline-variant/10 relative overflow-hidden group">
+<div class="absolute inset-0 bg-secondary-container/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-2">Pending Inquiries</span>
+<span class="font-headline text-5xl font-extrabold text-tertiary">08</span>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Listings Grid -->
+<div class="lg:col-span-8 space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Listing Card 1 -->
+<div class="group bg-surface-container-lowest rounded-3xl overflow-hidden shadow-[0px_12px_32px_rgba(0,0,0,0.04)] transition-all hover:shadow-xl hover:translate-y-[-4px]">
+<div class="h-48 relative overflow-hidden">
+<img alt="Modern apartment interior" class="w-full h-full object-cover" data-alt="bright modern studio apartment interior with white walls minimalist furniture and large window letting in natural afternoon light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrF2Ch28LvvHZhEjIJF4WMkSc3Dfn8yijkSBC4sx0FTVZFny9Yys9fpd2kH8T-0ruhhcq0jHYiIYG3KS4YBxO1TObvGUo-fkaJIInUaufFPayCQMd023gUaDeiHztbODUDfjc5oMdQHWEFibb852tEMXIm-fVMliJ1feorms8jRvJw0f_d2BKipduETWJtgWzea9d_-yilo4hsK3PZOGOKkJnL6MBteuV50yt77DnRsRcQfmk27hA0z_LvBMDelrFQaBc84LJAXhnM"/>
+<div class="absolute top-4 right-4 bg-secondary-container/90 backdrop-blur-md px-3 py-1 rounded-full text-on-secondary-container text-xs font-bold uppercase tracking-wider">Active</div>
+</div>
+<div class="p-8">
+<h3 class="font-headline text-2xl font-bold mb-1 group-hover:text-secondary transition-colors">The Hub On State</h3>
+<p class="text-on-surface-variant text-sm mb-6">101 N State St, West Lafayette, IN</p>
+<div class="flex items-end gap-1 mb-6">
+<span class="text-3xl font-extrabold text-on-surface">$1,150</span>
+<span class="text-on-surface-variant font-medium mb-1">/ month</span>
+</div>
+<div class="flex items-center gap-2 text-stone-500 text-sm mb-8">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+<span>Aug 2024 - May 2025</span>
+</div>
+<div class="flex items-center justify-between pt-6 border-t border-surface-container">
+<button class="flex items-center gap-2 text-secondary font-bold hover:bg-secondary/5 px-4 py-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">edit</span>
+                                    Edit
+                                </button>
+<button class="flex items-center gap-2 text-tertiary font-bold hover:bg-tertiary/5 px-4 py-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">delete</span>
+                                    Delete
+                                </button>
+</div>
+</div>
+</div>
+<!-- Listing Card 2 -->
+<div class="group bg-surface-container-lowest rounded-3xl overflow-hidden shadow-[0px_12px_32px_rgba(0,0,0,0.04)] transition-all hover:shadow-xl hover:translate-y-[-4px]">
+<div class="h-48 relative overflow-hidden">
+<img alt="Cozy living room" class="w-full h-full object-cover" data-alt="cozy apartment living room with warm lighting velvet sofa wooden coffee table and indoor plants in decorative pots" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuTj5NWOHZbdnDkccXsk4r54Lz8MYMZr-GT9JaRr1tYQOExLp8wb9W71NvSLLcIrQdLKYT01lue91BKQrpHVhYFGFybhAteLcEKKXZOcEFvZGaoYh4eaBCc_1UP9s-Qlp7hCr2kK3Y2y51lIsPbUUBPCi2m-YDJzOl6ijjfDj6CRD2lM9Hy9YNYk0vtZTBqqDXaxHua_tGwyt3LzaJGxihdtuBD1Ft2VlaP0t1nJpRZtelR9XOR3rpxv4_eh4W4hpSY4MV70oIPDKH"/>
+<div class="absolute top-4 right-4 bg-tertiary-container/90 backdrop-blur-md px-3 py-1 rounded-full text-on-tertiary-container text-xs font-bold uppercase tracking-wider">Pending</div>
+</div>
+<div class="p-8">
+<h3 class="font-headline text-2xl font-bold mb-1 group-hover:text-secondary transition-colors">Aspire at Discovery Park</h3>
+<p class="text-on-surface-variant text-sm mb-6">1201 W State St, West Lafayette, IN</p>
+<div class="flex items-end gap-1 mb-6">
+<span class="text-3xl font-extrabold text-on-surface">$980</span>
+<span class="text-on-surface-variant font-medium mb-1">/ month</span>
+</div>
+<div class="flex items-center gap-2 text-stone-500 text-sm mb-8">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+<span>Jun 2024 - Jul 2024</span>
+</div>
+<div class="flex items-center justify-between pt-6 border-t border-surface-container">
+<button class="flex items-center gap-2 text-secondary font-bold hover:bg-secondary/5 px-4 py-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">edit</span>
+                                    Edit
+                                </button>
+<button class="flex items-center gap-2 text-tertiary font-bold hover:bg-tertiary/5 px-4 py-2 rounded-lg transition-colors">
+<span class="material-symbols-outlined">delete</span>
+                                    Delete
+                                </button>
+</div>
+</div>
+</div>
+<!-- Empty State Placeholder -->
+<div class="col-span-1 md:col-span-2 bg-surface-container-low rounded-3xl border-2 border-dashed border-outline-variant/30 flex flex-col items-center justify-center p-16 text-center">
+<div class="w-24 h-24 bg-surface-container-highest rounded-full flex items-center justify-center mb-6 text-primary">
+<span class="material-symbols-outlined text-4xl">home_work</span>
+</div>
+<h4 class="font-headline text-2xl font-bold text-on-surface mb-2">No listings yet?</h4>
+<p class="text-on-surface-variant max-w-xs mb-8">Create your first sublease listing to start reaching thousands of Purdue students looking for housing.</p>
+<button class="bg-on-surface text-surface px-8 py-3 rounded-xl font-bold hover:bg-black transition-colors">Post Your Space</button>
+</div>
+</div>
+</div>
+<!-- Analytics Sidebar -->
+<aside class="lg:col-span-4 space-y-8">
+<div class="bg-surface-container-lowest p-8 rounded-3xl shadow-[0px_12px_32px_rgba(0,0,0,0.04)] border border-outline-variant/10">
+<h3 class="font-headline text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">analytics</span>
+                        Performance Stats
+                    </h3>
+<div class="space-y-6">
+<div class="p-4 bg-background rounded-2xl">
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm font-medium text-on-surface-variant">Profile Visits</span>
+<span class="text-secondary font-bold text-sm">+12%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-2/3"></div>
+</div>
+</div>
+<div class="p-4 bg-background rounded-2xl">
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm font-medium text-on-surface-variant">Listing Conversion</span>
+<span class="text-tertiary font-bold text-sm">High</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-4/5"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-surface-container">
+<div class="flex items-start gap-4 p-4 bg-secondary-container/10 rounded-2xl">
+<span class="material-symbols-outlined text-secondary mt-1">info</span>
+<p class="text-xs text-on-secondary-container leading-relaxed">
+<span class="font-bold block mb-1">BoilerTip:</span>
+                                Adding at least 5 high-quality photos increases student engagement by up to 40%.
+                            </p>
+</div>
+</div>
+</div>
+<div class="bg-primary/5 p-8 rounded-3xl border border-primary/10">
+<h4 class="font-headline text-lg font-bold text-primary mb-4">Market Outlook</h4>
+<p class="text-sm text-primary-dim leading-relaxed mb-6">
+                        Sublease demand in West Lafayette is currently <span class="font-bold">Very High</span> for Fall 2024 terms.
+                    </p>
+<a class="text-sm font-bold text-primary underline underline-offset-4 hover:text-primary-dim" href="#">View campus trends</a>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#f9f6f5] w-full py-12 mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 border-t border-stone-200 w-full max-w-screen-2xl mx-auto pt-12">
+<div class="flex flex-col items-center md:items-start mb-8 md:mb-0">
+<span class="text-lg font-black text-[#6a5a32] mb-2">BoilerSub</span>
+<p class="font-['Manrope'] text-sm uppercase tracking-widest text-stone-500">© 2024 BoilerSub. Kinetic Editorial Housing for Purdue.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-['Manrope'] text-sm uppercase tracking-widest text-stone-500 hover:text-[#a03a0f] transition-all" href="#">Privacy Policy</a>
+<a class="font-['Manrope'] text-sm uppercase tracking-widest text-stone-500 hover:text-[#a03a0f] transition-all" href="#">Terms of Service</a>
+<a class="font-['Manrope'] text-sm uppercase tracking-widest text-stone-500 hover:text-[#a03a0f] transition-all" href="#">Support</a>
+<a class="font-['Manrope'] text-sm uppercase tracking-widest text-stone-500 hover:text-[#a03a0f] transition-all" href="#">Contact Us</a>
+</div>
+</div>
+</footer>
+</body></html>

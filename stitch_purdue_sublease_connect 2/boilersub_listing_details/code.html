@@ -1,0 +1,309 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;0,800;1,800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "tertiary-container": "#ff946e",
+                  "primary-fixed-dim": "#efd8a5",
+                  "on-tertiary-fixed-variant": "#6b1f00",
+                  "on-primary": "#fff1d9",
+                  "secondary-dim": "#0047b7",
+                  "inverse-surface": "#0e0e0e",
+                  "surface-container-low": "#f3f0ef",
+                  "surface-variant": "#dfdcdc",
+                  "secondary-fixed-dim": "#afc2ff",
+                  "on-tertiary-container": "#5c1a00",
+                  "on-secondary-fixed-variant": "#0048b9",
+                  "surface-container-highest": "#dfdcdc",
+                  "on-surface": "#2f2f2e",
+                  "surface": "#f9f6f5",
+                  "on-secondary": "#f1f2ff",
+                  "surface-container": "#eae7e7",
+                  "primary-dim": "#5e4e27",
+                  "secondary": "#0052d0",
+                  "error": "#b02500",
+                  "outline": "#787676",
+                  "on-primary-container": "#64532c",
+                  "surface-bright": "#f9f6f5",
+                  "error-dim": "#b92902",
+                  "background": "#f9f6f5",
+                  "surface-container-high": "#e4e2e1",
+                  "tertiary-dim": "#902e02",
+                  "primary-fixed": "#fee6b2",
+                  "on-error-container": "#520c00",
+                  "error-container": "#f95630",
+                  "surface-dim": "#d6d4d3",
+                  "primary-container": "#fee6b2",
+                  "on-primary-fixed-variant": "#6e5d35",
+                  "tertiary-fixed-dim": "#fe7e4f",
+                  "secondary-container": "#c3d0ff",
+                  "on-background": "#2f2f2e",
+                  "inverse-primary": "#fee6b2",
+                  "on-secondary-fixed": "#002e7d",
+                  "primary": "#6a5a32",
+                  "surface-container-lowest": "#ffffff",
+                  "on-tertiary": "#ffefeb",
+                  "on-surface-variant": "#5c5b5b",
+                  "on-error": "#ffefec",
+                  "outline-variant": "#afadac",
+                  "tertiary": "#a03a0f",
+                  "surface-tint": "#6a5a32",
+                  "on-tertiary-fixed": "#320a00",
+                  "tertiary-fixed": "#ff946e",
+                  "secondary-fixed": "#c3d0ff",
+                  "inverse-on-surface": "#9e9c9c",
+                  "on-primary-fixed": "#50411b",
+                  "on-secondary-container": "#0040a5"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "2xl": "1.5rem",
+                  "full": "9999px"
+          },
+          "fontFamily": {
+                  "headline": ["Plus Jakarta Sans"],
+                  "body": ["Manrope"],
+                  "label": ["Manrope"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .editorial-gradient {
+      background: linear-gradient(135deg, #0052d0 0%, #0047b7 100%);
+    }
+    .glass-nav {
+      backdrop-filter: blur(24px);
+    }
+    body { font-family: 'Manrope', sans-serif; }
+    h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#fcf9f8] text-on-surface selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Top Navigation (Shell suppressed on transactional, but detail page is a top-level destination) -->
+<nav class="docked full-width top-0 sticky z-50 bg-[#f9f6f5]/70 dark:bg-stone-950/70 backdrop-blur-2xl shadow-[0_12px_32px_rgba(106,90,50,0.06)]">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black text-[#6a5a32] dark:text-[#CEB888] tracking-tighter italic" style="">BoilerLease</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-sm text-stone-500 dark:text-stone-400 hover:bg-[#f9f6f5] dark:hover:bg-stone-900 transition-all px-3 py-1 rounded-lg" href="#" style="">Discover</a>
+<a class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-sm text-stone-500 dark:text-stone-400 hover:bg-[#f9f6f5] dark:hover:bg-stone-900 transition-all px-3 py-1 rounded-lg" href="#" style="">Saved</a>
+<a class="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-sm text-stone-500 dark:text-stone-400 hover:bg-[#f9f6f5] dark:hover:bg-stone-900 transition-all px-3 py-1 rounded-lg" href="#" style="">Messages</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#6a5a32] dark:text-stone-200 cursor-pointer p-2 hover:bg-[#f9f6f5] rounded-full transition-all" data-icon="notifications" style="">notifications</span>
+<span class="material-symbols-outlined text-[#6a5a32] dark:text-stone-200 cursor-pointer p-2 hover:bg-[#f9f6f5] rounded-full transition-all" data-icon="chat_bubble" style="">chat_bubble</span>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img alt="Student user profile" data-alt="close-up portrait of a friendly young college student with a warm smile in a natural outdoor setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8WLYH0r6QDf2TqlCOBFnEDkbp-TVWYOa1UV34YgjhdOtu9Td537BcigWMi9nuImnFoWq0m2cu670QGzCdVwhumpVCfLG6Fu_eygEbCEscgYkd6sObwP-zZu2I6FGPrXmjf9GiBPJaSxZM1RktvbmMdqHHK4Yn9uqOftf2rQSsZy5IvUT4ptDFcDAE4ALaB8oDliv1jxMpCkRshm76wQN18vVVdvid1FbYkx5qc9GQ08czaU01MrYLHLQ1weET11aQQtRG57SoAbtw" class="" style="">
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto px-6 pt-12 pb-24">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+<div class="space-y-2">
+<div class="flex items-center gap-3 mb-4">
+<span class="inline-flex items-center px-4 py-1.5 rounded-full bg-tertiary-container text-on-tertiary-container font-bold text-xs uppercase tracking-widest" style="">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container mr-2 animate-pulse"></span>
+            Available Now
+          </span>
+<span class="text-on-surface-variant text-sm font-medium tracking-wide" style="">Verified Purdue-only marketplace</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-on-surface leading-[1.1]" style="">
+          The Aspire Loft <span class="text-primary italic" style="">— Modern 1BR</span>
+</h1>
+<div class="flex items-center gap-2 text-on-surface-variant font-medium">
+<span class="material-symbols-outlined" data-icon="location_on" style="">location_on</span>
+<span class="text-lg" style="">Discovery Park District, West Lafayette, IN</span>
+</div>
+</div>
+<div class="flex flex-col items-start md:items-end">
+<span class="text-label-md text-on-surface-variant uppercase tracking-[0.2em] font-bold" style="">Monthly Rate</span>
+<div class="text-6xl md:text-8xl font-black text-secondary tracking-tighter" style="">$1,150<span class="text-2xl text-on-surface-variant font-medium tracking-normal" style="">/mo</span></div>
+</div>
+</header>
+<!-- Hero Image & Bento Details -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-16">
+<div class="md:col-span-8 rounded-2xl overflow-hidden aspect-[16/10] shadow-[0_12px_32px_rgba(0,0,0,0.06)] relative group">
+<img alt="Apartment Interior" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="ultra-modern luxury loft apartment interior with high ceilings, large windows, minimalist furniture, and warm afternoon sun casting soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCo1LIEamkF9_4ioE-61tfHcFvJkBuPc_Sa4j6J9fSad5lEtKxpFsp15WaVnjZxdIWqrvAZM4nvPJnu1F9n3f-QL31rDb2sZrd27tFWuBVVcO-rfWFb7KY5nTqYOziYMbehzmqpHOSQCSUn5Kmwc93K0dcykQvB6IhdluDCXK8tWfMjGCeDBek8u-05EXje2bvPUWuSTc7m9hLXCcpgI3sivyPRB6Zz5ASUGJMCmFlVFPyOqMiP3N3cmgZAI-nh-QCbcxNCU70yTcQD" style="">
+<div class="absolute bottom-6 left-6 flex gap-2">
+<button class="bg-surface/90 backdrop-blur-md px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 hover:bg-surface transition-all" style="">
+<span class="material-symbols-outlined text-sm" data-icon="photo_library" style="">photo_library</span>
+            14 Photos
+          </button>
+<button class="bg-surface/90 backdrop-blur-md px-4 py-2 rounded-lg font-bold text-sm flex items-center gap-2 hover:bg-surface transition-all" style="">
+<span class="material-symbols-outlined text-sm" data-icon="3d_rotation" style="">3d_rotation</span>3D</button>
+</div>
+</div>
+<div class="md:col-span-4 flex flex-col gap-6">
+<!-- Quick Stats Card -->
+<div class="bg-surface-container-low p-8 rounded-2xl flex-1 flex flex-col justify-center">
+<h3 class="text-label-md text-on-surface-variant uppercase tracking-widest font-bold mb-6" style="">Lease Details</h3>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="calendar_today" style="">calendar_today</span>
+</div>
+<div>
+<p class="text-on-surface font-bold" style="">Spring 2026</p>
+<p class="text-on-surface-variant text-sm" style="">Jan 1 — May 15</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="bed" style="">bed</span>
+</div>
+<div>
+<p class="text-on-surface font-bold" style="">1 Bed / 1 Bath</p>
+<p class="text-on-surface-variant text-sm" style="">Private Unit</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-white flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="home" style="">home</span>
+</div>
+<div>
+<p class="text-on-surface font-bold" style="">The Aspire</p>
+<p class="text-on-surface-variant text-sm" style="">Building B, Unit 402</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Owner Card -->
+<div class="bg-surface-container-lowest p-6 rounded-2xl shadow-sm">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-14 h-14 rounded-full overflow-hidden border-2 border-secondary-container">
+<img alt="Alex P. Avatar" data-alt="professional headshot of a young male Purdue student with a friendly expression and short dark hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu7DqIapAfnMtfbME8zmkOnUeyPNZrYX_imDgXdQ0xJrJ_MGRLDKSz6Kd_VgAKmXrW3uHrWKpEk-745YKItTr5je2wCNscl-QO8gJhB-C3_zWDGSoErvJvXGDdaHAyOX4h4zmmP9OI-aX00O50kTiMlLGLogoVKpJY9BAVAD8GMZZRGlUyxikZexQoGagYYyFcZyjJULxJxZpHuOyzj7zzBg6xOQApVei0MYeA4OpS0KIlvpI7BtXbnEbm9mbbn51h9RCYaJb5ypx2" class="" style="">
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-bold text-on-surface" style="">Alex P.</h4>
+<span class="material-symbols-outlined text-blue-500 text-sm" data-icon="verified" style="font-variation-settings: &quot;FILL&quot; 1;">verified</span>
+</div>
+<p class="text-xs font-bold text-secondary uppercase tracking-tight" style="">Verified Purdue Student</p>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-4" style="">Junior at Polytechnic. Subleasing my place while I head to Seattle for a Spring Co-op!</p>
+<a class="text-sm font-bold text-primary flex items-center gap-1 hover:underline" href="#" style="">
+            View Profile
+            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward" style="">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Content Layout: Asymmetric Columns -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-16">
+<div class="md:col-span-8">
+<!-- Description -->
+<section class="mb-12">
+<h2 class="text-3xl font-extrabold mb-6" style="">About this Space</h2>
+<div class="prose prose-stone max-w-none text-on-surface-variant leading-loose font-body text-lg">
+<p class="mb-4" style="">Experience the pinnacle of student living in the heart of Discovery Park. This modern 1-bedroom loft at The Aspire offers floor-to-ceiling windows with panoramic views of the Purdue campus skyline. The unit features a sleek, open-concept kitchen with stainless steel appliances and custom cabinetry.</p>
+<p class="" style="">Perfect for a student looking for a quiet, professional environment. The unit is fully furnished with a West Elm cloud sofa, a queen-sized memory foam bed, and a height-adjustable standing desk—perfect for those late-night study sessions. Utilities are included in the price, making this a stress-free transition for your spring semester.</p>
+</div>
+</section>
+<!-- Amenities -->
+<section class="mb-12">
+<h2 class="text-3xl font-extrabold mb-8" style="">Amenities</h2>
+<div class="flex flex-wrap gap-3">
+<div class="bg-surface-container p-4 rounded-xl flex items-center gap-3 pr-6">
+<span class="material-symbols-outlined text-secondary" data-icon="wifi" style="">wifi</span>
+<span class="font-bold text-sm" style="">High-Speed WiFi</span>
+</div>
+<div class="bg-surface-container p-4 rounded-xl flex items-center gap-3 pr-6">
+<span class="material-symbols-outlined text-secondary" data-icon="local_parking" style="">local_parking</span>
+<span class="font-bold text-sm" style="">Parking Included</span>
+</div>
+<div class="bg-surface-container p-4 rounded-xl flex items-center gap-3 pr-6">
+<span class="material-symbols-outlined text-secondary" data-icon="chair" style="">chair</span>
+<span class="font-bold text-sm" style="">Fully Furnished</span>
+</div>
+<div class="bg-surface-container p-4 rounded-xl flex items-center gap-3 pr-6">
+<span class="material-symbols-outlined text-secondary" data-icon="local_laundry_service" style="">local_laundry_service</span>
+<span class="font-bold text-sm" style="">In-Unit Laundry</span>
+</div>
+<div class="bg-surface-container p-4 rounded-xl flex items-center gap-3 pr-6">
+<span class="material-symbols-outlined text-secondary" data-icon="fitness_center" style="">fitness_center</span>
+<span class="font-bold text-sm" style="">24/7 Gym</span>
+</div>
+<div class="bg-surface-container p-4 rounded-xl flex items-center gap-3 pr-6">
+<span class="material-symbols-outlined text-secondary" data-icon="pets" style="">pets</span>
+<span class="font-bold text-sm" style="">Pet Friendly</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Action Sidebar -->
+<div class="md:col-span-4">
+<div class="sticky top-32 space-y-8">
+<!-- Primary CTA Card -->
+<div class="bg-surface-container-highest p-8 rounded-2xl shadow-xl border border-white/20">
+<h3 class="text-xl font-extrabold mb-6" style="">Ready to move in?</h3>
+<button class="editorial-gradient w-full py-4 rounded-xl text-white font-bold text-lg flex items-center justify-center gap-2 shadow-lg shadow-secondary/20 hover:scale-[1.02] active:scale-95 transition-all" style="">
+<span class="material-symbols-outlined" data-icon="mail" style="">mail</span>
+              Contact Lister
+            </button>
+<p class="text-center text-xs text-on-surface-variant mt-4 font-medium" style="">Average response time: &lt; 2 hours</p>
+<div class="mt-8 pt-8 border-t border-outline-variant/30">
+<div class="flex items-center justify-between">
+<button class="flex items-center gap-2 text-on-surface-variant hover:text-secondary transition-colors font-bold text-sm" style="">
+<span class="material-symbols-outlined text-sm" data-icon="edit" style="">edit</span>
+                  Edit Listing
+                </button>
+<button class="flex items-center gap-2 text-error hover:text-error-dim transition-colors font-bold text-sm" style="">
+<span class="material-symbols-outlined text-sm" data-icon="delete" style="">delete</span>
+                  Delete
+                </button>
+</div>
+</div>
+</div>
+<!-- Trust Message -->
+<div class="bg-primary-container/30 p-6 rounded-2xl border border-primary-container/50">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="security" style="">security</span>
+<div>
+<h4 class="font-bold text-on-primary-container mb-1" style="">BoilerGuard Protection</h4>
+<p class="text-sm text-on-primary-fixed-variant leading-relaxed" style="">All listers must verify their @purdue.edu email address. Never pay via wire transfer before seeing the unit.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-8 pt-3 bg-[#f9f6f5]/80 backdrop-blur-xl rounded-t-2xl shadow-[0_-8px_24px_rgba(0,0,0,0.04)]">
+<div class="flex flex-col items-center justify-center bg-[#0052d0]/5 text-[#0052d0] rounded-2xl px-4 py-2">
+<span class="material-symbols-outlined" data-icon="explore" style="font-variation-settings: &quot;FILL&quot; 1;">explore</span>
+<span class="font-['Manrope'] font-semibold text-[10px] uppercase tracking-widest mt-1" style="">Discover</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 px-4 py-2">
+<span class="material-symbols-outlined" data-icon="favorite" style="">favorite</span>
+<span class="font-['Manrope'] font-semibold text-[10px] uppercase tracking-widest mt-1" style="">Saved</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 px-4 py-2">
+<span class="material-symbols-outlined" data-icon="forum" style="">forum</span>
+<span class="font-['Manrope'] font-semibold text-[10px] uppercase tracking-widest mt-1" style="">Messages</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 px-4 py-2">
+<span class="material-symbols-outlined" data-icon="account_circle" style="">account_circle</span>
+<span class="font-['Manrope'] font-semibold text-[10px] uppercase tracking-widest mt-1" style="">Profile</span>
+</div>
+</nav>
+</body></html>

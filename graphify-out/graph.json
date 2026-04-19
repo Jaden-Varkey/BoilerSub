@@ -1,0 +1,1736 @@
+{
+  "nodes": [
+    {
+      "id": "file::seed",
+      "label": "seed.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/scripts/seed.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/scripts/seed.ts:1"
+    },
+    {
+      "id": "seed::main",
+      "label": "main",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/scripts/seed.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/scripts/seed.ts:23"
+    },
+    {
+      "id": "file::logger",
+      "label": "logger.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts:1"
+    },
+    {
+      "id": "logger::requestlogger",
+      "label": "requestLogger",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/logger.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/logger.ts:4"
+    },
+    {
+      "id": "file::ratelimit",
+      "label": "rateLimit.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/rateLimit.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/rateLimit.ts:1"
+    },
+    {
+      "id": "ratelimit::createratelimit",
+      "label": "createRateLimit",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/rateLimit.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/rateLimit.ts:5"
+    },
+    {
+      "id": "file::requirepermission",
+      "label": "requirePermission.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/requirePermission.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/requirePermission.ts:1"
+    },
+    {
+      "id": "requirepermission::createrequirepermission",
+      "label": "createRequirePermission",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/requirePermission.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/requirePermission.ts:11"
+    },
+    {
+      "id": "file::asynchandler",
+      "label": "asyncHandler.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/asyncHandler.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/asyncHandler.ts:1"
+    },
+    {
+      "id": "asynchandler::asynchandler",
+      "label": "asyncHandler",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/asyncHandler.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/asyncHandler.ts:3"
+    },
+    {
+      "id": "file::requestid",
+      "label": "requestId.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/requestId.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/requestId.ts:1"
+    },
+    {
+      "id": "requestId::requestid",
+      "label": "requestId",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/requestId.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/requestId.ts:4"
+    },
+    {
+      "id": "file::requireverified",
+      "label": "requireVerified.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/requireVerified.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/requireVerified.ts:1"
+    },
+    {
+      "id": "requireVerified::requireverified",
+      "label": "requireVerified",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/requireVerified.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/requireVerified.ts:4"
+    },
+    {
+      "id": "file::errorhandler",
+      "label": "errorHandler.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/errorHandler.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/errorHandler.ts:1"
+    },
+    {
+      "id": "errorHandler::errorhandler",
+      "label": "errorHandler",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/errorHandler.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/errorHandler.ts:6"
+    },
+    {
+      "id": "file::requireauth",
+      "label": "requireAuth.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/requireAuth.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/requireAuth.ts:1"
+    },
+    {
+      "id": "requireauth::createrequireauth",
+      "label": "createRequireAuth",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/requireAuth.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/requireAuth.ts:6"
+    },
+    {
+      "id": "file::validate",
+      "label": "validate.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/validate.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/validate.ts:1"
+    },
+    {
+      "id": "validate::createvalidator",
+      "label": "createValidator",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/middleware/validate.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/middleware/validate.ts:6"
+    },
+    {
+      "id": "file::index",
+      "label": "index.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/index.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/index.ts:1"
+    },
+    {
+      "id": "file::supabase",
+      "label": "supabase.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/config/supabase.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/config/supabase.ts:1"
+    },
+    {
+      "id": "supabase::createsupabaseclient",
+      "label": "createSupabaseClient",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/config/supabase.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/config/supabase.ts:19"
+    },
+    {
+      "id": "file::env",
+      "label": "env.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/config/env.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/config/env.ts:1"
+    },
+    {
+      "id": "file::user_repository",
+      "label": "user.repository.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/user.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/user.repository.ts:1"
+    },
+    {
+      "id": "file::supabase_user_repository",
+      "label": "supabase.user.repository.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts:1"
+    },
+    {
+      "id": "supabase_user_repository::mapuser",
+      "label": "mapUser",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts:9"
+    },
+    {
+      "id": "supabase_user_repository::supabaseuserrepository",
+      "label": "SupabaseUserRepository",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts:29"
+    },
+    {
+      "id": "supabase_user_repository::supabaseuserrepository::findbyid",
+      "label": ".findById",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts:30"
+    },
+    {
+      "id": "supabase_user_repository::supabaseuserrepository::findbyemail",
+      "label": ".findByEmail",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts:38"
+    },
+    {
+      "id": "supabase_user_repository::supabaseuserrepository::findbyids",
+      "label": ".findByIds",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts:46"
+    },
+    {
+      "id": "supabase_user_repository::supabaseuserrepository::upsertauthuser",
+      "label": ".upsertAuthUser",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts:59"
+    },
+    {
+      "id": "supabase_user_repository::supabaseuserrepository::updateprofile",
+      "label": ".updateProfile",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts:80"
+    },
+    {
+      "id": "supabase_user_repository::supabaseuserrepository::markemailverified",
+      "label": ".markEmailVerified",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts:102"
+    },
+    {
+      "id": "supabase_user_repository::supabaseuserrepository::markphoneverified",
+      "label": ".markPhoneVerified",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts:117"
+    },
+    {
+      "id": "supabase_user_repository::supabaseuserrepository::markfullyverified",
+      "label": ".markFullyVerified",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.user.repository.ts:132"
+    },
+    {
+      "id": "file::listing_repository",
+      "label": "listing.repository.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/listing.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/listing.repository.ts:1"
+    },
+    {
+      "id": "file::supabase_listing_repository",
+      "label": "supabase.listing.repository.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts:1"
+    },
+    {
+      "id": "supabase_listing_repository::maplisting",
+      "label": "mapListing",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts:6"
+    },
+    {
+      "id": "supabase_listing_repository::mapowner",
+      "label": "mapOwner",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts:24"
+    },
+    {
+      "id": "supabase_listing_repository::supabaselistingrepository",
+      "label": "SupabaseListingRepository",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts:37"
+    },
+    {
+      "id": "supabase_listing_repository::supabaselistingrepository::findall",
+      "label": ".findAll",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts:38"
+    },
+    {
+      "id": "supabase_listing_repository::supabaselistingrepository::findbyid",
+      "label": ".findById",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts:51"
+    },
+    {
+      "id": "supabase_listing_repository::supabaselistingrepository::findbyids",
+      "label": ".findByIds",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts:59"
+    },
+    {
+      "id": "supabase_listing_repository::supabaselistingrepository::create",
+      "label": ".create",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts:71"
+    },
+    {
+      "id": "supabase_listing_repository::supabaselistingrepository::update",
+      "label": ".update",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts:87"
+    },
+    {
+      "id": "supabase_listing_repository::supabaselistingrepository::delete",
+      "label": ".delete",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts:106"
+    },
+    {
+      "id": "supabase_listing_repository::supabaselistingrepository::findwithowners",
+      "label": ".findWithOwners",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/repositories/supabase.listing.repository.ts:113"
+    },
+    {
+      "id": "file::auth_schema",
+      "label": "auth.schema.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/schemas/auth.schema.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/schemas/auth.schema.ts:1"
+    },
+    {
+      "id": "file::listings_schema",
+      "label": "listings.schema.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/schemas/listings.schema.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/schemas/listings.schema.ts:1"
+    },
+    {
+      "id": "file::users_schema",
+      "label": "users.schema.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/schemas/users.schema.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/schemas/users.schema.ts:1"
+    },
+    {
+      "id": "logger::logger",
+      "label": "Logger",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts:5"
+    },
+    {
+      "id": "logger::logger::constructor",
+      "label": ".constructor",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts:6"
+    },
+    {
+      "id": "logger::logger::child",
+      "label": ".child",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts:8"
+    },
+    {
+      "id": "logger::logger::info",
+      "label": ".info",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts:12"
+    },
+    {
+      "id": "logger::logger::warn",
+      "label": ".warn",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts:16"
+    },
+    {
+      "id": "logger::logger::error",
+      "label": ".error",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts:20"
+    },
+    {
+      "id": "logger::logger::write",
+      "label": ".write",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/logger.ts:24"
+    },
+    {
+      "id": "file::apierror",
+      "label": "apiError.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/apiError.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/apiError.ts:1"
+    },
+    {
+      "id": "apierror::apierror",
+      "label": "ApiError",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/apiError.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/apiError.ts:3"
+    },
+    {
+      "id": "apierror::apierror::constructor",
+      "label": ".constructor",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/apiError.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/apiError.ts:9"
+    },
+    {
+      "id": "apierror::apierror::tobody",
+      "label": ".toBody",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/apiError.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/apiError.ts:18"
+    },
+    {
+      "id": "file::jobqueue",
+      "label": "jobQueue.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/jobQueue.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/jobQueue.ts:1"
+    },
+    {
+      "id": "jobqueue::jobqueue",
+      "label": "JobQueue",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/jobQueue.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/jobQueue.ts:1"
+    },
+    {
+      "id": "jobqueue::jobqueue::add",
+      "label": ".add",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/jobQueue.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/jobQueue.ts:5"
+    },
+    {
+      "id": "jobqueue::jobqueue::execute",
+      "label": ".execute",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/jobQueue.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/jobQueue.ts:12"
+    },
+    {
+      "id": "jobqueue::jobqueue::process",
+      "label": ".process",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/jobQueue.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/jobQueue.ts:16"
+    },
+    {
+      "id": "file::envelope",
+      "label": "envelope.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/envelope.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/envelope.ts:1"
+    },
+    {
+      "id": "envelope::successenvelope",
+      "label": "successEnvelope",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/envelope.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/envelope.ts:17"
+    },
+    {
+      "id": "envelope::errorenvelope",
+      "label": "errorEnvelope",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/envelope.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/envelope.ts:21"
+    },
+    {
+      "id": "envelope::sendsuccess",
+      "label": "sendSuccess",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/envelope.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/envelope.ts:29"
+    },
+    {
+      "id": "envelope::senderror",
+      "label": "sendError",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/envelope.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/envelope.ts:33"
+    },
+    {
+      "id": "file::ratelimiter",
+      "label": "rateLimiter.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/rateLimiter.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/rateLimiter.ts:1"
+    },
+    {
+      "id": "ratelimiter::ratelimiter",
+      "label": "RateLimiter",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/rateLimiter.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/rateLimiter.ts:3"
+    },
+    {
+      "id": "ratelimiter::ratelimiter::checklimit",
+      "label": ".checkLimit",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/rateLimiter.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/rateLimiter.ts:6"
+    },
+    {
+      "id": "ratelimiter::ratelimiter::consume",
+      "label": ".consume",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/rateLimiter.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/rateLimiter.ts:10"
+    },
+    {
+      "id": "file::http",
+      "label": "http.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts:1"
+    },
+    {
+      "id": "http::requestidfrom",
+      "label": "requestIdFrom",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts:6"
+    },
+    {
+      "id": "http::getclientip",
+      "label": "getClientIp",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts:10"
+    },
+    {
+      "id": "http::createrequestlogger",
+      "label": "createRequestLogger",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts:19"
+    },
+    {
+      "id": "http::validatebody",
+      "label": "validateBody",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts:27"
+    },
+    {
+      "id": "http::asynchandler",
+      "label": "asyncHandler",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts:31"
+    },
+    {
+      "id": "http::errormiddleware",
+      "label": "errorMiddleware",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/http.ts:37"
+    },
+    {
+      "id": "file::fetchwithretry",
+      "label": "fetchWithRetry.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/fetchWithRetry.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/fetchWithRetry.ts:1"
+    },
+    {
+      "id": "fetchwithretry::fetchwithretry",
+      "label": "fetchWithRetry",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/lib/fetchWithRetry.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/lib/fetchWithRetry.ts:1"
+    },
+    {
+      "id": "file::auth_controller",
+      "label": "auth.controller.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/controllers/auth.controller.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/controllers/auth.controller.ts:1"
+    },
+    {
+      "id": "auth_controller::send",
+      "label": "send",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/controllers/auth.controller.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/controllers/auth.controller.ts:7"
+    },
+    {
+      "id": "auth_controller::publicuserfromrequest",
+      "label": "publicUserFromRequest",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/controllers/auth.controller.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/controllers/auth.controller.ts:11"
+    },
+    {
+      "id": "auth_controller::createauthcontroller",
+      "label": "createAuthController",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/controllers/auth.controller.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/controllers/auth.controller.ts:26"
+    },
+    {
+      "id": "file::listings_controller",
+      "label": "listings.controller.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/controllers/listings.controller.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/controllers/listings.controller.ts:1"
+    },
+    {
+      "id": "listings_controller::respond",
+      "label": "respond",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/controllers/listings.controller.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/controllers/listings.controller.ts:12"
+    },
+    {
+      "id": "listings_controller::createlistingscontroller",
+      "label": "createListingsController",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/controllers/listings.controller.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/controllers/listings.controller.ts:16"
+    },
+    {
+      "id": "file::users_controller",
+      "label": "users.controller.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/controllers/users.controller.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/controllers/users.controller.ts:1"
+    },
+    {
+      "id": "users_controller::send",
+      "label": "send",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/controllers/users.controller.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/controllers/users.controller.ts:6"
+    },
+    {
+      "id": "users_controller::createuserscontroller",
+      "label": "createUsersController",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/controllers/users.controller.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/controllers/users.controller.ts:10"
+    },
+    {
+      "id": "file::auth_routes",
+      "label": "auth.routes.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/routes/auth.routes.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/routes/auth.routes.ts:1"
+    },
+    {
+      "id": "auth_routes::createauthrouter",
+      "label": "createAuthRouter",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/routes/auth.routes.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/routes/auth.routes.ts:16"
+    },
+    {
+      "id": "file::listings_routes",
+      "label": "listings.routes.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/routes/listings.routes.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/routes/listings.routes.ts:1"
+    },
+    {
+      "id": "listings_routes::createlistingsrouter",
+      "label": "createListingsRouter",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/routes/listings.routes.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/routes/listings.routes.ts:7"
+    },
+    {
+      "id": "file::users_routes",
+      "label": "users.routes.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/routes/users.routes.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/routes/users.routes.ts:1"
+    },
+    {
+      "id": "users_routes::createusersrouter",
+      "label": "createUsersRouter",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/routes/users.routes.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/routes/users.routes.ts:7"
+    },
+    {
+      "id": "file::listings_service",
+      "label": "listings.service.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts:1"
+    },
+    {
+      "id": "listings_service::listingsservice",
+      "label": "ListingsService",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts:7"
+    },
+    {
+      "id": "listings_service::listingsservice::constructor",
+      "label": ".constructor",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts:8"
+    },
+    {
+      "id": "listings_service::listingsservice::list",
+      "label": ".list",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts:13"
+    },
+    {
+      "id": "listings_service::listingsservice::getbyid",
+      "label": ".getById",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts:17"
+    },
+    {
+      "id": "listings_service::listingsservice::create",
+      "label": ".create",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts:25"
+    },
+    {
+      "id": "listings_service::listingsservice::update",
+      "label": ".update",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts:40"
+    },
+    {
+      "id": "listings_service::listingsservice::delete",
+      "label": ".delete",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts:60"
+    },
+    {
+      "id": "listings_service::listingsservice::assertfullyverified",
+      "label": ".assertFullyVerified",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/listings.service.ts:70"
+    },
+    {
+      "id": "file::auth_service",
+      "label": "auth.service.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts:1"
+    },
+    {
+      "id": "auth_service::authservice",
+      "label": "AuthService",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts:6"
+    },
+    {
+      "id": "auth_service::authservice::constructor",
+      "label": ".constructor",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts:7"
+    },
+    {
+      "id": "auth_service::authservice::signup",
+      "label": ".signup",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts:9"
+    },
+    {
+      "id": "auth_service::authservice::verifyemail",
+      "label": ".verifyEmail",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts:29"
+    },
+    {
+      "id": "auth_service::authservice::sendphoneotp",
+      "label": ".sendPhoneOtp",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts:39"
+    },
+    {
+      "id": "auth_service::authservice::verifyphone",
+      "label": ".verifyPhone",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts:48"
+    },
+    {
+      "id": "auth_service::authservice::login",
+      "label": ".login",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts:68"
+    },
+    {
+      "id": "auth_service::authservice::logout",
+      "label": ".logout",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts:95"
+    },
+    {
+      "id": "auth_service::authservice::resendemailotp",
+      "label": ".resendEmailOtp",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts:104"
+    },
+    {
+      "id": "auth_service::authservice::resendphoneotp",
+      "label": ".resendPhoneOtp",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/auth.service.ts:112"
+    },
+    {
+      "id": "file::users_service",
+      "label": "users.service.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/users.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/users.service.ts:1"
+    },
+    {
+      "id": "users_service::topublicuser",
+      "label": "toPublicUser",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/users.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/users.service.ts:5"
+    },
+    {
+      "id": "users_service::usersservice",
+      "label": "UsersService",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/users.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/users.service.ts:18"
+    },
+    {
+      "id": "users_service::usersservice::constructor",
+      "label": ".constructor",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/users.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/users.service.ts:19"
+    },
+    {
+      "id": "users_service::usersservice::getuserbyid",
+      "label": ".getUserById",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/users.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/users.service.ts:21"
+    },
+    {
+      "id": "users_service::usersservice::updateme",
+      "label": ".updateMe",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/services/users.service.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/services/users.service.ts:29"
+    },
+    {
+      "id": "file::express_d",
+      "label": "express.d.ts",
+      "fileType": "code",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/src/types/express.d.ts",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/src/types/express.d.ts:1"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file::seed",
+      "target": "seed::main",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/scripts/seed.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/scripts/seed.js:13",
+      "weight": 1
+    },
+    {
+      "source": "file::logger",
+      "target": "logger::requestlogger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/logger.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/logger.js:2",
+      "weight": 1
+    },
+    {
+      "source": "file::ratelimit",
+      "target": "ratelimit::createratelimit",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/rateLimit.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/rateLimit.js:3",
+      "weight": 1
+    },
+    {
+      "source": "file::requirepermission",
+      "target": "requirepermission::createrequirepermission",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/requirePermission.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/requirePermission.js:6",
+      "weight": 1
+    },
+    {
+      "source": "file::asynchandler",
+      "target": "asynchandler::asynchandler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/asyncHandler.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/asyncHandler.js:1",
+      "weight": 1
+    },
+    {
+      "source": "file::requestid",
+      "target": "requestId::requestid",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/requestId.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/requestId.js:2",
+      "weight": 1
+    },
+    {
+      "source": "file::requireverified",
+      "target": "requireVerified::requireverified",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/requireVerified.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/requireVerified.js:2",
+      "weight": 1
+    },
+    {
+      "source": "file::errorhandler",
+      "target": "errorHandler::errorhandler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/errorHandler.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/errorHandler.js:4",
+      "weight": 1
+    },
+    {
+      "source": "file::requireauth",
+      "target": "requireauth::createrequireauth",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/requireAuth.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/requireAuth.js:2",
+      "weight": 1
+    },
+    {
+      "source": "file::validate",
+      "target": "validate::createvalidator",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/validate.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/middleware/validate.js:1",
+      "weight": 1
+    },
+    {
+      "source": "file::supabase",
+      "target": "supabase::createsupabaseclient",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/config/supabase.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/config/supabase.js:14",
+      "weight": 1
+    },
+    {
+      "source": "file::supabase_user_repository",
+      "target": "supabase_user_repository::mapuser",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js:4",
+      "weight": 1
+    },
+    {
+      "source": "file::supabase_user_repository",
+      "target": "supabase_user_repository::supabaseuserrepository",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js:22",
+      "weight": 1
+    },
+    {
+      "source": "supabase_user_repository::supabaseuserrepository",
+      "target": "supabase_user_repository::supabaseuserrepository::findbyid",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js:23",
+      "weight": 1
+    },
+    {
+      "source": "supabase_user_repository::supabaseuserrepository",
+      "target": "supabase_user_repository::supabaseuserrepository::findbyemail",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js:30",
+      "weight": 1
+    },
+    {
+      "source": "supabase_user_repository::supabaseuserrepository",
+      "target": "supabase_user_repository::supabaseuserrepository::findbyids",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js:37",
+      "weight": 1
+    },
+    {
+      "source": "supabase_user_repository::supabaseuserrepository",
+      "target": "supabase_user_repository::supabaseuserrepository::upsertauthuser",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js:47",
+      "weight": 1
+    },
+    {
+      "source": "supabase_user_repository::supabaseuserrepository",
+      "target": "supabase_user_repository::supabaseuserrepository::updateprofile",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js:62",
+      "weight": 1
+    },
+    {
+      "source": "supabase_user_repository::supabaseuserrepository",
+      "target": "supabase_user_repository::supabaseuserrepository::markemailverified",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js:78",
+      "weight": 1
+    },
+    {
+      "source": "supabase_user_repository::supabaseuserrepository",
+      "target": "supabase_user_repository::supabaseuserrepository::markphoneverified",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js:90",
+      "weight": 1
+    },
+    {
+      "source": "supabase_user_repository::supabaseuserrepository",
+      "target": "supabase_user_repository::supabaseuserrepository::markfullyverified",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.user.repository.js:102",
+      "weight": 1
+    },
+    {
+      "source": "file::supabase_listing_repository",
+      "target": "supabase_listing_repository::maplisting",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js:3",
+      "weight": 1
+    },
+    {
+      "source": "file::supabase_listing_repository",
+      "target": "supabase_listing_repository::mapowner",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js:20",
+      "weight": 1
+    },
+    {
+      "source": "file::supabase_listing_repository",
+      "target": "supabase_listing_repository::supabaselistingrepository",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js:30",
+      "weight": 1
+    },
+    {
+      "source": "supabase_listing_repository::supabaselistingrepository",
+      "target": "supabase_listing_repository::supabaselistingrepository::findall",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js:31",
+      "weight": 1
+    },
+    {
+      "source": "supabase_listing_repository::supabaselistingrepository",
+      "target": "supabase_listing_repository::supabaselistingrepository::findbyid",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js:42",
+      "weight": 1
+    },
+    {
+      "source": "supabase_listing_repository::supabaselistingrepository",
+      "target": "supabase_listing_repository::supabaselistingrepository::findbyids",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js:49",
+      "weight": 1
+    },
+    {
+      "source": "supabase_listing_repository::supabaselistingrepository",
+      "target": "supabase_listing_repository::supabaselistingrepository::create",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js:59",
+      "weight": 1
+    },
+    {
+      "source": "supabase_listing_repository::supabaselistingrepository",
+      "target": "supabase_listing_repository::supabaselistingrepository::update",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js:73",
+      "weight": 1
+    },
+    {
+      "source": "supabase_listing_repository::supabaselistingrepository",
+      "target": "supabase_listing_repository::supabaselistingrepository::delete",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js:86",
+      "weight": 1
+    },
+    {
+      "source": "supabase_listing_repository::supabaselistingrepository",
+      "target": "supabase_listing_repository::supabaselistingrepository::findwithowners",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/repositories/supabase.listing.repository.js:92",
+      "weight": 1
+    },
+    {
+      "source": "file::logger",
+      "target": "logger::logger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js:1",
+      "weight": 1
+    },
+    {
+      "source": "logger::logger",
+      "target": "logger::logger::constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js:3",
+      "weight": 1
+    },
+    {
+      "source": "logger::logger",
+      "target": "logger::logger::child",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js:6",
+      "weight": 1
+    },
+    {
+      "source": "logger::logger",
+      "target": "logger::logger::info",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js:9",
+      "weight": 1
+    },
+    {
+      "source": "logger::logger",
+      "target": "logger::logger::warn",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js:12",
+      "weight": 1
+    },
+    {
+      "source": "logger::logger",
+      "target": "logger::logger::error",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js:15",
+      "weight": 1
+    },
+    {
+      "source": "logger::logger",
+      "target": "logger::logger::write",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/logger.js:18",
+      "weight": 1
+    },
+    {
+      "source": "file::apierror",
+      "target": "apierror::apierror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/apiError.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/apiError.js:1",
+      "weight": 1
+    },
+    {
+      "source": "apierror::apierror",
+      "target": "apierror::apierror::constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/apiError.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/apiError.js:6",
+      "weight": 1
+    },
+    {
+      "source": "apierror::apierror",
+      "target": "apierror::apierror::tobody",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/apiError.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/apiError.js:14",
+      "weight": 1
+    },
+    {
+      "source": "file::jobqueue",
+      "target": "jobqueue::jobqueue",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/jobQueue.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/jobQueue.js:1",
+      "weight": 1
+    },
+    {
+      "source": "jobqueue::jobqueue",
+      "target": "jobqueue::jobqueue::add",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/jobQueue.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/jobQueue.js:4",
+      "weight": 1
+    },
+    {
+      "source": "jobqueue::jobqueue",
+      "target": "jobqueue::jobqueue::execute",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/jobQueue.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/jobQueue.js:10",
+      "weight": 1
+    },
+    {
+      "source": "jobqueue::jobqueue",
+      "target": "jobqueue::jobqueue::process",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/jobQueue.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/jobQueue.js:13",
+      "weight": 1
+    },
+    {
+      "source": "file::envelope",
+      "target": "envelope::successenvelope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/envelope.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/envelope.js:1",
+      "weight": 1
+    },
+    {
+      "source": "file::envelope",
+      "target": "envelope::errorenvelope",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/envelope.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/envelope.js:4",
+      "weight": 1
+    },
+    {
+      "source": "file::envelope",
+      "target": "envelope::sendsuccess",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/envelope.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/envelope.js:11",
+      "weight": 1
+    },
+    {
+      "source": "file::envelope",
+      "target": "envelope::senderror",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/envelope.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/envelope.js:14",
+      "weight": 1
+    },
+    {
+      "source": "file::ratelimiter",
+      "target": "ratelimiter::ratelimiter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/rateLimiter.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/rateLimiter.js:1",
+      "weight": 1
+    },
+    {
+      "source": "ratelimiter::ratelimiter",
+      "target": "ratelimiter::ratelimiter::checklimit",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/rateLimiter.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/rateLimiter.js:3",
+      "weight": 1
+    },
+    {
+      "source": "ratelimiter::ratelimiter",
+      "target": "ratelimiter::ratelimiter::consume",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/rateLimiter.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/rateLimiter.js:6",
+      "weight": 1
+    },
+    {
+      "source": "file::http",
+      "target": "http::requestidfrom",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/http.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/http.js:4",
+      "weight": 1
+    },
+    {
+      "source": "file::http",
+      "target": "http::getclientip",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/http.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/http.js:7",
+      "weight": 1
+    },
+    {
+      "source": "file::http",
+      "target": "http::createrequestlogger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/http.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/http.js:14",
+      "weight": 1
+    },
+    {
+      "source": "file::http",
+      "target": "http::validatebody",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/http.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/http.js:21",
+      "weight": 1
+    },
+    {
+      "source": "file::http",
+      "target": "http::asynchandler",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/http.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/http.js:24",
+      "weight": 1
+    },
+    {
+      "source": "file::http",
+      "target": "http::errormiddleware",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/http.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/http.js:29",
+      "weight": 1
+    },
+    {
+      "source": "file::fetchwithretry",
+      "target": "fetchwithretry::fetchwithretry",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/fetchWithRetry.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/lib/fetchWithRetry.js:1",
+      "weight": 1
+    },
+    {
+      "source": "file::auth_controller",
+      "target": "auth_controller::send",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/auth.controller.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/auth.controller.js:3",
+      "weight": 1
+    },
+    {
+      "source": "file::auth_controller",
+      "target": "auth_controller::publicuserfromrequest",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/auth.controller.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/auth.controller.js:6",
+      "weight": 1
+    },
+    {
+      "source": "file::auth_controller",
+      "target": "auth_controller::createauthcontroller",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/auth.controller.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/auth.controller.js:20",
+      "weight": 1
+    },
+    {
+      "source": "file::listings_controller",
+      "target": "listings_controller::respond",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/listings.controller.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/listings.controller.js:4",
+      "weight": 1
+    },
+    {
+      "source": "file::listings_controller",
+      "target": "listings_controller::createlistingscontroller",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/listings.controller.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/listings.controller.js:7",
+      "weight": 1
+    },
+    {
+      "source": "file::users_controller",
+      "target": "users_controller::send",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/users.controller.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/users.controller.js:3",
+      "weight": 1
+    },
+    {
+      "source": "file::users_controller",
+      "target": "users_controller::createuserscontroller",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/users.controller.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/controllers/users.controller.js:6",
+      "weight": 1
+    },
+    {
+      "source": "file::auth_routes",
+      "target": "auth_routes::createauthrouter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/routes/auth.routes.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/routes/auth.routes.js:6",
+      "weight": 1
+    },
+    {
+      "source": "file::listings_routes",
+      "target": "listings_routes::createlistingsrouter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/routes/listings.routes.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/routes/listings.routes.js:5",
+      "weight": 1
+    },
+    {
+      "source": "file::users_routes",
+      "target": "users_routes::createusersrouter",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/routes/users.routes.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/routes/users.routes.js:5",
+      "weight": 1
+    },
+    {
+      "source": "file::listings_service",
+      "target": "listings_service::listingsservice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js:2",
+      "weight": 1
+    },
+    {
+      "source": "listings_service::listingsservice",
+      "target": "listings_service::listingsservice::constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js:5",
+      "weight": 1
+    },
+    {
+      "source": "listings_service::listingsservice",
+      "target": "listings_service::listingsservice::list",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js:9",
+      "weight": 1
+    },
+    {
+      "source": "listings_service::listingsservice",
+      "target": "listings_service::listingsservice::getbyid",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js:12",
+      "weight": 1
+    },
+    {
+      "source": "listings_service::listingsservice",
+      "target": "listings_service::listingsservice::create",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js:19",
+      "weight": 1
+    },
+    {
+      "source": "listings_service::listingsservice",
+      "target": "listings_service::listingsservice::update",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js:33",
+      "weight": 1
+    },
+    {
+      "source": "listings_service::listingsservice",
+      "target": "listings_service::listingsservice::delete",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js:51",
+      "weight": 1
+    },
+    {
+      "source": "listings_service::listingsservice",
+      "target": "listings_service::listingsservice::assertfullyverified",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/listings.service.js:59",
+      "weight": 1
+    },
+    {
+      "source": "file::auth_service",
+      "target": "auth_service::authservice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js:3",
+      "weight": 1
+    },
+    {
+      "source": "auth_service::authservice",
+      "target": "auth_service::authservice::constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js:5",
+      "weight": 1
+    },
+    {
+      "source": "auth_service::authservice",
+      "target": "auth_service::authservice::signup",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js:8",
+      "weight": 1
+    },
+    {
+      "source": "auth_service::authservice",
+      "target": "auth_service::authservice::verifyemail",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js:25",
+      "weight": 1
+    },
+    {
+      "source": "auth_service::authservice",
+      "target": "auth_service::authservice::sendphoneotp",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js:33",
+      "weight": 1
+    },
+    {
+      "source": "auth_service::authservice",
+      "target": "auth_service::authservice::verifyphone",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js:41",
+      "weight": 1
+    },
+    {
+      "source": "auth_service::authservice",
+      "target": "auth_service::authservice::login",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js:59",
+      "weight": 1
+    },
+    {
+      "source": "auth_service::authservice",
+      "target": "auth_service::authservice::logout",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js:83",
+      "weight": 1
+    },
+    {
+      "source": "auth_service::authservice",
+      "target": "auth_service::authservice::resendemailotp",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js:91",
+      "weight": 1
+    },
+    {
+      "source": "auth_service::authservice",
+      "target": "auth_service::authservice::resendphoneotp",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/auth.service.js:98",
+      "weight": 1
+    },
+    {
+      "source": "file::users_service",
+      "target": "users_service::topublicuser",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/users.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/users.service.js:2",
+      "weight": 1
+    },
+    {
+      "source": "file::users_service",
+      "target": "users_service::usersservice",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/users.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/users.service.js:14",
+      "weight": 1
+    },
+    {
+      "source": "users_service::usersservice",
+      "target": "users_service::usersservice::constructor",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/users.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/users.service.js:16",
+      "weight": 1
+    },
+    {
+      "source": "users_service::usersservice",
+      "target": "users_service::usersservice::getuserbyid",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/users.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/users.service.js:19",
+      "weight": 1
+    },
+    {
+      "source": "users_service::usersservice",
+      "target": "users_service::usersservice::updateme",
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "sourceFile": "/Users/archeet/Desktop/BoilerSub/dist/src/services/users.service.js",
+      "sourceLocation": "/Users/archeet/Desktop/BoilerSub/dist/src/services/users.service.js:26",
+      "weight": 1
+    }
+  ],
+  "metadata": {
+    "files": 78,
+    "nodes": 128,
+    "edges": 92,
+    "builtAt": "2026-04-10T04:36:25.790Z"
+  }
+}

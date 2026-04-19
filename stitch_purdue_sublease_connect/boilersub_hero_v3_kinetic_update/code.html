@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BoilerSub | Sublease Smarter, Boiler Up!</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&amp;family=Manrope:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"surface-container-highest": "#dfdcdc", tertiary: "#a03a0f", "surface-container-high": "#e4e2e1", "tertiary-fixed": "#ff946e", "surface-tint": "#6a5a32", "tertiary-fixed-dim": "#fe7e4f", "surface-container-lowest": "#ffffff", "surface-variant": "#dfdcdc", surface: "#f9f6f5", "primary-container": "#fee6b2", "error-container": "#f95630", "secondary-container": "#c3d0ff", "surface-container": "#eae7e7", "tertiary-container": "#ff946e", "primary-fixed": "#fee6b2", error: "#b02500", "secondary-fixed-dim": "#afc2ff", "on-primary-container": "#64532c", "inverse-on-surface": "#9e9c9c", "outline-variant": "#afadac", "error-dim": "#b92902", "secondary-fixed": "#c3d0ff", "tertiary-dim": "#902e02", "on-surface": "#2f2f2e", "on-primary-fixed": "#50411b", "on-error-container": "#520c00", "primary-dim": "#5e4e27", outline: "#787676", secondary: "#0052d0", "primary-fixed-dim": "#efd8a5", "on-tertiary-fixed-variant": "#6b1f00", "on-error": "#ffefec", "inverse-surface": "#0e0e0e", "on-surface-variant": "#5c5b5b", "on-background": "#2f2f2e", "on-secondary-fixed": "#002e7d", primary: "#6a5a32", "on-primary-fixed-variant": "#6e5d35", "inverse-primary": "#fee6b2", "surface-bright": "#f9f6f5", "on-tertiary-fixed": "#320a00", "on-tertiary-container": "#5c1a00", "on-tertiary": "#ffefeb", "on-secondary-container": "#0040a5", "on-primary": "#fff1d9", "on-secondary-fixed-variant": "#0048b9", "secondary-dim": "#0047b7", "surface-dim": "#d6d4d3", background: "#f9f6f5", "on-secondary": "#f1f2ff", "surface-container-low": "#f3f0ef"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, fontFamily: {headline: ["Plus Jakarta Sans"], body: ["Manrope"], label: ["Manrope"], display: "Plus Jakarta Sans"}}}};</script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-stone-50/70 dark:bg-stone-950/70 backdrop-blur-xl shadow-[0_12px_32px_rgba(0,0,0,0.06)]">
+<div class="flex justify-between items-center px-8 py-4 max-w-full">
+<div class="text-2xl font-black tracking-tighter text-stone-900 dark:text-stone-50 font-headline" style="">
+                BoilerSub
+            </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 font-headline font-bold tracking-tight" href="#" style="">Explore</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium font-headline tracking-tight hover:text-blue-500 transition-colors duration-300" href="#" style="">Listings</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium font-headline tracking-tight hover:text-blue-500 transition-colors duration-300" href="#" style="">Sublease</a>
+<a class="text-stone-600 dark:text-stone-400 font-medium font-headline tracking-tight hover:text-blue-500 transition-colors duration-300" href="#" style="">Guide</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-stone-600 font-bold font-headline hover:text-blue-500 transition-all" style="">Sign In</button>
+<button class="bg-secondary text-on-secondary px-6 py-2.5 rounded-lg font-bold font-headline shadow-lg hover:opacity-90 active:scale-95 transition-all" style="">Post Ad</button>
+</div>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden">
+<!-- Background Image -->
+<div class="absolute inset-0 z-0">
+<img alt="Purdue Campus" class="w-full h-full object-cover" data-alt="Cinematic wide shot of Purdue University campus at sunset, warm golden hour light hitting brick buildings and stone arches, blurred student movement" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxGfhuniDmWPL7z9h3jaBT9Jsu7Y7L43B-ZXxCBooyD23NY1JH8SDLbUMCxkvfLESpponx6OJAUSZ6sTEWt7cnTE_PSUe0nyPSwIOPuaudxjv_RNo2WsjqOclUQhF3QrwUssUMUHBGrsXFeL0XViBZus5sFFKYKwPp_XZTvdL_3uxZuhDzjm2WV1N8Vlset-RWxeOvtFpqkeQYcB8446ljcgX58moyo2pGHSyNTkQGWU1krvIJvFcv1sQC4Ex875MBlGqzAzfIHhNz" style=""/>
+<div class="absolute inset-0 bg-black/30 backdrop-brightness-75"></div>
+</div>
+<!-- Content Container -->
+<div class="relative z-10 w-full max-w-7xl mx-auto px-6 text-center">
+<div class="mb-12">
+<h1 class="font-headline font-extrabold text-6xl md:text-8xl text-white tracking-tighter mb-6 drop-shadow-2xl" style="">
+                        Stop doomscrolling<br/>
+<span class="text-secondary-container" style="">Apartments</span></h1>
+<p class="text-white/90 text-xl md:text-2xl font-medium max-w-2xl mx-auto mb-12 drop-shadow-md" style="">
+                        The elite housing curator for the Purdue community. Find your next home in West Lafayette with kinetic precision.
+                    </p>
+</div>
+<!-- Modernized Glassmorphism Search Bar -->
+<div class="glass-panel max-w-4xl mx-auto p-2 rounded-2xl shadow-2xl flex flex-col md:flex-row items-center gap-2">
+<div class="flex-1 w-full grid grid-cols-1 md:grid-cols-3 gap-2 px-4">
+<div class="flex flex-col items-start py-2">
+<span class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-1" style="">Location</span>
+<div class="flex items-center gap-2 w-full">
+<span class="material-symbols-outlined text-secondary text-sm" style="">location_on</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-bold text-on-surface placeholder:text-outline p-0" placeholder="Near Campus..." type="text"/>
+</div>
+</div>
+<div class="flex flex-col items-start py-2 border-t md:border-t-0 md:border-l border-outline-variant/30 md:pl-4">
+<span class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-1" style="">Duration</span>
+<div class="flex items-center gap-2 w-full">
+<span class="material-symbols-outlined text-secondary text-sm" style="">calendar_today</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-bold text-on-surface placeholder:text-outline p-0" placeholder="Spring 2025" type="text"/>
+</div>
+</div>
+<div class="flex flex-col items-start py-2 border-t md:border-t-0 md:border-l border-outline-variant/30 md:pl-4">
+<span class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-1" style="">Budget</span>
+<div class="flex items-center gap-2 w-full">
+<span class="material-symbols-outlined text-secondary text-sm" style="">payments</span>
+<input class="bg-transparent border-none focus:ring-0 w-full font-bold text-on-surface placeholder:text-outline p-0" placeholder="$500 - $900" type="text"/>
+</div>
+</div>
+</div>
+<button class="w-full md:w-auto bg-secondary text-white px-10 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-secondary-dim transition-all shadow-lg active:scale-95" style="">
+<span class="material-symbols-outlined" style="">search</span>
+                        Explore Now
+                    </button>
+</div>
+<!-- Secondary Actions -->
+<div class="mt-8 flex flex-wrap justify-center gap-4">
+<button class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-8 py-3 rounded-full font-bold flex items-center gap-2 transition-all group" style="">
+<span class="material-symbols-outlined group-hover:rotate-12 transition-transform" style='font-variation-settings: "FILL" 1;'>view_in_ar</span>
+                        3D View
+                    </button>
+<button class="bg-tertiary text-on-tertiary px-8 py-3 rounded-full font-bold hover:brightness-110 transition-all shadow-lg" style="">
+                        Post Your Sublease
+                    </button>
+</div>
+</div>
+<!-- Scroll Indicator -->
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce flex flex-col items-center gap-2">
+<span class="text-[10px] text-white/50 font-bold uppercase tracking-widest" style="">Scroll to curate</span>
+<span class="material-symbols-outlined text-white" style="">keyboard_arrow_down</span>
+</div>
+</section>
+<!-- Bento Grid Highlights -->
+<section class="py-24 px-8 max-w-7xl mx-auto bg-surface">
+<div class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<span class="text-tertiary font-bold tracking-[0.2em] text-sm uppercase" style="">The Selection</span>
+<h2 class="font-headline font-black text-5xl text-on-surface tracking-tighter mt-2" style="">Curated Living Spaces</h2>
+</div>
+<p class="text-on-surface-variant max-w-md font-medium" style="">
+                    We hand-pick listings that match the high-velocity energy of Purdue students. No static grids, only dynamic opportunities.
+                </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-6 h-auto md:h-[600px]">
+<!-- Large Feature Card -->
+<div class="md:col-span-2 md:row-span-2 relative rounded-3xl overflow-hidden group">
+<img alt="Luxury Living" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Modern high-end apartment interior with floor-to-ceiling windows, designer furniture, and views of an urban campus skyline" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAT6wnQHCsXhCwIA6pO7Q7Nd9mbYpQgKZOv3iQ71tp2GlK9PygpF_Bez6txbF59vQLViV2S87m14PdBa36ZFN-StoNWQyiGVS5LeYFU0X05yPRdRQ-5F0EGYrzqQeu2KvlYQS5MmGSxjyCUq9zD9K0mV5x0vFnpAr3lXDM6TIbLQGx-ULDdkoEOMTU96sYZ0zumFj80TkhRbdttCBFAE8JEo6CggszmZxs_5Z_TLpRWQ0IBmft_a_-ZJWf5-HLuT3z1sgN8tX9Uahi" style=""/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8">
+<div class="flex items-center gap-2 mb-3">
+<span class="bg-tertiary-container text-on-tertiary-container px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider" style="">Available Now</span>
+</div>
+<h3 class="text-3xl font-headline font-bold text-white mb-2" style="">The Aspire Loft</h3>
+<p class="text-white/70 mb-4 font-medium" style="">Steps away from Discovery Park.</p>
+<span class="text-4xl font-headline font-black text-secondary-fixed" style="">$1,150<span class="text-sm font-normal text-white/60 ml-2" style="">/ month</span></span>
+</div>
+</div>
+<!-- Secondary Card 1 -->
+<div class="md:col-span-2 relative rounded-3xl overflow-hidden group">
+<img alt="Cozy Studio" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Cozy sunlit studio apartment with minimalist decor, indoor plants, and a study desk overlooking a quiet street" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBrTL2Sr9iyhTqMkBMV_VFLP_VZZqpSyaBvhhD9QwtihfKDt-dpUw2jqTNt3rNgQJlMFoIMsPDlsH4qbmxIEt9QkB-GZ-W8VLZjAU_DyAPPQvB-mYAvEFFI3_aVuO82nk2DlJuTSdtuxJX3UFmTkLnBRLS1xbSjiPp42JdleDInBANrR3dAxxbFji6rpLTGWPA3uF47W1ByMwqLyfUYgvsGfu1GUeXUBS3wGs7c-cYmYlRuef3DQGJQCFTOvOF7pMcW74OrMHZXle6" style=""/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="text-2xl font-headline font-bold text-white mb-1" style="">State Street Studio</h3>
+<p class="text-white/70 text-sm" style="">$780 · Quiet Area</p>
+</div>
+</div>
+<!-- Small Detail Card -->
+<div class="relative rounded-3xl overflow-hidden group bg-secondary p-8 flex flex-col justify-between">
+<div class="text-white">
+<span class="material-symbols-outlined text-4xl mb-4" style="">bolt</span>
+<h3 class="text-2xl font-headline font-bold leading-tight" style="">Instant Match Technology</h3>
+</div>
+<p class="text-white/80 text-sm" style="">Get notified the second a lease matching your vibe hits the market.</p>
+</div>
+<!-- Small Info Card -->
+<div class="relative rounded-3xl overflow-hidden group bg-surface-container-highest p-8 flex flex-col justify-between border border-outline-variant/10">
+<div class="text-primary">
+<h3 class="text-5xl font-headline font-black" style="">2.4k</h3>
+<p class="font-bold text-sm uppercase tracking-widest mt-2" style="">Active Students</p>
+</div>
+<div class="flex -space-x-3">
+<img alt="user" class="w-10 h-10 rounded-full border-2 border-white" data-alt="portrait of a young student smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKel1RiDhFlbnnLSfN_CdV4un6cSvh_dfhJ5h8HJr_FZot5Ww95Uf1oKVzPAprtYDQyBuPiIW2RBQp7ohZ3ksvZzmOs-xDJFTEjlJmO3n_2pYrSTbMkxRm4jWLUPN-RXTqV8z5sEqi4770bc6s6jA0N_ugi3IDauntyUP520VU_a3-jkixx7WePeFLoAx26GdOxXZret-g7xukiJ7fwZawUXaIuNjRWTiBY7fzxNN_e-qnNVZdfbE6OXLtDxJYBPhCp-m5ixbiHGl5" style=""/>
+<img alt="user" class="w-10 h-10 rounded-full border-2 border-white" data-alt="portrait of a young woman student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRks3k33bnE1LwFvwQYUtDoOpByHo7QQcEPxNEd8tlkhbYE4YNhAa3RSBkepOnn6HBIu_GhlwlBw40s_EHxEq4r3Xyg3jiEBAkAudKF2Hp-vbHYP31DUjhYc1mqRWS2Mi-emAAYdqMsQ_qDHQKvSsAWH_NPJpVZaZhfmpjvsMaaQmHOsWivxNKsUqUlu6W48JcywBrXUmexgiqtF0dY6Xfhq3aeib35bBhUS5zqFr8wwG1LnhjFn20zFEIX8kSlvS-EnHpuVi3yz7y" style=""/>
+<img alt="user" class="w-10 h-10 rounded-full border-2 border-white" data-alt="portrait of a young man student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ3nAt2dsAcmCsNbRsaup3S1FfBTbt5qCyzRc2Q_lRCjKjOQpsp7OX3sR_PORpYp8XoNCVHN6xEVG6GIGVMNSO2LnPMfOjziViMuLyz5WX4EwmjE7n8UVcjONGot_a71Co-dkoebkR0aUbjJaQn3ovSJpfbXe3aa3vUcLvwggFplVdS-C4EDEAxlPllFKFR-cYjw7lE7SwWbJcXknR6LkBOb-zY0Rafgc9auE3WOLmCjEYRurskjvdsyq5iuZM5LjTJ0ADOsM_UdJx" style=""/>
+<div class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-xs text-white font-bold border-2 border-white" style="">+12</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Dynamic Value Prop Section (Replaced) -->
+<section class="px-8 py-32 max-w-7xl mx-auto bg-gradient-to-br from-[#e0e7ff] to-[#f5f3ff] rounded-[3rem] my-24 overflow-hidden relative">
+<div class="relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+<div class="flex flex-col gap-8">
+<h2 class="font-headline text-5xl md:text-7xl font-extrabold text-[#001e5a] leading-none" style="">
+                        See It Before<br/>You Visit.
+                    </h2>
+<p class="font-body text-xl text-[#001e5a]/80 max-w-md" style="">
+                        Experience the space in ultra-high fidelity. Our kinetic 3D walkthroughs let you feel the vibe before you even step on campus.
+                    </p>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4 bg-white/40 backdrop-blur-md p-4 rounded-2xl w-fit shadow-sm">
+<div class="w-12 h-12 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined" style="">center_focus_strong</span>
+</div>
+<div>
+<h4 class="font-bold text-[#001e5a]" style="">Full Spatial View</h4>
+<p class="text-sm opacity-70" style="">Interactive floorplan mapping</p>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white/40 backdrop-blur-md p-4 rounded-2xl w-fit shadow-sm">
+<div class="w-12 h-12 rounded-full bg-secondary flex items-center justify-center text-on-secondary">
+<span class="material-symbols-outlined" style="">streetview</span>
+</div>
+<div>
+<h4 class="font-bold text-[#001e5a]" style="">Vibe Check</h4>
+<p class="text-sm opacity-70" style="">Check lighting and views in real-time</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative flex justify-center items-center">
+<!-- Portal Effect behind phone -->
+<div class="absolute w-[120%] h-[120%] bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuA9_FwICJuNVAXyAplhCjb_s39fO92NbqLIJTDzgwzAUdpQ3mr3xA9Xc6mtrFvIKajficSqjgfJJAVwRluoy4lSGqofV_pWMNb2F164aP4_PkaAuWoG97gjiomInRQvMpVnBDbMbjxyJDY3kAukmRj3dxAmKn0qOEoD7i5Qi_gac29TDwcHf2IY2tztiA5UMWcRoU3rMXYcyRoKYZpK-cWsIxj1fMmiEOtnuyD2o7gi8wY7R1OpYZqLT3Ulb0nSPcsSPiXwKybYUo09')] bg-cover bg-center rounded-full blur-3xl opacity-30"></div>
+<!-- Smartphone Frame -->
+<div class="w-full max-w-[320px] aspect-[9/19.5] bg-surface rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] overflow-hidden border-[12px] border-[#1a1a1a] relative transform rotate-[-2deg] hover:rotate-0 transition-transform duration-700">
+<img class="w-full h-full object-cover" data-alt="POV smartphone view showing a 3D digital architectural visualization of a luxury studio apartment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9_FwICJuNVAXyAplhCjb_s39fO92NbqLIJTDzgwzAUdpQ3mr3xA9Xc6mtrFvIKajficSqjgfJJAVwRluoy4lSGqofV_pWMNb2F164aP4_PkaAuWoG97gjiomInRQvMpVnBDbMbjxyJDY3kAukmRj3dxAmKn0qOEoD7i5Qi_gac29TDwcHf2IY2tztiA5UMWcRoU3rMXYcyRoKYZpK-cWsIxj1fMmiEOtnuyD2o7gi8wY7R1OpYZqLT3Ulb0nSPcsSPiXwKybYUo09" style=""/>
+<div class="absolute inset-0 flex items-center justify-center bg-black/10">
+<div class="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30 shadow-2xl transition-transform hover:scale-110 cursor-pointer">
+<span class="material-symbols-outlined text-5xl" style='font-variation-settings: "FILL" 1;'>play_arrow</span>
+</div>
+</div>
+</div>
+<!-- Hands holding phone visual indicator (using blurred shapes or pseudo elements for kinetic feel) -->
+<div class="absolute -bottom-10 -right-4 w-32 h-48 bg-stone-900/10 blur-2xl rounded-full transform rotate-12"></div>
+</div>
+</div>
+<!-- Decorative Circle -->
+<div class="absolute -bottom-24 -right-24 w-96 h-96 bg-tertiary/10 rounded-full blur-[100px]"></div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-stone-100 dark:bg-stone-900 w-full mt-auto py-12">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 max-w-7xl mx-auto gap-8">
+<div class="flex flex-col items-center md:items-start gap-4">
+<div class="text-lg font-bold text-stone-800 dark:text-stone-200 font-headline" style="">BoilerSub</div>
+<p class="font-['Manrope'] text-sm tracking-wide text-stone-500 dark:text-stone-400 text-center md:text-left" style="">
+                    © 2024 BoilerSub. The Kinetic Curator for Purdue Housing.
+                </p>
+</div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="font-['Manrope'] text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 underline decoration-blue-500/30 transition-all" href="#" style="">Privacy</a>
+<a class="font-['Manrope'] text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 underline decoration-blue-500/30 transition-all" href="#" style="">Terms</a>
+<a class="font-['Manrope'] text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 underline decoration-blue-500/30 transition-all" href="#" style="">Safety</a>
+<a class="font-['Manrope'] text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 underline decoration-blue-500/30 transition-all" href="#" style="">Contact</a>
+<a class="font-['Manrope'] text-sm tracking-wide text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 underline decoration-blue-500/30 transition-all" href="#" style="">About Us</a>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-stone-400 hover:text-blue-600 cursor-pointer transition-colors" style="">share</span>
+<span class="material-symbols-outlined text-stone-400 hover:text-blue-600 cursor-pointer transition-colors" style="">hub</span>
+</div>
+</div>
+</footer>
+</body></html>

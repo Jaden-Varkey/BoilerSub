@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Verify Phone - BoilerSub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;family=Manrope:wght@400;500;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#d6d4d3",
+                        "on-surface-variant": "#5c5b5b",
+                        "background": "#f9f6f5",
+                        "on-error": "#ffefec",
+                        "surface": "#f9f6f5",
+                        "primary-fixed-dim": "#efd8a5",
+                        "on-tertiary": "#ffefeb",
+                        "tertiary-fixed-dim": "#fe7e4f",
+                        "on-surface": "#2f2f2e",
+                        "on-error-container": "#520c00",
+                        "secondary": "#0052d0",
+                        "on-tertiary-fixed-variant": "#6b1f00",
+                        "on-secondary-fixed": "#002e7d",
+                        "primary-fixed": "#fee6b2",
+                        "on-secondary": "#f1f2ff",
+                        "primary": "#6a5a32",
+                        "surface-container-low": "#f3f0ef",
+                        "error-dim": "#b92902",
+                        "on-secondary-container": "#0040a5",
+                        "on-tertiary-fixed": "#320a00",
+                        "primary-container": "#fee6b2",
+                        "on-tertiary-container": "#5c1a00",
+                        "on-primary-fixed-variant": "#6e5d35",
+                        "on-primary": "#fff1d9",
+                        "on-primary-fixed": "#50411b",
+                        "error": "#b02500",
+                        "surface-container": "#eae7e7",
+                        "surface-bright": "#f9f6f5",
+                        "tertiary-fixed": "#ff946e",
+                        "secondary-fixed": "#c3d0ff",
+                        "secondary-container": "#c3d0ff",
+                        "secondary-fixed-dim": "#afc2ff",
+                        "tertiary-container": "#ff946e",
+                        "surface-container-highest": "#dfdcdc",
+                        "surface-container-high": "#e4e2e1",
+                        "inverse-on-surface": "#9e9c9c",
+                        "error-container": "#f95630",
+                        "secondary-dim": "#0047b7",
+                        "on-background": "#2f2f2e",
+                        "tertiary": "#a03a0f",
+                        "outline-variant": "#afadac",
+                        "outline": "#787676",
+                        "primary-dim": "#5e4e27",
+                        "tertiary-dim": "#902e02",
+                        "on-secondary-fixed-variant": "#0048b9",
+                        "surface-variant": "#dfdcdc",
+                        "on-primary-container": "#64532c",
+                        "inverse-surface": "#0e0e0e",
+                        "inverse-primary": "#fee6b2",
+                        "surface-tint": "#6a5a32"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .kinetic-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Header Suppression: Auth Flow (Onboarding) hide nav as per rules -->
+<header class="fixed top-0 w-full z-50 kinetic-glass px-6 py-4 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-black text-primary tracking-tighter font-headline">BoilerSub</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex flex-col items-end">
+<span class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-bold">Step 3 of 4</span>
+<div class="flex gap-1 mt-1">
+<div class="h-1 w-4 rounded-full bg-primary/20"></div>
+<div class="h-1 w-4 rounded-full bg-primary/20"></div>
+<div class="h-1 w-8 rounded-full bg-secondary"></div>
+<div class="h-1 w-4 rounded-full bg-primary/10"></div>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center pt-24 pb-12 px-6">
+<div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-stretch min-h-[600px] rounded-3xl overflow-hidden shadow-[0px_12px_32px_rgba(0,0,0,0.06)] bg-surface-container-lowest">
+<!-- Left Panel: Content & Form -->
+<div class="lg:col-span-7 p-8 md:p-16 flex flex-col justify-center">
+<div class="max-w-md mx-auto lg:mx-0">
+<span class="inline-block px-3 py-1 rounded-full bg-tertiary-container/20 text-on-tertiary-container font-label text-[11px] font-extrabold uppercase tracking-widest mb-6">Security Layer</span>
+<h1 class="font-headline text-4xl md:text-5xl font-extrabold text-on-surface leading-tight tracking-tighter mb-6">
+                        Verify your phone <span class="text-secondary">number</span>
+</h1>
+<p class="text-on-surface-variant text-lg font-medium leading-relaxed mb-10">
+                        Phone verification keeps the Purdue sublease marketplace trusted and student-only. Your number is used only for security.
+                    </p>
+<!-- Form Section -->
+<form action="#" class="space-y-8">
+<div>
+<label class="block font-label text-[11px] font-extrabold uppercase tracking-[0.15em] text-primary mb-3">Mobile Number</label>
+<div class="group flex items-center bg-surface-container-highest rounded-xl p-1 focus-within:ring-2 focus-within:ring-secondary transition-all">
+<div class="px-5 py-4 flex items-center gap-2 border-r border-outline-variant/20">
+<span class="text-lg font-bold text-on-surface">🇺🇸</span>
+<span class="text-lg font-extrabold text-on-surface-variant">+1</span>
+</div>
+<input class="w-full bg-transparent border-none focus:ring-0 text-xl font-bold p-4 placeholder:text-on-surface-variant/40" placeholder="(765) 000-0000" type="tel"/>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<button class="w-full bg-secondary hover:bg-secondary-dim text-on-secondary py-5 px-8 rounded-xl font-headline font-bold text-lg shadow-xl shadow-secondary/20 transition-all active:scale-[0.98] flex justify-between items-center group">
+<span>Send Code</span>
+<span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+<p class="text-sm text-on-surface-variant font-medium text-center">
+                                Next: You will receive a 6-digit code via SMS
+                            </p>
+</div>
+</form>
+<!-- Trust Indicators (Mobile Only Display) -->
+<div class="lg:hidden mt-12 grid grid-cols-2 gap-4">
+<div class="p-4 bg-surface-container-low rounded-2xl flex flex-col gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="text-xs font-bold leading-tight">Verified Purdue Students</span>
+</div>
+<div class="p-4 bg-surface-container-low rounded-2xl flex flex-col gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">lock</span>
+<span class="text-xs font-bold leading-tight">Secure Marketplace</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Kinetic Trust Visual -->
+<div class="hidden lg:col-span-5 relative bg-secondary overflow-hidden lg:flex flex-col justify-end p-12">
+<!-- Background Kinetic Graphic -->
+<div class="absolute inset-0 z-0">
+<div class="absolute top-[-10%] right-[-10%] w-[120%] h-[120%] opacity-20 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
+<div class="absolute bottom-[-20%] left-[-20%] w-[150%] h-[150%] opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-fixed via-transparent to-transparent"></div>
+<img alt="Purdue campus background" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30 grayscale" data-alt="Blurred atmospheric shot of Purdue University campus architecture at dusk with warm windows and cool blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuIwEy_LF-h7UXwAjcUkGfKvzoUgSmtfeujbGF8dv9VNdCc1Ks7dz4yOT4i_XhTagoI-oJ9qLe-7-z2ZMaN0XUvjmIeCXoeXDEuCSS3SBfaMBPHaZd08UzW7OLmPB_wjN4Qi8bdn7NflRTxfr2y5-cwWZ1BxU95rIsKgrSYzqKMA7MAxsxgRhCSRHXmuFgfS_Qo6lLmmpBkKpMAj3SFwqW-5LxTPvCSrZRUf-NQnMJOM3lamHXWfpODPuRpFYFJIIX-7dQTi9lBQm1"/>
+</div>
+<!-- Trust Signal Cards -->
+<div class="relative z-10 space-y-4">
+<div class="kinetic-glass p-6 rounded-2xl border border-white/10 shadow-2xl">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<div>
+<h4 class="font-headline font-extrabold text-on-surface">Verified Community</h4>
+<p class="text-sm text-on-surface-variant font-medium mt-1">Every user is authenticated via phone and Purdue email for a safer experience.</p>
+</div>
+</div>
+</div>
+<div class="bg-primary/90 backdrop-blur-md p-6 rounded-2xl shadow-2xl text-on-primary">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">real_estate_agent</span>
+</div>
+<div>
+<h4 class="font-headline font-extrabold">Secure Subleasing</h4>
+<p class="text-sm text-on-primary/80 font-medium mt-1">Our multi-step verification eliminates bots and ensures you're dealing with real Boilermakers.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Boiler Text -->
+<div class="relative z-10 mt-12">
+<span class="text-white/20 font-headline text-8xl font-black tracking-tighter leading-none select-none">BOILER<br/>UP.</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto bg-stone-100 dark:bg-stone-950 flex flex-col md:flex-row justify-between items-center px-8 py-12">
+<div class="mb-6 md:mb-0">
+<span class="font-['Manrope'] text-xs uppercase tracking-widest text-stone-400">© 2024 BoilerSub. Kinetic Curator Housing.</span>
+</div>
+<div class="flex gap-8">
+<a class="font-['Manrope'] text-xs uppercase tracking-widest text-stone-400 hover:text-[#6a5a32] transition-colors opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="font-['Manrope'] text-xs uppercase tracking-widest text-stone-400 hover:text-[#6a5a32] transition-colors opacity-80 hover:opacity-100" href="#">Terms</a>
+<a class="font-['Manrope'] text-xs uppercase tracking-widest text-stone-400 hover:text-[#6a5a32] transition-colors opacity-80 hover:opacity-100" href="#">Support</a>
+</div>
+</footer>
+</body></html>

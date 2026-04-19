@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | BoilerSub</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-dim": "#902e02",
+                        "secondary": "#0052d0",
+                        "on-primary-container": "#64532c",
+                        "on-secondary-fixed": "#002e7d",
+                        "inverse-primary": "#fee6b2",
+                        "on-secondary-container": "#0040a5",
+                        "on-primary-fixed-variant": "#6e5d35",
+                        "on-tertiary": "#ffefeb",
+                        "on-secondary": "#f1f2ff",
+                        "surface-dim": "#d6d4d3",
+                        "surface-bright": "#f9f6f5",
+                        "surface-container-low": "#f3f0ef",
+                        "surface-container": "#eae7e7",
+                        "on-error": "#ffefec",
+                        "primary-fixed": "#fee6b2",
+                        "tertiary-fixed-dim": "#fe7e4f",
+                        "secondary-fixed-dim": "#afc2ff",
+                        "on-tertiary-fixed": "#320a00",
+                        "tertiary-fixed": "#ff946e",
+                        "outline": "#787676",
+                        "error-container": "#f95630",
+                        "outline-variant": "#afadac",
+                        "secondary-container": "#c3d0ff",
+                        "background": "#f9f6f5",
+                        "inverse-surface": "#0e0e0e",
+                        "primary-fixed-dim": "#efd8a5",
+                        "on-secondary-fixed-variant": "#0048b9",
+                        "secondary-fixed": "#c3d0ff",
+                        "on-surface-variant": "#5c5b5b",
+                        "on-background": "#2f2f2e",
+                        "on-primary-fixed": "#50411b",
+                        "surface": "#f9f6f5",
+                        "primary": "#6a5a32",
+                        "on-primary": "#fff1d9",
+                        "primary-container": "#fee6b2",
+                        "primary-dim": "#5e4e27",
+                        "on-error-container": "#520c00",
+                        "surface-container-highest": "#dfdcdc",
+                        "on-tertiary-container": "#5c1a00",
+                        "tertiary-container": "#ff946e",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-dim": "#0047b7",
+                        "on-surface": "#2f2f2e",
+                        "tertiary": "#a03a0f",
+                        "on-tertiary-fixed-variant": "#6b1f00",
+                        "surface-variant": "#dfdcdc",
+                        "surface-tint": "#6a5a32",
+                        "surface-container-high": "#e4e2e1",
+                        "error": "#b02500",
+                        "error-dim": "#b92902",
+                        "inverse-on-surface": "#9e9c9c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .asymmetric-panel {
+            clip-path: polygon(0 0, 100% 0, 92% 100%, 0% 100%);
+        }
+        @media (max-width: 768px) {
+            .asymmetric-panel {
+                clip-path: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body min-h-screen flex flex-col overflow-x-hidden">
+<!-- Top Navigation (Shell suppressed for transactional focus, but Brand Identity preserved) -->
+<header class="fixed top-0 w-full z-50 bg-[#f9f6f5]/70 backdrop-blur-xl px-6 py-6 md:px-12 flex justify-between items-center">
+<a class="text-2xl font-headline font-bold tracking-tighter text-primary" href="../boilersub_hero_v3_kinetic_update/code.html">BoilerSub</a>
+<div class="hidden md:flex gap-8 items-center">
+<span class="text-on-surface-variant font-label text-sm uppercase tracking-widest">Purdue's Official Student Hub</span>
+</div>
+</header>
+<main class="flex-grow flex flex-col md:flex-row pt-20 md:pt-0">
+<!-- Left Side: Branded Visual Panel (Asymmetric & Editorial) -->
+<section class="relative w-full md:w-[55%] min-h-[409px] md:min-h-screen bg-surface-container-high asymmetric-panel overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Purdue campus architecture" class="w-full h-full object-cover grayscale-[0.2] contrast-[1.1]" data-alt="Wide shot of historic red brick Purdue University university building with lush green trees and soft afternoon sun lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtA0jc6iTBDRHLrwQypBG6jioP_ij2z9Dy2LYUCLO48nFzrBnXEK-qpJc92fdD7TRsU4_pDbYNh-WGHcKej91oy9BgdPSPM3uoHLKwT7a1JvLRd-sFBAP3w4cUTrR_SPmexIzV3pBAn-SdL8QjWJ9ydDgyIOSwyNrZH7lgS1e5XlbgcLkF4xa0Q_WJhqKfAjcUTgD2iMa7YDQi0V7u-_RF1ofbhYRn3OLUlUxEz_eeutULZNr5QgCRZy5_fCDvE4oVreFqMt3qzcy9"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/80 via-primary/40 to-transparent"></div>
+</div>
+<!-- Content Overlay -->
+<div class="relative z-10 h-full flex flex-col justify-end p-8 md:p-20 text-on-primary">
+<div class="max-w-xl space-y-6">
+<div class="inline-flex items-center gap-2 px-4 py-2 bg-tertiary-container text-on-tertiary-container rounded-full text-xs font-bold uppercase tracking-widest">
+<span class="material-symbols-outlined text-sm" data-icon="verified_user">verified_user</span>
+                        Student-Only Access
+                    </div>
+<h1 class="text-4xl md:text-7xl font-headline font-extrabold tracking-tighter leading-none">
+                        Designed for <br/><span class="text-primary-fixed">Boilermakers.</span>
+</h1>
+<p class="text-lg md:text-xl font-body text-primary-fixed/90 max-w-md">
+                        Join the most trusted marketplace at Purdue. Verified community members, secure subleases, and seamless housing transitions.
+                    </p>
+<div class="grid grid-cols-2 gap-4 pt-8">
+<div class="p-6 bg-surface-container-lowest/10 backdrop-blur-md rounded-xl border border-white/10">
+<div class="text-3xl font-headline font-bold text-white mb-1">10k+</div>
+<div class="text-sm font-label uppercase tracking-wider text-primary-fixed/70">Verified Students</div>
+</div>
+<div class="p-6 bg-surface-container-lowest/10 backdrop-blur-md rounded-xl border border-white/10">
+<div class="text-3xl font-headline font-bold text-white mb-1">500+</div>
+<div class="text-sm font-label uppercase tracking-wider text-primary-fixed/70">Active Subleases</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Side: Focused Login Form -->
+<section class="w-full md:w-[45%] flex items-center justify-center p-6 md:p-12 lg:p-24 bg-background">
+<div class="w-full max-w-md">
+<div class="mb-12">
+<h2 class="text-4xl font-headline font-extrabold tracking-tight text-on-surface mb-3">Welcome back to BoilerSub</h2>
+<p class="text-on-surface-variant font-body leading-relaxed">
+                        Sign in to manage your listings, message potential subtenants, and secure your next home near campus.
+                    </p>
+</div>
+<form class="space-y-6">
+<!-- Email Input -->
+<div class="space-y-2">
+<label class="block text-sm font-label font-semibold text-on-surface uppercase tracking-widest" for="email">Purdue Email</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+</div>
+<input class="block w-full pl-12 pr-4 py-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary focus:ring-offset-2 transition-all font-body text-on-surface placeholder:text-outline-variant" id="email" name="email" placeholder="example@purdue.edu" type="email"/>
+</div>
+</div>
+<!-- Password Input -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="block text-sm font-label font-semibold text-on-surface uppercase tracking-widest" for="password">Password</label>
+<a class="text-xs font-bold text-secondary hover:text-secondary-dim transition-colors" href="../boilersub_forgot_password/code.html">Forgot password?</a>
+</div>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+</div>
+<input class="block w-full pl-12 pr-12 py-4 bg-surface-container-highest border-none rounded-xl focus:ring-2 focus:ring-secondary focus:ring-offset-2 transition-all font-body text-on-surface placeholder:text-outline-variant" id="password" name="password" placeholder="••••••••" type="password"/>
+<button class="absolute inset-y-0 right-0 pr-4 flex items-center text-on-surface-variant hover:text-on-surface" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="w-full bg-secondary hover:bg-secondary-dim text-on-secondary font-headline font-bold py-5 rounded-xl shadow-[0px_12px_32px_rgba(0,82,208,0.2)] hover:shadow-none transform hover:scale-[0.98] transition-all flex justify-center items-center gap-2 group" type="submit">
+                        Log In
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<!-- Sign Up Link -->
+<div class="pt-8 text-center border-t border-surface-container-high">
+<p class="text-on-surface-variant font-body">
+                            Don't have an account? 
+                            <a class="text-secondary font-bold hover:underline underline-offset-4 ml-1" href="../boilersub_create_account/code.html">Sign up</a>
+</p>
+</div>
+</form>
+<!-- Footer Links (Simplified) -->
+<footer class="mt-16 flex flex-wrap justify-center gap-6 text-stone-500 font-label text-xs uppercase tracking-widest">
+<a class="hover:text-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-secondary transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-secondary transition-colors" href="../boilersub_forgot_password/code.html">Forgot Password</a>
+</footer>
+</div>
+</section>
+</main>
+<!-- Visual Texture / Background Elements -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1] overflow-hidden">
+<div class="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] bg-primary-container/20 rounded-full blur-[120px]"></div>
+<div class="absolute bottom-[10%] -left-[5%] w-[40%] h-[40%] bg-secondary-container/10 rounded-full blur-[100px]"></div>
+</div>
+</body></html>
