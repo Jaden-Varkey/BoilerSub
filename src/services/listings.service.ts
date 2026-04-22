@@ -1,8 +1,8 @@
-import { ApiError } from "../lib/apiError";
-import type { ListingRepository } from "../repositories/listing.repository";
-import type { UserRepository } from "../repositories/user.repository";
-import type { ListingCreateInput, ListingUpdateInput } from "../schemas/listings.schema";
-import type { ListingRecord, ListingWithOwner, RequestUser } from "../types/index";
+import { ApiError } from "../lib/apiError.js";
+import type { ListingRepository } from "../repositories/listing.repository.js";
+import type { UserRepository } from "../repositories/user.repository.js";
+import type { ListingCreateInput, ListingUpdateInput } from "../schemas/listings.schema.js";
+import type { ListingRecord, ListingWithOwner, RequestUser } from "../types/index.js";
 
 export class ListingsService {
   constructor(
@@ -10,16 +10,40 @@ export class ListingsService {
     private readonly userRepository: UserRepository,
   ) {}
 
-  async list(filters: { limit?: number; offset?: number }): Promise<ListingWithOwner[]> {
-    return this.listingRepository.findWithOwners(filters);
+  async list(filters: { limit?: number; offset?: number; owner_id?: string }, requestUser?: RequestUser): Promise<ListingWithOwner[]> {
+    const ownerId = filters.owner_id === "me" ? requestUser?.id : filters.owner_id;
+    return this.listingRepository.findWithOwners({
+      limit: filters.limit,
+      offset: filters.offset,
+      ownerId,
+    });
   }
 
-  async getById(id: string): Promise<ListingRecord> {
+  async getById(id: string): Promise<ListingWithOwner> {
     const listing = await this.listingRepository.findById(id);
     if (!listing) {
       throw new ApiError(404, "listing_not_found", "Listing not found");
     }
-    return listing;
+
+    const owner = await this.userRepository.findById(listing.owner_id);
+    return {
+      ...listing,
+      owner: owner
+        ? {
+            id: owner.id,
+            full_name: owner.full_name,
+            email: owner.email,
+            phone: owner.phone,
+            fully_verified: owner.fully_verified,
+          }
+        : {
+            id: listing.owner_id,
+            full_name: null,
+            email: "",
+            phone: null,
+            fully_verified: false,
+          },
+    };
   }
 
   async create(user: RequestUser, payload: ListingCreateInput): Promise<ListingRecord> {
@@ -29,14 +53,11 @@ export class ListingsService {
       description: payload.description ?? null,
       price: payload.price,
       start_date: payload.start_date,
-      end_date: payload.end_date ?? null,
+      end_date: payload.end_date,
       bedrooms: payload.bedrooms ?? null,
       bathrooms: payload.bathrooms ?? null,
-      distance: payload.distance ?? null,
       address: payload.address ?? null,
       amenities: payload.amenities,
-      images: payload.images,
-      panorama_image: payload.panorama_image ?? null,
     });
   }
 
@@ -55,11 +76,8 @@ export class ListingsService {
       ...(payload.end_date !== undefined ? { end_date: payload.end_date } : {}),
       ...(payload.bedrooms !== undefined ? { bedrooms: payload.bedrooms } : {}),
       ...(payload.bathrooms !== undefined ? { bathrooms: payload.bathrooms } : {}),
-      ...(payload.distance !== undefined ? { distance: payload.distance } : {}),
       ...(payload.address !== undefined ? { address: payload.address } : {}),
       ...(payload.amenities !== undefined ? { amenities: payload.amenities } : {}),
-      ...(payload.images !== undefined ? { images: payload.images } : {}),
-      ...(payload.panorama_image !== undefined ? { panorama_image: payload.panorama_image } : {}),
     });
   }
 

@@ -17,8 +17,9 @@ export function createListingsController(listingsService: ListingsService) {
   return {
     list: async (req: Request, res: Response, next: NextFunction): Promise<void> => {
       try {
+        const request = req as RequestWithUser;
         const input = listingListQuerySchema.parse(req.query);
-        respond(res, await listingsService.list(input));
+        respond(res, await listingsService.list(input, request.user));
       } catch (error) {
         next(error);
       }
@@ -68,7 +69,7 @@ export function createListingsController(listingsService: ListingsService) {
           throw new ApiError(401, "unauthorized", "Missing authenticated user");
         }
         await listingsService.delete(request.user, id);
-        respond(res, { ok: true });
+        respond(res, { status: "deleted" });
       } catch (error) {
         next(error);
       }

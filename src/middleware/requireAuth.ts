@@ -4,7 +4,7 @@ import { ApiError } from "../lib/apiError.js";
 import type { UserRepository } from "../repositories/user.repository.js";
 
 export function createRequireAuth(deps: {
-  supabase: SupabaseClient;
+  supabase: SupabaseClient | null;
   userRepository: UserRepository;
 }): RequestHandler {
   return async (req, _res, next) => {
@@ -14,6 +14,9 @@ export function createRequireAuth(deps: {
 
       if (!accessToken) {
         throw new ApiError(401, "unauthorized", "Missing authorization token");
+      }
+      if (!deps.supabase) {
+        throw new ApiError(500, "supabase_not_configured", "Supabase auth is not configured");
       }
 
       const { data, error } = await deps.supabase.auth.getUser(accessToken);

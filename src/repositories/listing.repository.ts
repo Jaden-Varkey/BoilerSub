@@ -1,8 +1,9 @@
-import type { ListingRecord, ListingWithOwner } from "../types/index";
+import type { ListingRecord, ListingWithOwner } from "../types/index.js";
 
 export type ListingFilters = {
   limit?: number;
   offset?: number;
+  ownerId?: string;
 };
 
 export interface ListingRepository {

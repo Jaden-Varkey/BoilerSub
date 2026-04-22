@@ -1,6 +1,6 @@
-import { ApiError } from "../lib/apiError";
-import type { UserRepository } from "../repositories/user.repository";
-import type { PublicUser, UserRecord } from "../types/index";
+import { ApiError } from "../lib/apiError.js";
+import type { UserRepository } from "../repositories/user.repository.js";
+import type { PublicUser, UserRecord } from "../types/index.js";
 
 function toPublicUser(user: UserRecord): PublicUser {
   return {
@@ -10,6 +10,8 @@ function toPublicUser(user: UserRecord): PublicUser {
     full_name: user.full_name,
     bio: user.bio,
     role: user.role,
+    email_verified: user.email_verified,
+    phone_verified: user.phone_verified,
     fully_verified: user.fully_verified,
     created_at: user.created_at,
     updated_at: user.updated_at,

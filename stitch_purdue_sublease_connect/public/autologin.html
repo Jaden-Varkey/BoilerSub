@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BoilerSub Auto Login</title>
+  </head>
+  <body>
+    <p>Signing you in to BoilerSub...</p>
+    <script>
+      async function main() {
+        const response = await fetch("http://localhost:4000/api/v1/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: "student1@purdue.edu",
+            password: "BoilerSub123!"
+          })
+        });
+
+        const payload = await response.json();
+        if (!response.ok || !payload.success) {
+          document.body.innerHTML = "<p>Auto-login failed.</p>";
+          return;
+        }
+
+        localStorage.setItem(
+          "boilersub_auth",
+          JSON.stringify({
+            accessToken: payload.data.session.access_token,
+            user: payload.data.user
+          })
+        );
+
+        window.location.replace("/listings");
+      }
+
+      main().catch(() => {
+        document.body.innerHTML = "<p>Auto-login failed.</p>";
+      });
+    </script>
+  </body>
+  </html>

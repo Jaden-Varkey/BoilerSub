@@ -1,10 +1,18 @@
-import { supabaseAdmin } from "../config/supabase";
-import { ApiError } from "../lib/apiError";
-import type { UserRecord } from "../types/index";
-import type { UserRepository } from "./user.repository";
+import { supabaseAdmin } from "../config/supabase.js";
+import { ApiError } from "../lib/apiError.js";
+import type { UserRecord } from "../types/index.js";
+import type { UserRepository } from "./user.repository.js";
 
 const userSelect =
   "id, email, phone, full_name, bio, email_verified, phone_verified, fully_verified, role, created_at, updated_at";
+
+function getSupabaseAdmin() {
+  if (!supabaseAdmin) {
+    throw new ApiError(500, "supabase_not_configured", "Supabase repository is not configured");
+  }
+
+  return supabaseAdmin;
+}
 
 function mapUser(row: Record<string, unknown> | null | undefined): UserRecord {
   if (!row) {
@@ -28,7 +36,7 @@ function mapUser(row: Record<string, unknown> | null | undefined): UserRecord {
 
 export class SupabaseUserRepository implements UserRepository {
   async findById(id: string): Promise<UserRecord | null> {
-    const { data, error } = await supabaseAdmin.from("users").select(userSelect).eq("id", id).maybeSingle();
+    const { data, error } = await getSupabaseAdmin().from("users").select(userSelect).eq("id", id).maybeSingle();
     if (error) {
       throw new ApiError(500, "user_lookup_failed", error.message);
     }
@@ -36,7 +44,7 @@ export class SupabaseUserRepository implements UserRepository {
   }
 
   async findByEmail(email: string): Promise<UserRecord | null> {
-    const { data, error } = await supabaseAdmin.from("users").select(userSelect).eq("email", email).maybeSingle();
+    const { data, error } = await getSupabaseAdmin().from("users").select(userSelect).eq("email", email).maybeSingle();
     if (error) {
       throw new ApiError(500, "user_lookup_failed", error.message);
     }
@@ -48,7 +56,7 @@ export class SupabaseUserRepository implements UserRepository {
       return [];
     }
 
-    const { data, error } = await supabaseAdmin.from("users").select(userSelect).in("id", ids);
+    const { data, error } = await getSupabaseAdmin().from("users").select(userSelect).in("id", ids);
     if (error) {
       throw new ApiError(500, "user_lookup_failed", error.message);
     }
@@ -57,13 +65,13 @@ export class SupabaseUserRepository implements UserRepository {
   }
 
   async upsertAuthUser(input: { id: string; email: string; phone?: string | null }): Promise<UserRecord> {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await getSupabaseAdmin()
       .from("users")
       .upsert(
         {
           id: input.id,
           email: input.email,
-          phone: input.phone || null,
+          phone: input.phone ?? null,
         },
         { onConflict: "id" },
       )
@@ -81,12 +89,12 @@ export class SupabaseUserRepository implements UserRepository {
     id: string,
     patch: { full_name?: string | null; bio?: string | null; phone?: string | null },
   ): Promise<UserRecord> {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await getSupabaseAdmin()
       .from("users")
       .update({
         ...(patch.full_name !== undefined ? { full_name: patch.full_name } : {}),
         ...(patch.bio !== undefined ? { bio: patch.bio } : {}),
-        ...(patch.phone !== undefined ? { phone: patch.phone || null } : {}),
+        ...(patch.phone !== undefined ? { phone: patch.phone } : {}),
       })
       .eq("id", id)
       .select(userSelect)
@@ -100,7 +108,7 @@ export class SupabaseUserRepository implements UserRepository {
   }
 
   async markEmailVerified(id: string): Promise<UserRecord> {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await getSupabaseAdmin()
       .from("users")
       .update({ email_verified: true })
       .eq("id", id)
@@ -115,7 +123,7 @@ export class SupabaseUserRepository implements UserRepository {
   }
 
   async markPhoneVerified(id: string): Promise<UserRecord> {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await getSupabaseAdmin()
       .from("users")
       .update({ phone_verified: true })
       .eq("id", id)
@@ -130,9 +138,9 @@ export class SupabaseUserRepository implements UserRepository {
   }
 
   async markFullyVerified(id: string): Promise<UserRecord> {
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await getSupabaseAdmin()
       .from("users")
-      .update({ email_verified: true, phone_verified: true, fully_verified: true })
+      .update({ phone_verified: true, fully_verified: true })
       .eq("id", id)
       .select(userSelect)
       .single();

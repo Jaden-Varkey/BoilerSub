@@ -11,10 +11,10 @@ import {
   verifyEmailSchema,
   verifyPhoneSchema,
 } from "../schemas/auth.schema.js";
-import type { AuthService } from "../services/auth.service.js";
+import type { AuthServiceContract } from "../controllers/auth.controller.js";
 
 export function createAuthRouter(deps: {
-  authService: AuthService;
+  authService: AuthServiceContract;
   requireAuthMiddleware: import("express").RequestHandler;
 }) {
   const router = Router();

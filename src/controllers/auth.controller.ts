@@ -1,14 +1,42 @@
 import type { RequestHandler } from "express";
 import { sendSuccess } from "../lib/envelope.js";
 import { asyncHandler } from "../middleware/asyncHandler.js";
-import type { AuthenticatedRequest } from "../types/index.js";
-import type { AuthService } from "../services/auth.service.js";
+import type { AuthenticatedRequest, PublicUser } from "../types/index.js";
+
+export type AuthServiceContract = {
+  signup(email: string, password: string): Promise<unknown>;
+  verifyEmail(email: string, token: string): Promise<unknown>;
+  sendPhoneOtp(input: { accessToken: string; phone: string }): Promise<unknown>;
+  verifyPhone(phone: string, token: string): Promise<unknown>;
+  login(email: string, password: string): Promise<unknown>;
+  logout(accessToken: string): Promise<unknown>;
+  resendEmailOtp(email: string): Promise<unknown>;
+  resendPhoneOtp(phone: string): Promise<unknown>;
+};
 
 function send<T>(res: Parameters<RequestHandler>[1], statusCode: number, data: T) {
   return sendSuccess(res, data, statusCode);
 }
 
-export function createAuthController(authService: AuthService) {
+function publicUserFromRequest(req: AuthenticatedRequest): PublicUser | null {
+  return req.user
+    ? {
+        id: req.user.id,
+        email: req.user.email,
+        phone: req.user.phone,
+        full_name: req.user.full_name,
+        bio: req.user.bio,
+        role: req.user.role,
+        email_verified: req.user.email_verified,
+        phone_verified: req.user.phone_verified,
+        fully_verified: req.user.fully_verified,
+        created_at: req.user.created_at,
+        updated_at: req.user.updated_at,
+      }
+    : null;
+}
+
+export function createAuthController(authService: AuthServiceContract) {
   return {
     signup: asyncHandler(async (req, res) => {
       const result = await authService.signup(req.body.email, req.body.password);
@@ -54,7 +82,7 @@ export function createAuthController(authService: AuthService) {
     }),
 
     me: asyncHandler(async (req, res) => {
-      send(res, 200, { user: (req as AuthenticatedRequest).user });
+      send(res, 200, publicUserFromRequest(req as AuthenticatedRequest));
     }),
   };
 }

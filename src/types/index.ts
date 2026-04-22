@@ -31,7 +31,17 @@ export type AppUser = UserRecord;
 
 export type PublicUser = Pick<
   UserRecord,
-  "id" | "email" | "phone" | "full_name" | "bio" | "role" | "fully_verified" | "created_at" | "updated_at"
+  | "id"
+  | "email"
+  | "phone"
+  | "full_name"
+  | "bio"
+  | "role"
+  | "email_verified"
+  | "phone_verified"
+  | "fully_verified"
+  | "created_at"
+  | "updated_at"
 >;
 
 export type ListingRecord = {
@@ -41,14 +51,11 @@ export type ListingRecord = {
   description: string | null;
   price: number;
   start_date: string;
-  end_date: string | null;
+  end_date: string;
   bedrooms: number | null;
   bathrooms: number | null;
-  distance: number | null;
   address: string | null;
   amenities: string[];
-  images: string[];
-  panorama_image: string | null;
   created_at: string;
   updated_at: string;
 };

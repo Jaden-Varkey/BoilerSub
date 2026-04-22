@@ -3,5 +3,7 @@ dist
 .env
 .DS_Store
 coverage
-.vercel
-.env*.local
+.demo
+stitch_purdue_sublease_connect/node_modules
+stitch_purdue_sublease_connect/dist
+stitch_purdue_sublease_connect/.env
